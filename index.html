@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Hazard Studio - Interactive Deck</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚠️</text></svg>">
+</head>
+<body class="relative overflow-x-hidden">
+  
+  <!-- Gamification Header -->
+  <header class="navbar bg-base-200 shadow-lg fixed top-0 z-40 w-full">
+    <div class="flex-1">
+      <a id="logo" class="btn btn-ghost normal-case text-xl easter-egg-trigger">
+        ⚠️ Digital Hazard
+      </a>
+    </div>
+    <div class="flex-none gap-2">
+      <!-- Points Display -->
+      <div class="badge badge-primary badge-lg">
+        🎯 <span id="points-display">0</span> pts
+      </div>
+      <!-- Badges Display -->
+      <div class="badge badge-secondary badge-lg cursor-pointer" id="badges-display" title="Click to view badges">
+        🏆 <span id="badges-count">0</span>
+      </div>
+      <!-- Theme Toggle -->
+      <button id="theme-toggle" class="btn btn-ghost btn-circle" title="Change theme">
+        🎨
+      </button>
+      <!-- Reset Button -->
+      <button id="reset-btn" class="btn btn-ghost btn-circle" title="Reset progress">
+        🔄
+      </button>
+    </div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="fixed top-16 left-0 w-full h-1 bg-base-300 z-40">
+    <div id="slide-progress" class="h-full bg-primary progress-indicator" style="width: 0%"></div>
+  </div>
+
+  <!-- Background Particles -->
+  <div id="particles-bg" class="fixed inset-0 -z-10 opacity-30"></div>
+
+  <!-- Main Content - Slides -->
+  <main class="pt-20">
+    
+    <!-- Slide 1: Hero / Welcome -->
+    <section class="slide bg-gradient-to-br from-primary/20 to-secondary/20">
+      <div class="hero-content text-center">
+        <div class="max-w-4xl">
+          <div id="hero-3d" class="w-full h-64 mb-8"></div>
+          <h1 class="text-6xl font-bold mb-6 animate-pulse-slow">
+            <span class="text-gradient">Welcome to Digital Hazard</span>
+          </h1>
+          <p class="text-2xl mb-8">
+            An interactive, gamified presentation experience
+          </p>
+          <div class="flex gap-4 justify-center">
+            <button class="btn btn-primary btn-lg" onclick="document.querySelector('.slide:nth-child(2)').scrollIntoView({behavior: 'smooth'})">
+              🚀 Start Journey
+            </button>
+            <button class="btn btn-outline btn-lg">
+              📚 Learn More
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2: About -->
+    <section class="slide bg-base-100">
+      <div class="max-w-4xl">
+        <h2 class="text-5xl font-bold mb-8 text-center">About Digital Hazard Studio</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card bg-base-200 shadow-xl transition-all duration-300">
+            <div class="card-body items-center text-center">
+              <div class="text-6xl mb-4">🎮</div>
+              <h3 class="card-title">Gamification</h3>
+              <p>Earn points and badges as you explore!</p>
+            </div>
+          </div>
+          <div class="card bg-base-200 shadow-xl transition-all duration-300">
+            <div class="card-body items-center text-center">
+              <div class="text-6xl mb-4">🎨</div>
+              <h3 class="card-title">Beautiful Design</h3>
+              <p>Built with DaisyUI and Tailwind CSS</p>
+            </div>
+          </div>
+          <div class="card bg-base-200 shadow-xl transition-all duration-300">
+            <div class="card-body items-center text-center">
+              <div class="text-6xl mb-4">🎯</div>
+              <h3 class="card-title">Interactive</h3>
+              <p>Discover hidden easter eggs!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3: Features -->
+    <section class="slide bg-gradient-to-br from-secondary/20 to-accent/20">
+      <div class="max-w-4xl">
+        <h2 class="text-5xl font-bold mb-8 text-center">Key Features</h2>
+        <div class="space-y-6">
+          <div class="alert alert-info shadow-lg">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <span><strong>DaisyUI Components:</strong> Beautiful, accessible UI components</span>
+            </div>
+          </div>
+          <div class="alert alert-success shadow-lg">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <span><strong>Three.js Integration:</strong> Stunning 3D graphics and animations</span>
+            </div>
+          </div>
+          <div class="alert alert-warning shadow-lg">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+              <span><strong>Easter Eggs:</strong> Hidden surprises for curious explorers!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Three.js Demo -->
+    <section class="slide bg-base-300">
+      <div class="max-w-4xl w-full">
+        <h2 class="text-5xl font-bold mb-8 text-center">3D Graphics Demo</h2>
+        <div class="card bg-base-100 shadow-2xl">
+          <div class="card-body">
+            <div id="threejs-scene" class="w-full h-96 rounded-lg bg-base-200"></div>
+            <div class="card-actions justify-center mt-4">
+              <div class="badge badge-outline">Powered by Three.js</div>
+              <div class="badge badge-outline">Real-time 3D</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Gamification Stats -->
+    <section class="slide bg-gradient-to-br from-accent/20 to-primary/20">
+      <div class="max-w-4xl">
+        <h2 class="text-5xl font-bold mb-8 text-center">Your Progress</h2>
+        <div class="stats stats-vertical lg:stats-horizontal shadow-2xl w-full">
+          <div class="stat">
+            <div class="stat-figure text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            </div>
+            <div class="stat-title">Total Points</div>
+            <div class="stat-value text-primary" id="points-display-2">0</div>
+            <div class="stat-desc">Keep exploring to earn more!</div>
+          </div>
+          
+          <div class="stat">
+            <div class="stat-figure text-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            <div class="stat-title">Badges Earned</div>
+            <div class="stat-value text-secondary" id="badges-display-2">0</div>
+            <div class="stat-desc">Achievement unlocked!</div>
+          </div>
+          
+          <div class="stat">
+            <div class="stat-figure text-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+            </div>
+            <div class="stat-title">Easter Eggs</div>
+            <div class="stat-value text-accent" id="eggs-found">0</div>
+            <div class="stat-desc">Hidden secrets found</div>
+          </div>
+        </div>
+        <div class="text-center mt-8">
+          <p class="text-lg opacity-70">💡 Tip: Try the Konami code or click around to find easter eggs!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Themes Showcase -->
+    <section class="slide bg-base-200">
+      <div class="max-w-4xl">
+        <h2 class="text-5xl font-bold mb-8 text-center">Multiple Themes</h2>
+        <p class="text-xl text-center mb-8">Click the 🎨 button to cycle through themes!</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="card bg-primary text-primary-content">
+            <div class="card-body items-center text-center">
+              <h3 class="card-title">Primary</h3>
+            </div>
+          </div>
+          <div class="card bg-secondary text-secondary-content">
+            <div class="card-body items-center text-center">
+              <h3 class="card-title">Secondary</h3>
+            </div>
+          </div>
+          <div class="card bg-accent text-accent-content">
+            <div class="card-body items-center text-center">
+              <h3 class="card-title">Accent</h3>
+            </div>
+          </div>
+          <div class="card bg-neutral text-neutral-content">
+            <div class="card-body items-center text-center">
+              <h3 class="card-title">Neutral</h3>
+            </div>
+          </div>
+          <div class="card bg-info text-info-content">
+            <div class="card-body items-center text-center">
+              <h3 class="card-title">Info</h3>
+            </div>
+          </div>
+          <div class="card bg-success text-success-content">
+            <div class="card-body items-center text-center">
+              <h3 class="card-title">Success</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: Final / Thank You -->
+    <section class="slide bg-gradient-to-br from-primary to-secondary">
+      <div class="hero-content text-center text-neutral-content">
+        <div class="max-w-4xl">
+          <h1 class="text-6xl font-bold mb-6 animate-float">
+            Thank You! 🎉
+          </h1>
+          <p class="text-2xl mb-8">
+            You've completed the Digital Hazard Studio tour!
+          </p>
+          <div class="stats shadow bg-base-100 text-base-content">
+            <div class="stat place-items-center">
+              <div class="stat-title">Final Score</div>
+              <div class="stat-value" id="final-points">0</div>
+              <div class="stat-desc">Points earned</div>
+            </div>
+            <div class="stat place-items-center">
+              <div class="stat-title">Achievements</div>
+              <div class="stat-value text-secondary" id="final-badges">0</div>
+              <div class="stat-desc">Badges collected</div>
+            </div>
+          </div>
+          <div class="mt-8 space-x-4">
+            <button class="btn btn-accent btn-lg" onclick="location.reload()">
+              🔄 Restart Tour
+            </button>
+            <button class="btn btn-outline btn-lg">
+              📧 Get in Touch
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Navigation Controls -->
+  <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40">
+    <div class="btn-group shadow-2xl">
+      <button id="prev-btn" class="btn btn-primary">
+        ← Previous
+      </button>
+      <button class="btn btn-ghost" id="slide-counter">1 / 7</button>
+      <button id="next-btn" class="btn btn-primary">
+        Next →
+      </button>
+    </div>
+  </div>
+
+  <!-- Badge Modal -->
+  <input type="checkbox" id="badge-modal" class="modal-toggle" />
+  <div class="modal">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">🏆 Your Badges</h3>
+      <div class="py-4" id="badge-list">
+        <p class="text-center opacity-50">No badges yet. Keep exploring!</p>
+      </div>
+      <div class="modal-action">
+        <label for="badge-modal" class="btn">Close</label>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+  
+  <script>
+    // Update additional displays
+    setInterval(() => {
+      const points = localStorage.getItem('points') || '0';
+      const badges = JSON.parse(localStorage.getItem('badges') || '[]');
+      const eggs = JSON.parse(localStorage.getItem('easterEggs') || '[]');
+      
+      const badgesCount = document.getElementById('badges-count');
+      if (badgesCount) badgesCount.textContent = badges.length;
+      
+      const pointsDisplay2 = document.getElementById('points-display-2');
+      if (pointsDisplay2) pointsDisplay2.textContent = points;
+      
+      const badgesDisplay2 = document.getElementById('badges-display-2');
+      if (badgesDisplay2) badgesDisplay2.textContent = badges.length;
+      
+      const eggsFound = document.getElementById('eggs-found');
+      if (eggsFound) eggsFound.textContent = eggs.length;
+      
+      const finalPoints = document.getElementById('final-points');
+      if (finalPoints) finalPoints.textContent = points;
+      
+      const finalBadges = document.getElementById('final-badges');
+      if (finalBadges) finalBadges.textContent = badges.length;
+    }, 500);
+  </script>
+</body>
+</html>

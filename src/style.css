@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply transition-colors duration-300;
+  }
+}
+
+@layer components {
+  .slide {
+    @apply min-h-screen flex flex-col items-center justify-center p-8;
+  }
+  
+  .easter-egg-trigger {
+    @apply cursor-pointer transition-all duration-300 hover:scale-110;
+  }
+  
+  .badge-earned {
+    @apply animate-bounce;
+  }
+  
+  .progress-indicator {
+    @apply transition-all duration-500 ease-out;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+  
+  .glow {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+}
