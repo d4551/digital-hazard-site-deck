@@ -77,10 +77,20 @@ class GamificationManager {
   }
 
   reset() {
-    if (confirm('Reset all progress? This cannot be undone.')) {
-      localStorage.clear();
-      location.reload();
-    }
+    // Show confirmation modal instead of browser confirm
+    const modal = document.createElement('div');
+    modal.className = 'modal modal-open';
+    modal.innerHTML = `
+      <div class="modal-box">
+        <h3 class="font-bold text-lg">Reset Progress?</h3>
+        <p class="py-4">This will delete all your points, badges, and progress. This action cannot be undone.</p>
+        <div class="modal-action">
+          <button class="btn btn-ghost" onclick="this.closest('.modal').remove()">Cancel</button>
+          <button class="btn btn-error" onclick="localStorage.clear(); location.reload();">Reset Everything</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
   }
 }
 

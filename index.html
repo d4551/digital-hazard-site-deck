@@ -286,7 +286,7 @@
   <script type="module" src="/src/main.js"></script>
   
   <script>
-    // Update additional displays
+    // Update additional displays - using longer interval for better performance
     setInterval(() => {
       const points = localStorage.getItem('points') || '0';
       const badges = JSON.parse(localStorage.getItem('badges') || '[]');
@@ -309,7 +309,7 @@
       
       const finalBadges = document.getElementById('final-badges');
       if (finalBadges) finalBadges.textContent = badges.length;
-    }, 500);
+    }, 1000); // Update every second instead of 500ms
   </script>
 </body>
 </html>

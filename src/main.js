@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Easter Egg: Konami Code
   let konamiCode = [];
-  const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'B', 'A'];
   
   document.addEventListener('keydown', (e) => {
     konamiCode.push(e.key);

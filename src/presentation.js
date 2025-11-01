@@ -1,6 +1,9 @@
 // Presentation/Slide Deck System
 import { game } from './gamification.js';
 
+// Configuration constants
+const SWIPE_THRESHOLD = 50; // pixels
+
 class PresentationDeck {
   constructor() {
     this.slides = document.querySelectorAll('.slide');
@@ -40,8 +43,8 @@ class PresentationDeck {
     });
 
     const handleSwipe = () => {
-      if (touchEndX < touchStartX - 50) this.nextSlide();
-      if (touchEndX > touchStartX + 50) this.prevSlide();
+      if (touchEndX < touchStartX - SWIPE_THRESHOLD) this.nextSlide();
+      if (touchEndX > touchStartX + SWIPE_THRESHOLD) this.prevSlide();
     };
     this.handleSwipe = handleSwipe;
 
