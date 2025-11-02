@@ -13,110 +13,16 @@
     <!-- DaisyUI 5 -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
 
-    <!-- Gamification Enhancements -->
-    <link rel="stylesheet" href="css/gamification.css">
+    <!-- Unified Styles -->
+    <link rel="stylesheet" href="css/unified.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-3hF6kZcpKjcUGZr1s+bsrzu5iYle0xleqrs9jwELyhl725LLJoPLD114F8CbnMD4HzyBbs6k8ZZrPmSu2Mz/vw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Font Preloads -->
-    <link href="fonts/rajdhani/latin-700-normal.woff2" rel="preload" as="font" type="font/woff2" crossorigin="anonymous">
-    <link href="fonts/inter/inter-400-normal.woff2" rel="preload" as="font" type="font/woff2" crossorigin="anonymous">
-
-    <!-- Local Fonts -->
-    <style>
-        @font-face {
-            font-family: 'Rajdhani';
-            font-style: normal;
-            font-weight: 300;
-            font-display: swap;
-            src: url('fonts/rajdhani/latin-300-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Rajdhani';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('fonts/rajdhani/latin-400-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Rajdhani';
-            font-style: normal;
-            font-weight: 600;
-            font-display: swap;
-            src: url('fonts/rajdhani/latin-600-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Rajdhani';
-            font-style: normal;
-            font-weight: 700;
-            font-display: swap;
-            src: url('fonts/rajdhani/latin-700-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 300;
-            font-display: swap;
-            src: url('fonts/inter/inter-300-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('fonts/inter/inter-400-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 500;
-            font-display: swap;
-            src: url('fonts/inter/inter-500-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 600;
-            font-display: swap;
-            src: url('fonts/inter/inter-600-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 700;
-            font-display: swap;
-            src: url('fonts/inter/inter-700-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 800;
-            font-display: swap;
-            src: url('fonts/inter/inter-800-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Orbitron';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('fonts/orbitron/orbitron-400-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Orbitron';
-            font-style: normal;
-            font-weight: 700;
-            font-display: swap;
-            src: url('fonts/orbitron/orbitron-700-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Orbitron';
-            font-style: normal;
-            font-weight: 900;
-            font-display: swap;
-            src: url('fonts/orbitron/orbitron-900-normal.woff2') format('woff2');
-        }
-    </style>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <noscript>
         <style>
@@ -386,7 +292,7 @@
     </div>
 
     <!-- 3D Background -->
-    <canvas id="bg-canvas" class="fixed inset-0 w-full h-full" style="z-index: var(--z-presentation-background, -10);"></canvas>
+    <canvas id="three-canvas" class="fixed inset-0 w-full h-full" style="z-index: var(--z-presentation-background, -10);"></canvas>
 
     <!-- Gamification HUD - Enhanced with daisyUI -->
     <div class="presentation-hud fixed top-4 right-4 flex flex-col gap-3 max-w-xs sm:max-w-sm" style="z-index: var(--z-presentation-hud, 45);">
