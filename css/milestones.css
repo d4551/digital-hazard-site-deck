@@ -1,0 +1,176 @@
+/* Milestone and Screen Effects Styles */
+/* Explosions, glitches, and full-screen overlay animations */
+
+/* Glitch Effect Animations */
+@keyframes staticFlicker {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes rgbShift {
+    0% {
+        transform: translate(0, 0);
+        filter: hue-rotate(0deg);
+    }
+    25% {
+        transform: translate(2px, 0);
+        filter: hue-rotate(90deg);
+    }
+    50% {
+        transform: translate(-2px, 0);
+        filter: hue-rotate(180deg);
+    }
+    75% {
+        transform: translate(0, 2px);
+        filter: hue-rotate(270deg);
+    }
+    100% {
+        transform: translate(0, 0);
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes screenShake {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5px, -5px); }
+    20% { transform: translate(5px, 5px); }
+    30% { transform: translate(-5px, 5px); }
+    40% { transform: translate(5px, -5px); }
+    50% { transform: translate(-3px, -3px); }
+    60% { transform: translate(3px, 3px); }
+    70% { transform: translate(-3px, 3px); }
+    80% { transform: translate(3px, -3px); }
+    90% { transform: translate(-1px, -1px); }
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes radialBurst {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.5);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+/* Glitch Overlay Styles */
+.glitch-overlay {
+    pointer-events: none;
+    mix-blend-mode: screen;
+    will-change: opacity, transform;
+}
+
+/* Static Noise Overlay */
+.static-noise {
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.1) 1px,
+            transparent 1px,
+            transparent 2px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.05),
+            transparent 1px,
+            transparent 2px
+        );
+    background-size: 4px 4px;
+    animation: staticFlicker 0.1s infinite;
+    will-change: opacity;
+}
+
+/* Flash Overlay */
+.flash-overlay {
+    will-change: opacity;
+}
+
+/* Radial Burst Overlay */
+.radial-burst {
+    will-change: opacity, transform;
+}
+
+/* Achievement Celebration Styles */
+.achievement-celebration {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.7) 0%, transparent 70%);
+}
+
+.celebration-content {
+    text-shadow: 
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 30px currentColor;
+    animation: celebrationPulse 2s ease-in-out;
+}
+
+@keyframes celebrationPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Level Up Text Styles */
+.level-up-text {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, transparent 70%);
+    text-shadow: 
+        0 0 20px currentColor,
+        0 0 40px currentColor,
+        0 0 60px currentColor;
+}
+
+/* Explosion Canvas Styles */
+#explosion-canvas {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* Reduce effects for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .glitch-overlay,
+    .static-noise,
+    .flash-overlay,
+    .radial-burst,
+    .achievement-celebration,
+    .level-up-text {
+        animation: none !important;
+        transition: opacity 0.3s ease !important;
+    }
+    
+    #explosion-canvas {
+        display: none !important;
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .achievement-celebration .text-9xl {
+        font-size: 4rem;
+    }
+    
+    .achievement-celebration .text-4xl {
+        font-size: 2rem;
+    }
+    
+    .level-up-text .text-8xl {
+        font-size: 3rem;
+    }
+    
+    .level-up-text .text-3xl {
+        font-size: 1.5rem;
+    }
+}

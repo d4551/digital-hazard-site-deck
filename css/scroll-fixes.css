@@ -1,0 +1,35 @@
+/* Scroll Anchoring and Performance Fixes */
+
+/* Disable scroll anchoring globally to prevent adjustment warnings */
+html,
+body {
+    overflow-anchor: none;
+}
+
+/* Disable scroll anchoring on problematic containers */
+.slide-container,
+.slide,
+.game-container,
+.demo-canvas-container,
+[class*="overflow"] {
+    overflow-anchor: none;
+}
+
+/* Prevent scroll anchoring adjustments on dynamic content */
+#gamificationHUD,
+#comboCounter,
+#scorePopup,
+#achievementNotification {
+    overflow-anchor: none;
+}
+
+/* Improve scroll performance */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Prevent layout shifts during font loading */
+body {
+    font-display: swap;
+}
+

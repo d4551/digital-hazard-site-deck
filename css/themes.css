@@ -1,0 +1,77 @@
+/* Theme System with CSS Custom Properties */
+/* Separation of concerns: Theme management via CSS variables */
+
+:root {
+    /* Primary Theme Colors - Hazard */
+    --theme-primary: #f97316;
+    --theme-primary-content: #0f172a;
+    --theme-secondary: #38bdf8;
+    --theme-secondary-content: #020617;
+    --theme-accent: #facc15;
+    --theme-accent-content: #0f172a;
+    --theme-base-100: #020617;
+    --theme-base-200: #0b1120;
+    --theme-base-300: #111827;
+    
+    /* Animation Durations */
+    --transition-fast: 150ms;
+    --transition-normal: 300ms;
+    --transition-slow: 500ms;
+    --transition-very-slow: 1000ms;
+    
+    /* Easing Functions */
+    --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.6, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Smooth Theme Transitions */
+html {
+    transition: 
+        background-color var(--transition-normal) var(--ease-out),
+        color var(--transition-normal) var(--ease-out);
+}
+
+body {
+    transition: 
+        background-color var(--transition-normal) var(--ease-out),
+        color var(--transition-normal) var(--ease-out);
+}
+
+/* Theme-specific overrides */
+[data-theme="dark"] {
+    --theme-primary: #f97316;
+    --theme-base-100: #0f172a;
+}
+
+[data-theme="cyberpunk"] {
+    --theme-primary: #ff0080;
+    --theme-secondary: #00ffff;
+}
+
+[data-theme="synthwave"] {
+    --theme-primary: #ff00ff;
+    --theme-secondary: #00f0ff;
+}
+
+/* Use CSS variables for dynamic theming */
+.themed-text-primary {
+    color: var(--theme-primary);
+}
+
+.themed-bg-primary {
+    background-color: var(--theme-primary);
+}
+
+.themed-border-primary {
+    border-color: var(--theme-primary);
+}
+
+/* Smooth color transitions for theme switching */
+.theme-transition {
+    transition: 
+        background-color var(--transition-normal) var(--ease-out),
+        color var(--transition-normal) var(--ease-out),
+        border-color var(--transition-normal) var(--ease-out);
+}
+

@@ -1,0 +1,8 @@
+/**
+ * Font Loading Fix
+ * Suppresses font bbox warnings and ensures graceful fallbacks
+ */
+
+.font-display {
+    font-family: 'Rajdhani', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+}
