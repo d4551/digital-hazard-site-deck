@@ -116,6 +116,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Data-driven gamification hooks
+  const rewardedElements = new WeakSet();
+  const getReasonFromElement = (el) => {
+    if (el.dataset.reason) return el.dataset.reason;
+    if (el.getAttribute('aria-label')) return el.getAttribute('aria-label');
+    const textContent = el.textContent?.trim() ?? '';
+    return textContent.length > 0 ? textContent.slice(0, 64) : 'Interaction';
+  };
+
+  const awardPoints = (el) => {
+    if (!el || rewardedElements.has(el)) return;
+    const amount = parseInt(el.dataset.points ?? '0', 10);
+    if (Number.isNaN(amount) || amount === 0) return;
+    rewardedElements.add(el);
+    const reason = getReasonFromElement(el);
+    game.addPoints(amount, reason);
+  };
+
+  document.querySelectorAll('[data-points]').forEach((element) => {
+    element.addEventListener('click', () => awardPoints(element));
+    element.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        awardPoints(element);
+      }
+    });
+  });
+
   // Add points for various interactions
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {

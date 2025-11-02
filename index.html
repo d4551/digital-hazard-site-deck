@@ -69,9 +69,37 @@
                 font-family: var(--font-body);
                 background-color: hsl(var(--b1));
                 color: hsl(var(--bc));
+                position: relative;
+                overflow-x: hidden;
             }
             body.dh-body {
                 font-family: var(--font-body);
+            }
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                z-index: var(--z-background);
+                background:
+                    radial-gradient(60% 60% at 15% 20%, color-mix(in srgb, hsl(var(--p)) 12%, transparent) 0%, transparent 70%),
+                    radial-gradient(50% 50% at 80% 10%, color-mix(in srgb, hsl(var(--s)) 10%, transparent) 0%, transparent 65%),
+                    radial-gradient(45% 45% at 50% 80%, color-mix(in srgb, hsl(var(--a)) 10%, transparent) 0%, transparent 70%),
+                    repeating-linear-gradient(
+                        0deg,
+                        color-mix(in srgb, hsl(var(--bc)) 6%, transparent) 0px,
+                        color-mix(in srgb, hsl(var(--bc)) 6%, transparent) 1px,
+                        transparent 1px,
+                        transparent 48px
+                    ),
+                    repeating-linear-gradient(
+                        90deg,
+                        color-mix(in srgb, hsl(var(--bc)) 4%, transparent) 0px,
+                        color-mix(in srgb, hsl(var(--bc)) 4%, transparent) 1px,
+                        transparent 1px,
+                        transparent 48px
+                    );
+                opacity: 0.5;
+                pointer-events: none;
             }
             h1, h2, h3, h4, h5, h6, .font-display {
                 font-family: var(--font-display);
@@ -151,12 +179,129 @@
                 position: relative;
                 isolation: isolate;
             }
+            .dh-section::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(160deg, color-mix(in srgb, hsl(var(--b3)) 92%, transparent) 0%, transparent 65%);
+                opacity: 0.55;
+                z-index: var(--z-background);
+                pointer-events: none;
+            }
             .dh-card {
                 background-color: var(--card-backdrop);
                 backdrop-filter: blur(22px);
                 border-radius: 1.5rem;
                 border: 1px solid hsl(var(--p) / 0.2);
                 box-shadow: 0 30px 60px -35px color-mix(in srgb, hsl(var(--p)) 35%, transparent);
+            }
+            .kpi-card {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                gap: 0.85rem;
+                padding: clamp(1.5rem, 3vw, 2rem);
+                border-radius: 1.25rem;
+                border: 1px solid hsl(var(--p) / 0.25);
+                background-color: color-mix(in srgb, hsl(var(--b1)) 82%, transparent);
+                box-shadow: 0 24px 45px -28px color-mix(in srgb, hsl(var(--p)) 40%, transparent);
+                transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+                isolation: isolate;
+                overflow: hidden;
+            }
+            .kpi-card::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(135deg, color-mix(in srgb, hsl(var(--p)) 22%, transparent), transparent 60%);
+                opacity: 0.55;
+                z-index: -1;
+                transition: opacity 0.3s ease;
+            }
+            .kpi-card[data-signal="danger"] {
+                border-color: hsl(var(--er) / 0.45);
+            }
+            .kpi-card[data-signal="danger"]::before {
+                background: linear-gradient(135deg, color-mix(in srgb, hsl(var(--er)) 28%, transparent), transparent 60%);
+            }
+            .kpi-card[data-signal="success"] {
+                border-color: hsl(var(--su) / 0.45);
+            }
+            .kpi-card[data-signal="success"]::before {
+                background: linear-gradient(135deg, color-mix(in srgb, hsl(var(--su)) 28%, transparent), transparent 60%);
+            }
+            .kpi-card:hover {
+                transform: translateY(-6px) scale(1.01);
+                border-color: hsl(var(--p) / 0.6);
+                box-shadow: 0 28px 50px -24px color-mix(in srgb, hsl(var(--p)) 55%, transparent);
+            }
+            .kpi-card:hover::before {
+                opacity: 0.75;
+            }
+            .kpi-card-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                text-transform: uppercase;
+                font-size: 0.85rem;
+                letter-spacing: 0.18em;
+                color: hsl(var(--bc) / 0.7);
+            }
+            .kpi-value {
+                font-size: clamp(1.75rem, 4vw, 2.75rem);
+                font-weight: 800;
+                letter-spacing: -0.02em;
+            }
+            .kpi-delta {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+                font-size: 0.9rem;
+                padding-inline: 0.65rem;
+                padding-block: 0.25rem;
+                border-radius: 999px;
+                background-color: hsl(var(--s) / 0.18);
+                color: hsl(var(--s));
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+            }
+            .kpi-card[data-signal="danger"] .kpi-delta {
+                background-color: hsl(var(--er) / 0.2);
+                color: hsl(var(--er));
+            }
+            .kpi-card[data-signal="success"] .kpi-delta {
+                background-color: hsl(var(--su) / 0.2);
+                color: hsl(var(--su));
+            }
+            .kpi-progress {
+                width: 100%;
+                height: 0.6rem;
+                border-radius: 999px;
+                background-color: hsl(var(--b2));
+                overflow: hidden;
+            }
+            .kpi-progress span {
+                display: block;
+                height: 100%;
+                background: linear-gradient(90deg, hsl(var(--p)), hsl(var(--s)));
+                transform-origin: left;
+            }
+            .kpi-card[data-signal="danger"] .kpi-progress span {
+                background: linear-gradient(90deg, hsl(var(--er)), color-mix(in srgb, hsl(var(--wa)) 70%, transparent));
+            }
+            .kpi-card[data-signal="success"] .kpi-progress span {
+                background: linear-gradient(90deg, hsl(var(--su)), color-mix(in srgb, hsl(var(--p)) 70%, transparent));
+            }
+            .hazard-grid-overlay {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background-image: linear-gradient(0deg, color-mix(in srgb, hsl(var(--bc)) 5%, transparent) 1px, transparent 1px),
+                    linear-gradient(90deg, color-mix(in srgb, hsl(var(--bc)) 5%, transparent) 1px, transparent 1px);
+                background-size: 48px 48px;
+                opacity: 0.18;
+                z-index: var(--z-gradient);
             }
             .hud-card {
                 background-color: color-mix(in srgb, hsl(var(--b1)) 88%, transparent);
@@ -481,19 +626,35 @@
             <main id="main-content" class="site-main flex-1 navbar-spacing" role="main">
                 <div class="site-main-inner flex flex-col gap-32 py-8">
                 <!-- Hero Section -->
-                <section id="home" class="dh-section dh-hero hero min-h-screen relative overflow-hidden bg-gradient-to-b from-base-100 via-base-200/50 to-base-100">
-                    <div class="hero-overlay bg-gradient-to-br from-primary/5 via-transparent to-secondary/5"></div>
+                <section id="home" class="dh-section dh-hero hero min-h-screen relative overflow-hidden bg-gradient-to-b from-base-100 via-base-200/60 to-base-100">
+                    <div class="hero-overlay bg-gradient-to-br from-primary/10 via-transparent to-secondary/10"></div>
+                    <div class="hazard-grid-overlay" aria-hidden="true"></div>
                     <div class="hero-content w-full text-base-content relative z-10">
                             <div class="section-content py-12 lg:py-16">
                             <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-12 items-center">
                                 <div class="hero-copy flex flex-col gap-8 items-center lg:items-start text-center lg:text-left max-w-2xl">
                                     <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display font-black text-gradient leading-tight tracking-tight">
-                                        AA Games & AI Tools.<br>Built by Veterans.
+                                        Think Different.<br>Break the Meta.
                                     </h1>
 
                                     <p class="text-xl sm:text-2xl text-base-content/80 leading-relaxed">
-                                        Digital Hazard Studio delivers production-ready games and AI tools from a team with experience at Riot, Disney, Marvel, DC, Activision, Naughty Dog, and Pixar.
+                                        Digital Hazard Studio ships midcore experiences and artist-first AI tooling while the industry spends <span class="text-primary font-semibold">$200M+ per AAA build</span> and morale on AI free-falls to <span class="text-error font-semibold">13% positive sentiment</span>.
                                     </p>
+
+                                    <ul class="text-base-content/70 text-left space-y-3 w-full" role="list">
+                                        <li class="flex items-start gap-3 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-base-200 rounded-lg p-2 -m-2" data-points="25" data-reason="Hero KPI: Market size" role="button" tabindex="0">
+                                            <i class="fas fa-fire text-primary mt-1" aria-hidden="true"></i>
+                                            <span><span class="font-semibold text-base-content">$177.9B</span> global market in 2024, tracking to <span class="text-secondary font-semibold">$188.8B</span> in 2025 (3.4% YoY).</span>
+                                        </li>
+                                        <li class="flex items-start gap-3 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-base-200 rounded-lg p-2 -m-2" data-points="25" data-reason="Hero KPI: AI adoption" role="button" tabindex="0">
+                                            <i class="fas fa-robot text-secondary mt-1" aria-hidden="true"></i>
+                                            <span><span class="font-semibold text-base-content">52%</span> of studios use AI now, <span class="text-secondary font-semibold">90%</span> of devs already integrate it—yet most hate their tools.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-base-200 rounded-lg p-2 -m-2" data-points="25" data-reason="Hero KPI: Funding crunch" role="button" tabindex="0">
+                                            <i class="fas fa-skull-crossbones text-error mt-1" aria-hidden="true"></i>
+                                            <span>VC funding cratered <span class="text-error font-semibold">70-85%</span> since 2021. We build lean, profitable, and gamified.</span>
+                                        </li>
+                                    </ul>
 
                                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full">
                                         <div class="card bg-base-200/50 border border-base-300/50 p-6">
@@ -1448,10 +1609,119 @@
                             </div>
                         </div>
 
+                        <div class="section-content mt-16 space-y-10" id="kpi-war-room" data-aos="fade-up" data-aos-delay="150">
+                            <div class="flex flex-col items-center gap-4 text-center">
+                                <div class="badge badge-primary badge-soft badge-lg px-6 py-3 uppercase tracking-[0.4em]">[KPI WAR ROOM]</div>
+                                <h3 class="text-3xl lg:text-4xl font-display font-bold text-gradient">2024-2025 Reality Check</h3>
+                                <p class="section-description">
+                                    We monitor the KPIs that define the battlefield: slow 3.7% CAGR growth, AI adoption without joy, a <span class="text-error font-semibold">funding winter</span>,
+                                    and an AI tool market exploding to <span class="text-success font-semibold">$21.26B</span>. Tap a card, claim intel, and feed the meta.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                                <article class="kpi-card cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-base-200" data-signal="neutral" data-points="60" data-reason="KPI intel: Market trajectory" role="button" tabindex="0">
+                                    <div class="kpi-card-header">
+                                        <span>Global Market</span>
+                                        <span class="kpi-delta">
+                                            <i class="fas fa-arrow-trend-up" aria-hidden="true"></i> +3.4% YoY
+                                        </span>
+                                    </div>
+                                    <div class="kpi-value text-primary">$188.8B → 2025</div>
+                                    <p class="text-base-content/70">Newzoo projects $177.9B in 2024 to climb to $198B by 2027. We scope AA wins inside the biggest entertainment market still growing.</p>
+                                    <div class="kpi-progress" aria-hidden="true">
+                                        <span style="width: 74%"></span>
+                                    </div>
+                                </article>
+
+                                <article class="kpi-card cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-base-200" data-signal="danger" data-points="60" data-reason="KPI intel: Funding crash" role="button" tabindex="0">
+                                    <div class="kpi-card-header">
+                                        <span>VC Funding</span>
+                                        <span class="kpi-delta">
+                                            <i class="fas fa-arrow-down" aria-hidden="true"></i> -70% to -85%
+                                        </span>
+                                    </div>
+                                    <div class="kpi-value text-error">$1.9B - $5.5B</div>
+                                    <p class="text-base-content/70">2024 funding cratered from the $12B 2021 peak. Only $627M closed through mid-2025. We stay profitable while everyone else scrambles.</p>
+                                    <div class="kpi-progress" aria-hidden="true">
+                                        <span style="width: 18%"></span>
+                                    </div>
+                                </article>
+
+                                <article class="kpi-card cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-base-200" data-signal="success" data-points="60" data-reason="KPI intel: AI integration" role="button" tabindex="0">
+                                    <div class="kpi-card-header">
+                                        <span>AI Integration</span>
+                                        <span class="kpi-delta">
+                                            <i class="fas fa-robot" aria-hidden="true"></i> 90% usage
+                                        </span>
+                                    </div>
+                                    <div class="kpi-value text-secondary">52% → 90%</div>
+                                    <p class="text-base-content/70">GDC reports 52% of studios using AI tools; Google Cloud / Harris Poll shows 90% of devs already integrating AI with 97% saying it rewrites the playbook.</p>
+                                    <div class="kpi-progress" aria-hidden="true">
+                                        <span style="width: 90%"></span>
+                                    </div>
+                                </article>
+
+                                <article class="kpi-card cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-base-200" data-signal="danger" data-points="60" data-reason="KPI intel: Sentiment crash" role="button" tabindex="0">
+                                    <div class="kpi-card-header">
+                                        <span>Dev Sentiment</span>
+                                        <span class="kpi-delta">
+                                            <i class="fas fa-face-frown" aria-hidden="true"></i> 13% Positive
+                                        </span>
+                                    </div>
+                                    <div class="kpi-value text-error">30% Negative</div>
+                                    <p class="text-base-content/70">Positive sentiment toward AI nosedived from 21% to 13% while negative outlook jumped to 30%. Our tooling is built with artists so the vibe flips.</p>
+                                    <div class="kpi-progress" aria-hidden="true">
+                                        <span style="width: 30%"></span>
+                                    </div>
+                                </article>
+
+                                <article class="kpi-card cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-base-200" data-signal="success" data-points="60" data-reason="KPI intel: AI generator market" role="button" tabindex="0">
+                                    <div class="kpi-card-header">
+                                        <span>AI Game Generators</span>
+                                        <span class="kpi-delta">
+                                            <i class="fas fa-rocket" aria-hidden="true"></i> 29.2% CAGR
+                                        </span>
+                                    </div>
+                                    <div class="kpi-value text-success">$1.64B → $21.26B</div>
+                                    <p class="text-base-content/70">A tenfold market explosion by 2034. HazardForge is positioned as the artist-centric alternative in a sea of generic tools.</p>
+                                    <div class="kpi-progress" aria-hidden="true">
+                                        <span style="width: 29%"></span>
+                                    </div>
+                                </article>
+
+                                <article class="kpi-card cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 focus:ring-offset-base-200" data-signal="neutral" data-points="60" data-reason="KPI intel: Indie paradox" role="button" tabindex="0">
+                                    <div class="kpi-card-header">
+                                        <span>Indie Revenue</span>
+                                        <span class="kpi-delta">
+                                            <i class="fas fa-chart-pie" aria-hidden="true"></i> 82% YoY
+                                        </span>
+                                    </div>
+                                    <div class="kpi-value text-primary">$4.9B Steam</div>
+                                    <p class="text-base-content/70">Steam indie revenue is surging, but <span class="font-semibold">0.5%</span> of games earn 80% of cash. We weaponize community, live ops, and AI-driven content to cut through.</p>
+                                    <div class="kpi-progress" aria-hidden="true">
+                                        <span style="width: 48%"></span>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="flex flex-col md:flex-row items-center justify-between gap-6 bg-base-100/40 border border-primary/20 rounded-2xl p-6">
+                                <div class="space-y-2 text-center md:text-left">
+                                    <h4 class="text-2xl font-display font-semibold">Run the Terminal. Get the Intel.</h4>
+                                    <p class="text-base-content/70">Pop open the CLI, run <code class="kbd kbd-sm">kpi</code> or <code class="kbd kbd-sm">funding</code>, and harvest instant gamification rewards.</p>
+                                </div>
+                                <button type="button" class="btn btn-info btn-lg shadow-xl hover:shadow-2xl" onclick="window.cliTerminal?.toggle();" data-points="80" data-reason="CLI opened from KPI callout" aria-label="Open the CLI terminal">
+                                    <i class="fas fa-terminal mr-2" aria-hidden="true"></i>
+                                    Launch Terminal
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="mt-12 text-center">
                             <p class="text-base-content/60 text-sm italic">
                     Data sources: GDC State of the Industry Survey, Newzoo Global Games Market Report,
-                    Unity Gaming Report, Google Cloud/Harris Poll Developer Survey
+                    Unity Gaming Report, Google Cloud/Harris Poll Developer Survey, Drake Star Partners,
+                    Video Game Insights, PwC Global Entertainment & Media Outlook
                 </p>
             </div>
         </div>
