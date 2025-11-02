@@ -1,0 +1,210 @@
+/*
+ * Custom styles for the Digital Hazard Studio mini‑site.
+ *
+ * This stylesheet uses CSS variables to centralize colours and fonts.  The
+ * overall aesthetic leans into a futuristic, neon‑infused gaming look.  The
+ * hero section uses a dark image with a coloured overlay, while alternating
+ * sections switch between dark and slightly lighter backgrounds to aid
+ * readability.  Responsive typography ensures content remains legible across
+ * devices.
+ */
+
+/* Root variables define the colour palette and font families used
+   throughout the site.  Adjust these values to easily tweak the theme. */
+:root {
+  --primary-color: #0ff6e4;  /* electric cyan used for highlights and links */
+  --secondary-color: #f76c6c; /* coral accent used sparingly for buttons */
+  --dark-bg: #0a0a0f;        /* near‑black background for hero and dark sections */
+  --light-bg: #111823;       /* slightly lighter dark section background */
+  --text-color: #e5e5e5;     /* off‑white text colour for improved contrast */
+  --muted-color: #9faab5;    /* muted grey for secondary text */
+  --heading-font: 'Press Start 2P', monospace;
+  --body-font: 'Montserrat', sans-serif;
+}
+
+/* Global resets */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-font);
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  scroll-behavior: smooth;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(6px);
+}
+.navbar-brand {
+  font-family: var(--heading-font);
+  color: var(--primary-color) !important;
+  letter-spacing: 1px;
+}
+.nav-link {
+  color: var(--text-color) !important;
+  transition: color 0.2s ease;
+}
+.nav-link:hover {
+  color: var(--primary-color) !important;
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+}
+/* Overlay to darken the hero background image and improve text contrast */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+}
+.hero h1 {
+  font-family: var(--heading-font);
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+.hero p {
+  font-size: 1.125rem;
+  color: var(--muted-color);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.btn-primary-custom {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+.btn-primary-custom:hover {
+  background-color: #f58a8a;
+  border-color: #f58a8a;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Section styling */
+section {
+  padding: 4rem 0;
+}
+.section-dark {
+  background-color: var(--dark-bg);
+}
+.section-light {
+  background-color: var(--light-bg);
+}
+.section-title {
+  font-family: var(--heading-font);
+  font-size: 1.75rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--muted-color);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Content formatting */
+.content p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-color);
+}
+.content ul {
+  list-style-type: none;
+  padding: 0;
+}
+.content ul li::before {
+  content: "\f108"; /* Font Awesome keyboard icon */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 0.5rem;
+  color: var(--secondary-color);
+}
+.content ul li {
+  margin-bottom: 0.75rem;
+}
+
+/* Cards for statistics */
+.stats-card {
+  background-color: #0e1420;
+  border: 1px solid #222a3c;
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+.stats-card:hover {
+  transform: translateY(-5px);
+}
+.stats-card h3 {
+  font-size: 2rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+.stats-card p {
+  font-size: 0.9rem;
+  color: var(--muted-color);
+}
+
+/* Social icons */
+.social-icons a {
+  color: var(--primary-color);
+  margin: 0 0.5rem;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+.social-icons a:hover {
+  color: var(--secondary-color);
+}
+
+/* References section */
+.references {
+  font-size: 0.875rem;
+  color: var(--muted-color);
+}
+.references ol {
+  padding-left: 1.5rem;
+}
+.references li {
+  margin-bottom: 0.5rem;
+}
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 2rem 0;
+  background-color: var(--dark-bg);
+  color: var(--muted-color);
+  font-size: 0.85rem;
+}

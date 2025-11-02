@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Hazard Studio - Project Cobalt Pitch Deck</title>
+    <meta name="theme-color" content="#000000">
+    <meta name="color-scheme" content="dark">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;700;800&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="deck">
+    <noscript>
+        <div style="position:fixed;top:0;left:0;width:100%;z-index:2000;background:#111;color:#fff;padding:0.75rem 1rem;text-align:center;border-bottom:1px solid #333;">
+            This pitch deck uses JavaScript for animations and interactivity. Please enable JavaScript for the best experience.
+        </div>
+    </noscript>
+    <a href="index.html" class="deck-back" aria-label="Back to main site"><i class="fas fa-home"></i> Site</a>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">DIGITAL HAZARD</div>
+        <div class="loading-subtitle">Project Cobalt - Survive the Island</div>
+        <div class="loading-bar-container">
+            <div class="loading-percentage" id="loadingPercentage">0%</div>
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+        <div class="loading-tip" id="loadingTip">Tip: Click everywhere to find hidden secrets...</div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- 3D Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- UI Layout Container -->
+    <div class="ui-layout">
+    <!-- Gamification HUD -->
+    <div class="game-hud">
+        <div class="hud-panel">
+            <div class="hud-title">Level</div>
+            <div class="hud-value" id="levelNumber">1</div>
+            <div class="level-bar">
+                <div class="level-fill" id="levelFill"></div>
+            </div>
+        </div>
+        <div class="hud-panel">
+            <div class="hud-title">Slides Explored</div>
+            <div class="hud-value"><span id="achievementCount">0</span>/<span id="totalSlides">12</span></div>
+            <div class="achievement-badge">
+                <i class="fas fa-trophy"></i>
+                <span id="badgeText">Rookie</span>
+            </div>
+        </div>
+        <div class="hud-panel">
+            <div class="hud-title">Discovery Score</div>
+            <div class="hud-value" id="discoveryScore">0</div>
+        </div>
+    </div>
+
+    <!-- Power-Ups -->
+    <div class="powerup-container">
+        <div class="powerup" id="powerup1" title="2x Points" data-type="multiplier">
+            <i class="fas fa-bolt"></i>
+                <div class="powerup-cooldown" id="powerup1Cooldown"></div>
+                <div class="powerup-cooldown-overlay">
+                    <span id="powerup1CooldownText">0</span>
+                </div>
+        </div>
+        <div class="powerup" id="powerup2" title="Reveal Secrets" data-type="reveal">
+            <i class="fas fa-eye"></i>
+                <div class="powerup-cooldown" id="powerup2Cooldown"></div>
+                <div class="powerup-cooldown-overlay">
+                    <span id="powerup2CooldownText">0</span>
+                </div>
+        </div>
+        <div class="powerup" id="powerup3" title="Time Freeze" data-type="freeze">
+            <i class="fas fa-snowflake"></i>
+                <div class="powerup-cooldown" id="powerup3Cooldown"></div>
+                <div class="powerup-cooldown-overlay">
+                    <span id="powerup3CooldownText">0</span>
+                </div>
+        </div>
+    </div>
+
+    <!-- Combo Counter -->
+    <div class="combo-counter" id="comboCounter">
+        <div class="combo-number" id="comboNumber">0</div>
+        <div class="combo-label">COMBO</div>
+        <div class="combo-multiplier" id="comboMultiplier">×1.0</div>
+    </div>
+
+    <!-- Quest Panel -->
+        <div class="quest-panel" id="questPanel">
+            <button class="quest-toggle" id="questToggle" aria-label="Toggle quest panel">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="quest-content">
+        <div class="quest-title">
+            <i class="fas fa-scroll"></i>
+            Active Quests
+        </div>
+                <div class="quest-item" id="quest1" data-reward="500">
+                    <div class="quest-item-header">
+            <span>View all slides</span>
+            <span class="quest-progress">0/12</span>
+        </div>
+                    <div class="quest-progress-bar">
+                        <div class="quest-progress-fill" id="quest1Progress"></div>
+                    </div>
+                    <div class="quest-reward">Reward: 500 points</div>
+                </div>
+                <div class="quest-item" id="quest2" data-reward="1000">
+                    <div class="quest-item-header">
+            <span>Find 5 easter eggs</span>
+            <span class="quest-progress">0/15</span>
+        </div>
+                    <div class="quest-progress-bar">
+                        <div class="quest-progress-fill" id="quest2Progress"></div>
+                    </div>
+                    <div class="quest-reward">Reward: 1000 points</div>
+                </div>
+                <div class="quest-item" id="quest3" data-reward="750">
+                    <div class="quest-item-header">
+            <span>Reach combo 10x</span>
+            <span class="quest-progress">0/10</span>
+                    </div>
+                    <div class="quest-progress-bar">
+                        <div class="quest-progress-fill" id="quest3Progress"></div>
+                    </div>
+                    <div class="quest-reward">Reward: 750 points</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Achievement Notification -->
+    <div class="achievement-notification" id="achievementNotification" role="status" aria-live="polite" aria-atomic="true">
+        <h4 id="achievementTitle">
+            <i class="fas fa-award"></i>
+            Achievement Unlocked!
+        </h4>
+        <p id="achievementDesc">You've discovered something special</p>
+    </div>
+
+    <!-- High Score Badge -->
+    <div class="highscore-badge" id="highscoreBadge">
+        🏆<br>NEW HIGH<br>SCORE!
+    </div>
+
+    <!-- Mini Game Overlay -->
+    <div class="minigame-overlay" id="minigameOverlay">
+        <div class="minigame-content">
+            <h2>🎮 SURVIVAL CHALLENGE</h2>
+            <p>Click the moving targets before time runs out!</p>
+            <canvas id="minigameCanvas" class="minigame-canvas" width="400" height="300"></canvas>
+            <div style="margin-top: 1rem;">
+                <span style="color: var(--accent); font-size: 1.5rem; font-weight: bold;">Score: <span id="minigameScore">0</span></span>
+                <span style="margin-left: 2rem; color: var(--info); font-size: 1.5rem; font-weight: bold;">Time: <span id="minigameTime">30</span>s</span>
+            </div>
+            <button class="nav-btn" id="closeMinigame" style="margin-top: 1rem;">Close</button>
+        </div>
+    </div>
+
+    <!-- Backdrop for modals -->
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <!-- Achievement Gallery -->
+    <div class="achievement-gallery" id="achievementGallery" role="dialog" aria-modal="true" aria-labelledby="achievementGalleryTitle">
+        <div class="achievement-gallery-header">
+            <h2 class="achievement-gallery-title" id="achievementGalleryTitle">Achievements</h2>
+            <button class="achievement-gallery-close" id="achievementGalleryClose" aria-label="Close achievement gallery">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="achievement-grid" id="achievementGrid">
+            <!-- Achievements will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Help -->
+    <div class="keyboard-help" id="keyboardHelp" role="dialog" aria-modal="true" aria-labelledby="keyboardHelpTitle">
+        <div class="keyboard-help-header">
+            <h2 class="keyboard-help-title" id="keyboardHelpTitle">Keyboard Shortcuts</h2>
+            <button class="achievement-gallery-close" id="keyboardHelpClose" aria-label="Close help">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="keyboard-shortcut">
+            <span>Navigate Forward</span>
+            <span class="keyboard-key">→</span>
+        </div>
+        <div class="keyboard-shortcut">
+            <span>Navigate Backward</span>
+            <span class="keyboard-key">←</span>
+        </div>
+        <div class="keyboard-shortcut">
+            <span>Next Slide</span>
+            <span class="keyboard-key">Space</span>
+        </div>
+        <div class="keyboard-shortcut">
+            <span>Show Help</span>
+            <span class="keyboard-key">?</span>
+        </div>
+        <div class="keyboard-shortcut">
+            <span>Show Achievements</span>
+            <span class="keyboard-key">A</span>
+        </div>
+    </div>
+
+    <!-- Help Toggle Button -->
+    <button class="help-toggle" id="helpToggle" aria-label="Show keyboard shortcuts">
+        <i class="fas fa-question"></i>
+    </button>
+
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <!-- Score Popup (moved inside UI layout) -->
+    <div class="score-popup" id="scorePopup">
+        <span id="scoreNumber">+100</span>
+    </div>
+
+    <!-- Slides Container -->
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-content">
+                <h1>DIGITAL HAZARD STUDIO</h1>
+                <p class="tagline">Bootstrapped AA Game Studio • Industry Veterans</p>
+                <p style="font-size: clamp(1.2rem, 2vw, 1.5rem); margin-top: 2rem; color: var(--accent);">
+                    Sacramento, California
+                </p>
+                <div style="margin-top: 2rem;">
+                    <p style="font-size: clamp(1rem, 1.8vw, 1.3rem);">
+                        "Building the next generation of survival action experiences"
+                    </p>
+                </div>
+                <div class="easter-egg" style="top: 3%; right: 5%;" data-secret="welcome" data-points="500"></div>
+                <div class="easter-egg" style="bottom: 10%; left: 8%;" data-secret="hidden1" data-points="300"></div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Studio Overview -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Who We Are</h2>
+                <div class="stats-grid">
+                    <div class="stat-card" data-points="100">
+                        <div class="stat-number">2024</div>
+                        <div class="stat-label">Founded</div>
+                    </div>
+                    <div class="stat-card" data-points="100">
+                        <div class="stat-number">6+</div>
+                        <div class="stat-label">Team Members</div>
+                    </div>
+                    <div class="stat-card" data-points="100">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Years Industry Experience</div>
+                    </div>
+                    <div class="stat-card" data-points="100">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Game in Development</div>
+                    </div>
+                </div>
+                <p style="margin-top: 2rem; font-size: clamp(1.1rem, 2vw, 1.3rem);">
+                    An independent game studio founded by industry veterans with a mission to create 
+                    engaging survival action experiences while mentoring the next generation of developers.
+                </p>
+                <div class="easter-egg" style="top: 50%; right: 3%;" data-secret="team" data-points="250"></div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Project Cobalt -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>PROJECT COBALT</h2>
+                <h3 style="color: var(--info); font-size: clamp(1.5rem, 3vw, 2rem); margin: 2rem 0;">
+                    Survival Action • Now in Early Access
+                </h3>
+                
+                <div class="steam-widget">
+                    <div class="steam-icon">
+                        <i class="fab fa-steam"></i>
+                    </div>
+                    <div class="steam-info">
+                        <h4>Available on Steam</h4>
+                        <p>Early Access • Survival Action</p>
+                        <span class="steam-rating">63% Positive (33 reviews)</span>
+                    </div>
+                </div>
+
+                <p style="font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.8;">
+                    Survive on a hostile island where every decision matters. Scavenge containers, 
+                    mine resources, craft tools, hunt wildlife, and uncover the dark truth behind 
+                    a failed experiment.
+                </p>
+                <div class="easter-egg" style="bottom: 5%; left: 50%; transform: translateX(-50%);" data-secret="cobalt" data-points="400"></div>
+                <div class="easter-egg" style="top: 8%; left: 10%;" data-secret="steam" data-points="350"></div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Core Features -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Core Game Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-item" data-points="80">
+                        <div class="feature-icon"><i class="fas fa-heartbeat"></i></div>
+                        <h3>Survival Systems</h3>
+                        <p>Hunger, thirst, stamina, temperature, and health management</p>
+                    </div>
+                    <div class="feature-item" data-points="80">
+                        <div class="feature-icon"><i class="fas fa-hammer"></i></div>
+                        <h3>Building & Crafting</h3>
+                        <p>Construct shelters and craft essential survival tools</p>
+                    </div>
+                    <div class="feature-item" data-points="80">
+                        <div class="feature-icon"><i class="fas fa-mountain"></i></div>
+                        <h3>Resource Gathering</h3>
+                        <p>Mine, scavenge, and hunt across diverse environments</p>
+                    </div>
+                    <div class="feature-item" data-points="80">
+                        <div class="feature-icon"><i class="fas fa-cloud-sun"></i></div>
+                        <h3>Dynamic Weather</h3>
+                        <p>Day-night cycle with realistic weather systems</p>
+                    </div>
+                    <div class="feature-item" data-points="80">
+                        <div class="feature-icon"><i class="fas fa-coins"></i></div>
+                        <h3>Economy System</h3>
+                        <p>Trade and barter with NPCs and other players</p>
+                    </div>
+                    <div class="feature-item" data-points="80">
+                        <div class="feature-icon"><i class="fas fa-search"></i></div>
+                        <h3>Mystery to Uncover</h3>
+                        <p>Discover the dark truth behind the failed experiment</p>
+                    </div>
+                </div>
+                <div class="easter-egg" style="top: 15%; right: 7%;" data-secret="features" data-points="300"></div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Market Opportunity -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Market Opportunity</h2>
+                <div class="stats-grid">
+                    <div class="stat-card" data-points="120">
+                        <div class="stat-number">$184B</div>
+                        <div class="stat-label">Global Gaming Market 2024</div>
+                    </div>
+                    <div class="stat-card" data-points="120">
+                        <div class="stat-number">3.32B</div>
+                        <div class="stat-label">Active Gamers Worldwide</div>
+                    </div>
+                    <div class="stat-card" data-points="120">
+                        <div class="stat-number">$8.5B</div>
+                        <div class="stat-label">Survival Game Market</div>
+                    </div>
+                    <div class="stat-card" data-points="120">
+                        <div class="stat-number">27.5M</div>
+                        <div class="stat-label">Rust Players (Competitor)</div>
+                    </div>
+                </div>
+                <p style="margin-top: 2rem; font-size: clamp(1.1rem, 2vw, 1.3rem);">
+                    The survival game genre continues to grow, with titles like Rust, ARK, and 
+                    Valheim proving the massive appetite for challenging, immersive survival experiences.
+                </p>
+                <div class="easter-egg" style="bottom: 12%; right: 15%;" data-secret="market" data-points="450"></div>
+                <div class="easter-egg" style="top: 20%; left: 5%;" data-secret="numbers" data-points="280"></div>
+            </div>
+        </div>
+
+        <!-- Slide 6: The Team -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Leadership Team</h2>
+                <div class="team-grid">
+                    <div class="team-member" data-points="150">
+                        <div class="team-avatar">EB</div>
+                        <h3>Erick Barnes</h3>
+                        <p class="text-accent font-semibold">CEO & Founder</p>
+                        <p class="[font-size:clamp(0.9rem,1.5vw,1rem)]">15+ years in operations & strategy</p>
+                    </div>
+                    <div class="team-member" data-points="150">
+                        <div class="team-avatar">PW</div>
+                        <h3>Pendragon Wachtel</h3>
+                        <p class="text-accent font-semibold">Co-Founder & Game Director</p>
+                        <p class="text-[clamp(0.9rem,1.5vw,1rem)]">Mega Cat Studios, indie.io, Freedom Games</p>
+                    </div>
+                    <div class="team-member" data-points="150">
+                        <div class="team-avatar">HG</div>
+                        <h3>Hunter Goodin</h3>
+                        <p class="text-accent font-semibold">Lead Engineer</p>
+                        <p class="text-[clamp(0.9rem,1.5vw,1rem)]">Unity Certified • WayForward Technologies</p>
+                    </div>
+                </div>
+                <p class="mt-8">
+                    + Additional talented developers committed to excellence
+                </p>
+                <div class="easter-egg" style="bottom: 8%; left: 50%; transform: translateX(-50%);" data-secret="founders" data-points="500"></div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Development Progress -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Development Milestones</h2>
+                <div class="feature-grid">
+                    <div class="feature-item discovered" data-points="100">
+                        <div class="feature-icon text-success"><i class="fas fa-check-circle"></i></div>
+                        <h3>Concept & GDD</h3>
+                        <p>Completed - Foundation laid for engaging survival experience</p>
+                    </div>
+                    <div class="feature-item discovered" data-points="100">
+                        <div class="feature-icon" style="color: var(--success);"><i class="fas fa-check-circle"></i></div>
+                        <h3>Pitch Deck</h3>
+                        <p>Completed - Vision communicated to stakeholders</p>
+                    </div>
+                    <div class="feature-item discovered" data-points="100">
+                        <div class="feature-icon" style="color: var(--success);"><i class="fas fa-check-circle"></i></div>
+                        <h3>Prototype</h3>
+                        <p>Completed - Core mechanics validated</p>
+                    </div>
+                    <div class="feature-item discovered" data-points="100">
+                        <div class="feature-icon" style="color: var(--success);"><i class="fas fa-check-circle"></i></div>
+                        <h3>NDA Playtesting</h3>
+                        <p>Launched April 2025 - Community feedback integration</p>
+                    </div>
+                    <div class="feature-item discovered" data-points="100">
+                        <div class="feature-icon" style="color: var(--success);"><i class="fas fa-check-circle"></i></div>
+                        <h3>Early Access</h3>
+                        <p>Live on Steam - Iterating based on player feedback</p>
+                    </div>
+                    <div class="feature-item" data-points="100">
+                        <div class="feature-icon" style="color: var(--info);"><i class="fas fa-spinner"></i></div>
+                        <h3>Vertical Slice</h3>
+                        <p>In Progress - Polishing core gameplay loop</p>
+                    </div>
+                </div>
+                <div class="easter-egg" style="top: 10%; right: 10%;" data-secret="progress" data-points="380"></div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Community & Engagement -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Community Engagement</h2>
+                <div class="stats-grid">
+                    <div class="stat-card" data-points="110">
+                        <div class="stat-icon" style="font-size: 2rem; color: var(--info); margin-bottom: 1rem;">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <div class="stat-label">Active Discord Server</div>
+                        <p style="margin-top: 0.5rem; color: #888;">Direct dev communication & AMAs</p>
+                    </div>
+                    <div class="stat-card" data-points="110">
+                        <div class="stat-icon" style="font-size: 2rem; color: var(--info); margin-bottom: 1rem;">
+                            <i class="fab fa-steam"></i>
+                        </div>
+                        <div class="stat-label">Steam Early Access</div>
+                        <p style="margin-top: 0.5rem; color: #888;">Building with player feedback</p>
+                    </div>
+                    <div class="stat-card" data-points="110">
+                        <div class="stat-icon" style="font-size: 2rem; color: var(--info); margin-bottom: 1rem;">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-label">College Tour Program</div>
+                        <p style="margin-top: 0.5rem; color: #888;">Engaging future developers</p>
+                    </div>
+                    <div class="stat-card" data-points="110">
+                        <div class="stat-icon" style="font-size: 2rem; color: var(--info); margin-bottom: 1rem;">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="stat-label">Transparent Updates</div>
+                        <p style="margin-top: 0.5rem; color: #888;">Regular development insights</p>
+                    </div>
+                </div>
+                <div class="easter-egg" style="bottom: 15%; left: 20%;" data-secret="community" data-points="320"></div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Business Model & Funding -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Investment & Strategy</h2>
+                <div class="stats-grid">
+                    <div class="stat-card" data-points="140">
+                        <div class="stat-number">Seed</div>
+                        <div class="stat-label">Funding Stage</div>
+                    </div>
+                    <div class="stat-card" data-points="140">
+                        <div class="stat-number">$29.99</div>
+                        <div class="stat-label">Early Access Price</div>
+                    </div>
+                    <div class="stat-card" data-points="140">
+                        <div class="stat-number">63%</div>
+                        <div class="stat-label">Steam Positive Rating</div>
+                    </div>
+                    <div class="stat-card" data-points="140">
+                        <div class="stat-number">Growing</div>
+                        <div class="stat-label">Player Base</div>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    <h3 style="text-align: center; margin-bottom: 1.5rem;">Revenue Strategy</h3>
+                    <div class="feature-grid" style="grid-template-columns: 1fr;">
+                        <div class="feature-item" data-points="90">
+                            <p><strong style="color: var(--accent);">Premium Sales:</strong> One-time purchase model with no microtransactions</p>
+                        </div>
+                        <div class="feature-item" data-points="90">
+                            <p><strong style="color: var(--accent);">DLC Expansion:</strong> Post-launch content adding new areas and mechanics</p>
+                        </div>
+                        <div class="feature-item" data-points="90">
+                            <p><strong style="color: var(--accent);">Community-First:</strong> Building loyal player base through transparency</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="easter-egg" style="top: 25%; right: 8%;" data-secret="funding" data-points="420"></div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Studio Philosophy -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Our Values</h2>
+                <div class="feature-grid">
+                    <div class="feature-item" data-points="95">
+                        <div class="feature-icon"><i class="fas fa-palette"></i></div>
+                        <h3>Value Artists</h3>
+                        <p>Creating an environment where creative vision thrives</p>
+                    </div>
+                    <div class="feature-item" data-points="95">
+                        <div class="feature-icon"><i class="fas fa-user-graduate"></i></div>
+                        <h3>Mentor Juniors</h3>
+                        <p>Investing in the next generation of game developers</p>
+                    </div>
+                    <div class="feature-item" data-points="95">
+                        <div class="feature-icon"><i class="fas fa-users"></i></div>
+                        <h3>Community Feedback</h3>
+                        <p>Building games with our players, not just for them</p>
+                    </div>
+                    <div class="feature-item" data-points="95">
+                        <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3>Transparency</h3>
+                        <p>Open communication about our progress and challenges</p>
+                    </div>
+                    <div class="feature-item" data-points="95">
+                        <div class="feature-icon"><i class="fas fa-award"></i></div>
+                        <h3>Quality First</h3>
+                        <p>Never compromising on polish and player experience</p>
+                    </div>
+                    <div class="feature-item" data-points="95">
+                        <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                        <h3>Fair Practices</h3>
+                        <p>No predatory monetization or exploitative mechanics</p>
+                    </div>
+                </div>
+                <div class="easter-egg" style="bottom: 10%; right: 50%; transform: translateX(50%);" data-secret="values" data-points="550"></div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Connect With Us -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Connect & Support</h2>
+                <div class="stats-grid" style="margin-top: 3rem;">
+                    <div class="stat-card" data-points="130">
+                        <div class="stat-icon" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="stat-label">admin@digitalhazardstudio.com</div>
+                    </div>
+                    <div class="stat-card" data-points="130">
+                        <div class="stat-icon" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="stat-label">digitalhazardstudio.com</div>
+                    </div>
+                    <div class="stat-card" data-points="130">
+                        <div class="stat-icon" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <div class="stat-label">discord.gg/H28QhSQETp</div>
+                    </div>
+                    <div class="stat-card" data-points="130">
+                        <div class="stat-icon" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="stat-label">linkedin.com/company/digital-hazard-studio</div>
+                    </div>
+                </div>
+                <p style="margin-top: 3rem; font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--accent);">
+                    📍 2804 Gateway Oaks Drive #100<br>
+                    Sacramento, CA 95833
+                </p>
+                <div class="easter-egg" style="top: 15%; left: 10%;" data-secret="contact" data-points="600"></div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Call to Action -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem);">JOIN OUR JOURNEY</h1>
+                <p class="tagline">Building the future of survival gaming</p>
+                
+                <div style="margin: 3rem 0;">
+                    <h3 style="color: var(--success); margin-bottom: 1.5rem;">Ways to Get Involved</h3>
+                    <div class="feature-grid" style="max-width: 800px; margin: 0 auto;">
+                        <div class="feature-item" data-points="200">
+                            <div class="feature-icon" style="color: var(--success);"><i class="fas fa-rocket"></i></div>
+                            <h3>Invest</h3>
+                            <p>Join us in building the next great survival game</p>
+                        </div>
+                        <div class="feature-item" data-points="200">
+                            <div class="feature-icon" style="color: var(--info);"><i class="fas fa-gamepad"></i></div>
+                            <h3>Play</h3>
+                            <p>Try Project Cobalt on Steam Early Access</p>
+                        </div>
+                        <div class="feature-item" data-points="200">
+                            <div class="feature-icon" style="color: var(--accent);"><i class="fas fa-comments"></i></div>
+                            <h3>Join Community</h3>
+                            <p>Share feedback and shape the game's future</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="nav-btn" id="startMinigame" style="margin: 2rem auto; display: block; font-size: 1.2rem; padding: 1.5rem 3rem;">
+                    🎮 Play Bonus Mini-Game!
+                </button>
+
+                <p style="margin-top: 3rem; font-size: clamp(1.3rem, 2.5vw, 1.8rem); color: var(--primary); font-weight: 700;">
+                    Let's survive together. 🔥
+                </p>
+                
+                <div class="easter-egg" style="top: 5%; right: 5%;" data-secret="finale1" data-points="750"></div>
+                <div class="easter-egg" style="bottom: 5%; left: 5%;" data-secret="finale2" data-points="750"></div>
+                <div class="easter-egg" style="top: 50%; left: 3%;" data-secret="finale3" data-points="1000"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn">
+            <i class="fas fa-chevron-left"></i> Prev
+        </button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlidesNav">12</span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-milestone" style="left: 25%;" data-milestone="25"></div>
+            <div class="progress-milestone" style="left: 50%;" data-milestone="50"></div>
+            <div class="progress-milestone" style="left: 75%;" data-milestone="75"></div>
+        </div>
+        <button class="nav-btn" id="nextBtn">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script src="libs/gsap.min.js"></script>
+    <script src="libs/ScrollTrigger.min.js"></script>
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+    <script src="js/anime.min.js"></script>
+    <script src="js/three.module.js"></script>
+    <script src="js/present.js"></script>
+</body>
+</html>
