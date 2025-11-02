@@ -4,7 +4,12 @@
     'use strict';
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (window.gsap && window.ScrollTrigger) {
+    let threeJSCheckInterval = null; // Store interval ID for cleanup
+    // Initialize GSAP - Use shared utility to prevent duplicate registration
+    if (window.DHInit && typeof window.DHInit.initAnimations === 'function') {
+        window.DHInit.initAnimations();
+    } else if (window.gsap && window.ScrollTrigger) {
+        // Fallback if shared utility not available
         gsap.registerPlugin(ScrollTrigger);
     }
 
@@ -86,6 +91,10 @@
         })()
     };
 
+    // Declare trackSlideView early to avoid reference errors
+    // Will be assigned in initGamification()
+    let trackSlideView = null;
+
     const loadingTips = [
         "Tip: Hover over cards to discover them and earn points!",
         "Tip: Click on the glowing orbs to find secrets...",
@@ -114,11 +123,11 @@
         initLoading();
         initCustomCursor();
         initThreeJS();
+        initGamificationHooks(); // Initialize gamification hooks (relies on unified system)
         initSlideNavigation();
-        initGamification();
         initTooltips();
         initPowerups();
-        initMinigame();
+        // initMinigame(); // Disabled - using new survival game instead
         initSoundEffects();
         initAchievementGallery();
         initKeyboardHelp();
@@ -282,19 +291,64 @@
 
     // Three.js Background
     function initThreeJS() {
+        // Wait for THREE to be loaded (from threejs-background.js or window.THREE)
+        const THREE_IMPORT = typeof THREE !== 'undefined' ? THREE : (typeof window.THREE !== 'undefined' ? window.THREE : null);
+        
+        if (!THREE_IMPORT) {
+            // THREE not loaded yet, wait for it with retry
+            const maxRetries = 50; // 5 seconds max wait
+            let retries = 0;
+
+            // Clear any existing interval first
+            if (threeJSCheckInterval) {
+                clearInterval(threeJSCheckInterval);
+            }
+
+            threeJSCheckInterval = setInterval(() => {
+                retries++;
+                const THREE_CHECK = typeof THREE !== 'undefined' ? THREE : (typeof window.THREE !== 'undefined' ? window.THREE : null);
+
+                if (THREE_CHECK) {
+                    clearInterval(threeJSCheckInterval);
+                    threeJSCheckInterval = null;
+                    initThreeJS(); // Retry initialization now that THREE is available
+                } else if (retries >= maxRetries) {
+                    clearInterval(threeJSCheckInterval);
+                    threeJSCheckInterval = null;
+                    // Three.js may not be available (file:// protocol or disabled) - silent failure
+                    return;
+                }
+            }, 100);
+            return;
+        }
+        
         const canvas = document.getElementById('bg-canvas');
         if (!canvas) return;
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        // Ensure canvas element has transparent background
+        canvas.style.backgroundColor = 'transparent';
+        canvas.style.display = 'block';
+
+        const scene = new THREE_IMPORT.Scene();
+        // Explicitly set scene background to null for transparency
+        scene.background = null;
+        const camera = new THREE_IMPORT.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE_IMPORT.WebGLRenderer({ 
+            canvas, 
+            alpha: true, 
+            antialias: true,
+            premultipliedAlpha: false 
+        });
+        
+        // Set transparent clear color so 3D background shows through
+        renderer.setClearColor(0x000000, 0);
         
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         camera.position.z = 30;
 
         // Particles
-        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesGeometry = new THREE_IMPORT.BufferGeometry();
         const particlesCount = prefersReduced ? 700 : 2000;
         const posArray = new Float32Array(particlesCount * 3);
 
@@ -302,28 +356,28 @@
             posArray[i] = (Math.random() - 0.5) * 100;
         }
 
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeometry.setAttribute('position', new THREE_IMPORT.BufferAttribute(posArray, 3));
 
-        const particlesMaterial = new THREE.PointsMaterial({
+        const particlesMaterial = new THREE_IMPORT.PointsMaterial({
             size: 0.3,
             color: 0xff6b00,
             transparent: true,
             opacity: 0.7,
-            blending: THREE.AdditiveBlending
+            blending: THREE_IMPORT.AdditiveBlending
         });
 
-        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        const particlesMesh = new THREE_IMPORT.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
         // Hazard Ring
-        const ringGeometry = new THREE.TorusGeometry(10, 0.4, 16, 100);
-        const ringMaterial = new THREE.MeshBasicMaterial({ 
+        const ringGeometry = new THREE_IMPORT.TorusGeometry(10, 0.4, 16, 100);
+        const ringMaterial = new THREE_IMPORT.MeshBasicMaterial({ 
             color: 0xff6b00,
             wireframe: true,
             transparent: true,
             opacity: 0.3
         });
-        const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+        const ring = new THREE_IMPORT.Mesh(ringGeometry, ringMaterial);
         scene.add(ring);
 
         let mouseX = 0, mouseY = 0;
@@ -334,10 +388,11 @@
         });
 
         let animationFrameId = null;
+        let isPaused = false;
 
         let running = true;
         function animate() {
-            if (!running) return;
+            if (!running || isPaused) return;
             animationFrameId = requestAnimationFrame(animate);
 
             particlesMesh.rotation.x += 0.0005;
@@ -356,6 +411,26 @@
         }
 
         animate();
+        
+        // Store animation frame globally and expose pause/resume
+        window.presentThreeJSAnimation = animationFrameId;
+        window.DHThreeBackground = window.DHThreeBackground || {};
+        window.DHThreeBackground.pause = function() {
+            isPaused = true;
+            running = false;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+                window.presentThreeJSAnimation = null;
+            }
+        };
+        window.DHThreeBackground.resume = function() {
+            isPaused = false;
+            running = true;
+            if (!animationFrameId) {
+                animate();
+            }
+        };
 
         // Debounced resize handler
         const handleResize = debounce(() => {
@@ -381,6 +456,10 @@
             if (animationFrameId) {
                 cancelAnimationFrame(animationFrameId);
             }
+            if (threeJSCheckInterval) {
+                clearInterval(threeJSCheckInterval);
+                threeJSCheckInterval = null;
+            }
             window.removeEventListener('resize', handleResize);
         });
     }
@@ -399,27 +478,82 @@
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
 
+        // Ensure all slide counters are synchronized
         if (totalSlidesSpan) totalSlidesSpan.textContent = totalSlides;
         if (totalSlidesHUD) totalSlidesHUD.textContent = totalSlides;
+        
+        // Update gamification system with correct total
+        if (window.game) {
+            window.game.totalSlides = totalSlides;
+        }
 
+        // Scroll reset timeout (persistent across slide changes)
+        let scrollResetTimeout = null;
+        
         function updateSlide() {
+            // Disable scroll anchoring during slide transitions to prevent adjustment warnings
+            document.documentElement.style.overflowAnchor = 'none';
+            document.body.style.overflowAnchor = 'none';
+            
+            // Smooth scroll to top when changing slides
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Reset scroll position of all slides (debounced to prevent rapid adjustments)
+            if (scrollResetTimeout) {
+                clearTimeout(scrollResetTimeout);
+            }
+            scrollResetTimeout = setTimeout(() => {
+                slides.forEach(slide => {
+                    slide.scrollTop = 0;
+                });
+                // Re-enable scroll anchoring after transitions complete
+                setTimeout(() => {
+                    document.documentElement.style.overflowAnchor = '';
+                    document.body.style.overflowAnchor = '';
+                }, 500);
+            }, 100);
+            
             slides.forEach((slide, index) => {
                 slide.classList.remove('active', 'prev');
                 if (index === currentSlide) {
                     slide.classList.add('active');
                     
+                    // Focus management - move focus to slide content
+                    const firstFocusable = slide.querySelector('h1, h2, h3, [tabindex="0"]');
+                    if (firstFocusable && typeof firstFocusable.focus === 'function') {
+                        // Delay focus to allow animation to start
+                        setTimeout(() => {
+                            firstFocusable.focus({ preventScroll: true });
+                        }, 100);
+                    }
+                    
                     // GSAP animation for slide content
-                    const cards = slide.querySelectorAll('.stat-card, .team-member, .feature-item');
+                    const cards = slide.querySelectorAll('.stat-card, .team-member, .feature-item, .card');
                     cards.forEach((card, cardIndex) => {
                         gsap.fromTo(card, 
-                            { opacity: 0, y: 50, scale: 0.8 },
+                            { opacity: 0, y: 30, scale: 0.95 },
                             { 
                                 opacity: 1, 
                                 y: 0, 
                                 scale: 1,
-                                duration: prefersReduced ? 0 : 0.6,
-                                delay: cardIndex * 0.08,
-                                ease: 'power3.out'
+                                duration: prefersReduced ? 0 : 0.5,
+                                delay: prefersReduced ? 0 : cardIndex * 0.06,
+                                ease: 'power2.out'
+                            }
+                        );
+                    });
+                    
+                    // Animate badges and buttons
+                    const badges = slide.querySelectorAll('.badge');
+                    badges.forEach((badge, badgeIndex) => {
+                        gsap.fromTo(badge,
+                            { opacity: 0, scale: 0.8 },
+                            {
+                                opacity: 1,
+                                scale: 1,
+                                duration: prefersReduced ? 0 : 0.4,
+                                delay: prefersReduced ? 0 : (badges.length * 0.06 + badgeIndex * 0.03),
+                                ease: 'back.out(1.7)'
                             }
                         );
                     });
@@ -428,9 +562,34 @@
                 }
             });
 
-            if (currentSlideSpan) currentSlideSpan.textContent = currentSlide + 1;
+            // Update slide counter - ensure it shows current slide (1-based) / total
+            if (currentSlideSpan) {
+                currentSlideSpan.textContent = currentSlide + 1;
+            }
+            if (totalSlidesSpan) {
+                totalSlidesSpan.textContent = totalSlides; // Always show correct total
+            }
+            
             const progress = ((currentSlide + 1) / totalSlides) * 100;
-            if (progressBar) progressBar.style.width = progress + '%';
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+                progressBar.setAttribute('value', progress);
+            }
+            
+            // Update progress indicator at top if exists
+            const progressIndicator = document.querySelector('.slide-progress-indicator');
+            if (progressIndicator) {
+                progressIndicator.style.setProperty('--slide-progress', progress + '%');
+                progressIndicator.setAttribute('aria-valuenow', Math.round(progress));
+            }
+            
+            // Update document title with slide info
+            if (typeof document !== 'undefined') {
+                const slideTitle = slides[currentSlide]?.querySelector('h1, h2')?.textContent || '';
+                document.title = slideTitle ? 
+                    `${currentSlide + 1}/${totalSlides}: ${slideTitle.substring(0, 50)}` : 
+                    `Slide ${currentSlide + 1} of ${totalSlides}`;
+            }
             
             // Update progress milestones
             progressMilestones.forEach(milestone => {
@@ -445,22 +604,56 @@
             if (prevBtn) prevBtn.disabled = currentSlide === 0;
             if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
 
-            trackSlideView(currentSlide);
+            // Track slide view if function is available (may not be initialized yet)
+            if (typeof trackSlideView === 'function') {
+                trackSlideView(currentSlide);
+            } else if (typeof window.trackSlideView === 'function') {
+                window.trackSlideView(currentSlide);
+            } else if (window.game && typeof window.game.viewSlide === 'function') {
+                // Fallback to gamification system
+                window.game.viewSlide(currentSlide);
+            }
         }
 
         function nextSlide() {
             if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-                updateSlide();
-                playSound('slide');
+                // Visual feedback for transition
+                const overlay = document.createElement('div');
+                overlay.className = 'slide-transition-overlay';
+                document.body.appendChild(overlay);
+                overlay.classList.add('active');
+                
+                setTimeout(() => {
+                    currentSlide++;
+                    updateSlide();
+                    playSound('slide');
+                    
+                    setTimeout(() => {
+                        overlay.classList.remove('active');
+                        setTimeout(() => overlay.remove(), 200);
+                    }, 100);
+                }, 50);
             }
         }
 
         function prevSlide() {
             if (currentSlide > 0) {
-                currentSlide--;
-                updateSlide();
-                playSound('slide');
+                // Visual feedback for transition
+                const overlay = document.createElement('div');
+                overlay.className = 'slide-transition-overlay';
+                document.body.appendChild(overlay);
+                overlay.classList.add('active');
+                
+                setTimeout(() => {
+                    currentSlide--;
+                    updateSlide();
+                    playSound('slide');
+                    
+                    setTimeout(() => {
+                        overlay.classList.remove('active');
+                        setTimeout(() => overlay.remove(), 200);
+                    }, 100);
+                }, 50);
             }
         }
 
@@ -468,17 +661,51 @@
         if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
+            // Don't interfere with form inputs or modals
+            if (e.target.tagName === 'INPUT' || 
+                e.target.tagName === 'TEXTAREA' || 
+                e.target.tagName === 'SELECT' ||
+                document.querySelector('.modal.show, dialog[open]')) {
+                return;
+            }
+            
+            // Navigation shortcuts
+            if (e.key === 'ArrowRight' || (e.key === ' ' && !e.shiftKey)) {
                 e.preventDefault();
                 nextSlide();
             }
-            if (e.key === 'ArrowLeft') {
+            if (e.key === 'ArrowLeft' || (e.key === ' ' && e.shiftKey)) {
                 e.preventDefault();
                 prevSlide();
             }
-            if (e.key === '?') {
+            // Jump to first/last slide
+            if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 0;
+                updateSlide();
+                playSound('slide');
+            }
+            if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides - 1;
+                updateSlide();
+                playSound('slide');
+            }
+            // Show help
+            if (e.key === '?' || (e.key === 'h' && e.ctrlKey)) {
                 e.preventDefault();
                 toggleKeyboardHelp();
+            }
+            // Toggle quest panel
+            if (e.key === 'q' && e.ctrlKey) {
+                e.preventDefault();
+                const questPanel = document.querySelector('.presentation-quest-panel');
+                if (questPanel) {
+                    const collapse = questPanel.querySelector('.collapse');
+                    if (collapse) {
+                        collapse.classList.toggle('collapse-open');
+                    }
+                }
             }
         });
 
@@ -608,7 +835,10 @@
     }
 
     // Gamification System
-    function initGamification() {
+    // Initialize gamification hooks for present.html
+    // This only adds present.html-specific functionality and relies on
+    // the unified gamification system loaded via DHInit
+    function initGamificationHooks() {
         const achievementCount = document.getElementById('achievementCount');
         const levelNumber = document.getElementById('levelNumber');
         const levelFill = document.getElementById('levelFill');
@@ -631,26 +861,52 @@
                 });
             }
             
-            showScorePopup(finalPoints);
+            if (window.game && typeof window.game.showScorePopup === 'function') {
+                window.game.showScorePopup(finalPoints);
+            }
             incrementCombo();
             updateQuests();
-            checkHighScore();
+            // Note: checkHighScore() is now only called at milestone events, not on every action
         };
 
-        window.trackSlideView = function(slideIndex) {
+        // Assign to both local variable and window for compatibility
+        // Use unified gamification system for slide tracking
+        trackSlideView = window.trackSlideView = function(slideIndex) {
             if (!gameState.viewedSlides.has(slideIndex)) {
                 gameState.viewedSlides.add(slideIndex);
-                addPoints(100);
+                
+                // Use unified system's viewSlide method if available
+                if (window.game && typeof window.game.viewSlide === 'function') {
+                    window.game.viewSlide(slideIndex);
+                    window.game.addPoints(100, null, null);
+                } else {
+                    // Fallback for local state
+                    addPoints(100);
+                }
+                
                 updateProgress();
                 
-                if (gameState.viewedSlides.size === 5) {
-                    showAchievement('Explorer', 'Viewed 5 slides! 🗺️', 300);
+                // Check high score at slide milestones (5, 10, 12 slides)
+                const slideMilestones = [5, 10, 12];
+                if (slideMilestones.includes(gameState.viewedSlides.size)) {
+                    checkHighScore();
                 }
-                if (gameState.viewedSlides.size === 10) {
-                    showAchievement('Master Navigator', 'Almost there! 🧭', 500);
+                
+                if (gameState.viewedSlides.size === 5 && window.game) {
+                    window.game.unlockAchievement('explorer', 'Explorer', 'Viewed 5 slides! 🗺️', 300);
                 }
-                if (gameState.viewedSlides.size === 12) {
-                    showAchievement('Completionist', 'Viewed everything! 🏆', 1000);
+                if (gameState.viewedSlides.size === 10 && window.game) {
+                    window.game.unlockAchievement('master-navigator', 'Master Navigator', 'Almost there! 🧭', 500);
+                }
+                if (gameState.viewedSlides.size === 12 && window.game) {
+                    // Epic milestone celebration for completing all slides
+                    if (typeof window.game.triggerMilestoneCelebration === 'function') {
+                        window.game.triggerMilestoneCelebration('achievement-major', 'COMPLETIONIST', 'ALL SLIDES CONQUERED!');
+                    }
+                    
+                    window.game.unlockAchievement('completionist', 'Completionist', 'Viewed everything! 🏆', 1000);
+                    // Final check for high score when completing all slides
+                    checkHighScore();
                 }
             }
         };
@@ -658,28 +914,39 @@
         function incrementCombo() {
             gameState.comboCount++;
             gameState.comboMultiplier = 1.0 + (gameState.comboCount * 0.1);
-            
+
             if (comboNumber) comboNumber.textContent = gameState.comboCount;
             if (comboMultiplier) comboMultiplier.textContent = `×${gameState.comboMultiplier.toFixed(1)}`;
             if (comboCounter) comboCounter.classList.add('active');
-            
-            clearTimeout(gameState.comboTimer);
-            gameState.comboTimer = setTimeout(() => {
-                gameState.comboCount = 0;
-                gameState.comboMultiplier = 1.0;
-                if (comboNumber) comboNumber.textContent = '0';
-                if (comboMultiplier) comboMultiplier.textContent = '×1.0';
-                if (comboCounter) comboCounter.classList.remove('active');
-            }, 3000);
 
-            if (gameState.comboCount === 5) {
-                showAchievement('Combo Starter', '5x Combo! 🔥', 200);
+            // Only schedule combo decay if freeze powerup is not active
+            if (!gameState.powerups.freeze.active) {
+                clearTimeout(gameState.comboTimer);
+                gameState.comboTimer = setTimeout(() => {
+                    gameState.comboCount = 0;
+                    gameState.comboMultiplier = 1.0;
+                    if (comboNumber) comboNumber.textContent = '0';
+                    if (comboMultiplier) comboMultiplier.textContent = '×1.0';
+                    if (comboCounter) comboCounter.classList.remove('active');
+                }, 3000);
             }
-            if (gameState.comboCount === 10) {
-                showAchievement('Combo Master', '10x Combo! ⚡', 500);
+
+            if (gameState.comboCount === 5 && window.game) {
+                window.game.unlockAchievement('combo-starter', 'Combo Starter', '5x Combo! 🔥', 200);
             }
-            if (gameState.comboCount === 20) {
-                showAchievement('Combo Legend', '20x Combo! 💥', 1000);
+            if (gameState.comboCount === 10 && window.game) {
+                // Epic milestone celebration for 10x combo
+                if (typeof window.game.triggerMilestoneCelebration === 'function') {
+                    window.game.triggerMilestoneCelebration('achievement-major', 'COMBO MASTER', '10X STREAK!');
+                }
+                window.game.unlockAchievement('combo-master', 'Combo Master', '10x Combo! ⚡', 500);
+            }
+            if (gameState.comboCount === 20 && window.game) {
+                // Epic milestone celebration for 20x combo
+                if (typeof window.game.triggerMilestoneCelebration === 'function') {
+                    window.game.triggerMilestoneCelebration('achievement-major', 'COMBO LEGEND', '20X STREAK!');
+                }
+                window.game.unlockAchievement('combo-legend', 'Combo Legend', '20x Combo! 💥', 1000);
             }
             
             // Update quests for combo tracking
@@ -716,73 +983,49 @@
             }
         }
 
-        function showScorePopup(score) {
-            const popup = document.getElementById('scorePopup');
-            const scoreNumber = document.getElementById('scoreNumber');
-            if (popup && scoreNumber) {
-                scoreNumber.textContent = '+' + score;
-                popup.classList.add('show');
-                playSound('points');
-                setTimeout(() => { popup.classList.remove('show'); }, 1200);
-            }
-        }
+        // Notification functions removed - use window.game methods directly
+        // All calls updated to use window.game.showScorePopup() and window.game.unlockAchievement()
 
-        // Queue achievement notifications to avoid overlap
-        const notifQueue = [];
-        let notifActive = false;
-        function showAchievement(title, desc, bonusPoints = 0) {
-            notifQueue.push({ title, desc, bonusPoints });
-            if (!notifActive) processNotifQueue();
-        }
-        function processNotifQueue() {
-            if (notifQueue.length === 0) { notifActive = false; return; }
-            notifActive = true;
-            const { title, desc, bonusPoints } = notifQueue.shift();
-            const notification = document.getElementById('achievementNotification');
-            const titleElement = document.getElementById('achievementTitle');
-            const descElement = document.getElementById('achievementDesc');
-            // Persist achievement if defined
-            const achievement = achievementDefinitions.find(a => a.name === title);
-            if (achievement && !gameState.achievements.includes(achievement.id)) {
-                gameState.achievements.push(achievement.id);
-                try { localStorage.setItem('dhAchievements', JSON.stringify(gameState.achievements)); } catch {}
-            }
-            if (notification && titleElement && descElement) {
-                titleElement.innerHTML = `<i class="fas fa-award"></i> ${title}`;
-                descElement.textContent = desc;
-                notification.classList.add('show');
-                playSound('achievement');
-                if (bonusPoints > 0) setTimeout(() => addPoints(bonusPoints), 500);
-                const gallery = document.getElementById('achievementGallery');
-                if (gallery && gallery.classList.contains('show')) renderAchievementGallery();
-                updateQuests();
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                    setTimeout(processNotifQueue, 300);
-                }, 4000);
-            } else {
-                setTimeout(processNotifQueue, 0);
-            }
-        }
-
+        /**
+         * Check high score - only call at milestone events (slide completion, quest completion, etc.)
+         * Only shows badge on significant improvements (10% or more, or first high score)
+         */
         function checkHighScore() {
+            // Use unified gamification system if available
+            if (window.game && typeof window.game.checkHighScore === 'function') {
+                return window.game.checkHighScore();
+            }
+            
+            // Fallback: local check for presentation-specific score
             if (gameState.totalScore > gameState.highScore) {
+                const previousHighScore = gameState.highScore;
                 gameState.highScore = gameState.totalScore;
+                
                 try {
                     localStorage.setItem('dhHighScore', gameState.highScore);
                 } catch (error) {
                     console.error('Error saving high score:', error);
                 }
                 
-                const badge = document.getElementById('highscoreBadge');
-                if (badge && !badge.classList.contains('show')) {
-                    badge.classList.add('show');
-                    playSound('highscore');
-                    setTimeout(() => {
-                        badge.classList.remove('show');
-                    }, 3000);
+                // Only show badge if significant improvement (10% or more, or first high score)
+                const significantImprovement = previousHighScore === 0 || 
+                                             (gameState.highScore - previousHighScore) >= Math.max(100, previousHighScore * 0.1);
+                
+                if (significantImprovement) {
+                    const badge = document.getElementById('highscoreBadge');
+                    if (badge && !badge.classList.contains('show')) {
+                        badge.classList.add('show');
+                        if (typeof playSound === 'function') {
+                            playSound('highscore');
+                        }
+                        setTimeout(() => {
+                            badge.classList.remove('show');
+                        }, 3000);
+                    }
+                    return true;
                 }
             }
+            return false;
         }
 
         function updateQuests() {
@@ -802,7 +1045,17 @@
                     quest1.classList.add('completed');
                     const reward = parseInt(quest1.dataset.reward) || 500;
                     addPoints(reward);
-                    showAchievement('Quest Complete!', 'Viewed all slides!', 0);
+                    
+                    // Epic milestone celebration for completing all slides
+                    if (window.game && typeof window.game.triggerMilestoneCelebration === 'function') {
+                        window.game.triggerMilestoneCelebration('quest-complete', 'DECK CONQUEROR', 'All Slides Viewed!');
+                    }
+                    
+                    if (window.game) {
+                        window.game.unlockAchievement('quest-slides-complete', 'Quest Complete!', 'Viewed all slides!', 0);
+                    }
+                    // Check high score after quest completion (milestone event)
+                    checkHighScore();
                 }
             }
 
@@ -818,7 +1071,17 @@
                     quest2.classList.add('completed');
                     const reward = parseInt(quest2.dataset.reward) || 1000;
                     addPoints(reward);
-                    showAchievement('Quest Complete!', 'Found 5 easter eggs!', 0);
+                    
+                    // Epic milestone celebration for finding easter eggs
+                    if (window.game && typeof window.game.triggerMilestoneCelebration === 'function') {
+                        window.game.triggerMilestoneCelebration('quest-complete', 'SECRET HUNTER', `Found ${eggsFound} Secrets!`);
+                    }
+                    
+                    if (window.game) {
+                        window.game.unlockAchievement('quest-eggs-complete', 'Quest Complete!', 'Found 5 easter eggs!', 0);
+                    }
+                    // Check high score after quest completion (milestone event)
+                    checkHighScore();
                 }
             }
 
@@ -850,7 +1113,17 @@
                     quest3.classList.add('completed');
                     const reward = parseInt(quest3.dataset.reward) || 750;
                     addPoints(reward);
-                    showAchievement('Quest Complete!', 'Reached 10x combo!', 0);
+                    
+                    // Epic milestone celebration for combo achievement
+                    if (window.game && typeof window.game.triggerMilestoneCelebration === 'function') {
+                        window.game.triggerMilestoneCelebration('quest-complete', 'COMBO MASTER', `${maxCombo}x COMBO STREAK!`);
+                    }
+                    
+                    if (window.game) {
+                        window.game.unlockAchievement('quest-combo-complete', 'Quest Complete!', 'Reached 10x combo!', 0);
+                    }
+                    // Check high score after quest completion (milestone event)
+                    checkHighScore();
                 }
             }
         }
@@ -887,13 +1160,15 @@
                     gameState.secretsFound.add(secret);
                     this.classList.add('found');
                     const points = parseInt(this.dataset.points) || 250;
-                    showAchievement('Secret Found!', `You discovered "${secret}"! 🎉`, points);
+                    if (window.game) {
+                        window.game.unlockAchievement(`secret-${secret}`, 'Secret Found!', `You discovered "${secret}"! 🎉`, points);
+                    }
                     createParticleBurst(e.clientX, e.clientY, 20);
                     
                     setTimeout(() => this.style.display = 'none', 600);
                     
-                    if (gameState.secretsFound.size === 15) {
-                        showAchievement('Easter Egg Hunter', 'Found ALL secrets! 🥚👑', 2000);
+                    if (gameState.secretsFound.size === 15 && window.game) {
+                        window.game.unlockAchievement('easter-egg-hunter', 'Easter Egg Hunter', 'Found ALL secrets! 🥚👑', 2000);
                     }
                 }
             });
@@ -1002,7 +1277,9 @@
         switch(type) {
             case 'multiplier':
                 gameState.comboMultiplier *= 2;
-                showAchievement('Power-Up!', '2x Points for 10 seconds! ⚡', 0);
+                if (window.game) {
+                    window.game.unlockAchievement('powerup-multiplier', 'Power-Up!', '2x Points for 10 seconds! ⚡', 0);
+                }
                 setTimeout(() => {
                     gameState.comboMultiplier /= 2;
                     gameState.powerups[type].active = false;
@@ -1016,7 +1293,9 @@
                     egg.style.animation = 'eggPulse 0.5s ease-in-out infinite';
                     egg.style.transform = 'scale(1.5)';
                 });
-                showAchievement('Power-Up!', 'Secrets revealed for 5 seconds! 👁️', 0);
+                if (window.game) {
+                    window.game.unlockAchievement('powerup-reveal', 'Power-Up!', 'Secrets revealed for 5 seconds! 👁️', 0);
+                }
                 setTimeout(() => {
                     document.querySelectorAll('.easter-egg:not(.found)').forEach(egg => {
                         egg.style.animation = '';
@@ -1030,7 +1309,9 @@
 
             case 'freeze':
                 clearTimeout(gameState.comboTimer);
-                showAchievement('Power-Up!', 'Combo timer frozen for 10 seconds! ❄️', 0);
+                if (window.game) {
+                    window.game.unlockAchievement('powerup-freeze', 'Power-Up!', 'Combo timer frozen for 10 seconds! ❄️', 0);
+                }
                 setTimeout(() => {
                     gameState.powerups[type].active = false;
                     powerup.classList.remove('active');
@@ -1049,12 +1330,28 @@
     // Mini-game
     function initMinigame() {
         const startBtn = document.getElementById('startMinigame');
-        const overlay = document.getElementById('minigameOverlay');
-        const closeBtn = document.getElementById('closeMinigame');
+        const modal = document.getElementById('minigameModal');
         const canvas = document.getElementById('minigameCanvas');
+        
+        // Early return if required elements are missing
+        if (!startBtn || !modal || !canvas) {
+            console.warn('present.js: Minigame elements not found, skipping minigame initialization');
+            return;
+        }
+        
         const ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.warn('present.js: Canvas 2D context not available, skipping minigame initialization');
+            return;
+        }
+        
         const scoreDisplay = document.getElementById('minigameScore');
         const timeDisplay = document.getElementById('minigameTime');
+        
+        if (!scoreDisplay || !timeDisplay) {
+            console.warn('present.js: Minigame display elements not found, skipping minigame initialization');
+            return;
+        }
 
         let minigameActive = false;
         let minigameScore = 0;
@@ -1062,13 +1359,29 @@
         let targets = [];
 
         startBtn.addEventListener('click', () => {
-            openModal(overlay);
+            // Use DaisyUI dialog API
+            if (typeof modal.showModal === 'function') {
+                modal.showModal();
+            } else {
+                // Fallback for browsers without dialog API
+                modal.classList.add('modal-open');
+                document.body.classList.add('modal-open');
+            }
             startMinigame();
         });
 
-        closeBtn.addEventListener('click', () => {
-            closeModal(overlay);
+        // Handle modal close events (DaisyUI uses form method="dialog")
+        modal.addEventListener('close', () => {
             minigameActive = false;
+            // Clean up any active intervals/animations
+            if (window.minigameTimer) {
+                clearInterval(window.minigameTimer);
+                window.minigameTimer = null;
+            }
+            if (window.minigameGameLoop) {
+                clearInterval(window.minigameGameLoop);
+                window.minigameGameLoop = null;
+            }
         });
 
         canvas.addEventListener('click', (e) => {
@@ -1090,6 +1403,14 @@
         });
 
         function startMinigame() {
+            // Clear any existing intervals first
+            if (window.minigameTimer) {
+                clearInterval(window.minigameTimer);
+            }
+            if (window.minigameGameLoop) {
+                clearInterval(window.minigameGameLoop);
+            }
+            
             minigameActive = true;
             minigameScore = 0;
             minigameTime = 30;
@@ -1097,21 +1418,40 @@
             scoreDisplay.textContent = '0';
             timeDisplay.textContent = '30';
 
-            const timer = setInterval(() => {
+            window.minigameTimer = setInterval(() => {
                 minigameTime--;
                 timeDisplay.textContent = minigameTime;
 
                 if (minigameTime <= 0) {
-                    clearInterval(timer);
-                    clearInterval(gameLoop);
+                    clearInterval(window.minigameTimer);
+                    if (window.minigameGameLoop) {
+                        clearInterval(window.minigameGameLoop);
+                        window.minigameGameLoop = null;
+                    }
+                    window.minigameTimer = null;
                     minigameActive = false;
                     const bonus = minigameScore * 10;
-                    showAchievement('Mini-Game Complete!', `Earned ${bonus} bonus points! 🎮`, bonus);
-                    setTimeout(() => closeModal(overlay), 3000);
+                    if (window.game) {
+                        window.game.unlockAchievement('minigame-complete', 'Mini-Game Complete!', `Earned ${bonus} bonus points! 🎮`, bonus);
+                    }
+                    // Close modal after showing results
+                    setTimeout(() => {
+                        if (typeof modal.close === 'function') {
+                            modal.close();
+                        } else {
+                            modal.classList.remove('modal-open');
+                            document.body.classList.remove('modal-open');
+                        }
+                    }, 3000);
                 }
             }, 1000);
 
-            const gameLoop = setInterval(() => {
+            window.minigameGameLoop = setInterval(() => {
+                if (!minigameActive) {
+                    clearInterval(window.minigameGameLoop);
+                    window.minigameGameLoop = null;
+                    return;
+                }
                 if (targets.length < 5 && Math.random() < 0.3) {
                     targets.push({
                         x: Math.random() * (canvas.width - 40) + 20,
@@ -1178,24 +1518,28 @@
         setTimeout(() => wave.remove(), 500);
     }
 
-    // Start
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
+    // Wait for CONFIG before initializing
+    function readyInit() {
+        if (!window.CONFIG_READY) {
+            window.addEventListener('configReady', readyInit, { once: true });
+            return;
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     }
     
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => {
-        if (window.powerupCooldownInterval) {
-            clearInterval(window.powerupCooldownInterval);
-        }
-    });
-})();
     // Scroll-based effects for overflow scenarios and long slides
     function initScrollEffects() {
+        // Use shared utility for animation initialization
+        if (window.DHInit && typeof window.DHInit.initAnimations === 'function') {
+            window.DHInit.initAnimations();
+        }
+        
         if (prefersReduced || !window.gsap || !window.ScrollTrigger) return;
-        gsap.registerPlugin(ScrollTrigger);
         const targets = [
             '.slide .slide-content h2',
             '.slide .steam-widget',
@@ -1222,3 +1566,26 @@
             });
         });
     }
+    
+    if (window.CONFIG_READY) {
+        readyInit();
+    } else {
+        window.addEventListener('configReady', readyInit, { once: true });
+    }
+    
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        if (window.powerupCooldownInterval) {
+            clearInterval(window.powerupCooldownInterval);
+            window.powerupCooldownInterval = null;
+        }
+        if (window.minigameTimer) {
+            clearInterval(window.minigameTimer);
+            window.minigameTimer = null;
+        }
+        if (window.minigameGameLoop) {
+            clearInterval(window.minigameGameLoop);
+            window.minigameGameLoop = null;
+        }
+    });
+})();

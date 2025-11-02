@@ -3,83 +3,1245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Hazard — Immersive Pitch Deck</title>
-    <meta name="description" content="Digital Hazard is an interactive pitch deck with playable game prototype, cinematic video, and dynamic 3D storytelling.">
-    <meta name="color-scheme" content="dark light">
+    <title>Digital Hazard Studio | AI Game Generation</title>
+    <meta name="theme-color" content="#020617">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Digital Hazard Studio - Pioneering the future of game development with cutting-edge AI technology">
+    
+    <!-- Tailwind CSS 4 (Play CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- DaisyUI 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
+    <!-- Unified Styles -->
+    <link rel="stylesheet" href="css/unified.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-3hF6kZcpKjcUGZr1s+bsrzu5iYle0xleqrs9jwELyhl725LLJoPLD114F8CbnMD4HzyBbs6k8ZZrPmSu2Mz/vw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Animate.css for enhanced animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- AOS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+    <!-- Particles.js for particle effects -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.50/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-3hF6kZcpKjcUGZr1s+bsrzu5iYle0xleqrs9jwELyhl725LLJoPLD114F8CbnMD4HzyBbs6k8ZZrPmSu2Mz/vw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <noscript>
+        <style>
+            html { visibility: visible !important; opacity: 1 !important; }
+        </style>
+    </noscript>
+    
+    <style type="text/tailwindcss">
+        @theme {
+            --color-primary: #f97316;
+            --color-secondary: #38bdf8;
+            --color-accent: #facc15;
+            --font-display: 'Rajdhani', 'Inter', system-ui, sans-serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+        }
+
+        :root {
+            --z-background: -20;
+            --z-gradient: -10;
+            --z-loading: 60;
+            --z-navbar: 50;
+            --z-hud: 40;
+            --layout-max: 90rem;
+            --section-gap: clamp(4rem, 10vw, 6.5rem);
+            --card-backdrop: color-mix(in srgb, hsl(var(--b2)) 78%, transparent);
+        }
+
+        @layer base {
+            html {
+                color-scheme: dark;
+            }
+            body {
+                min-height: 100vh;
+                font-family: var(--font-body);
+                background-color: hsl(var(--b1));
+                color: hsl(var(--bc));
+            }
+            body.dh-body {
+                font-family: var(--font-body);
+            }
+            h1, h2, h3, h4, h5, h6, .font-display {
+                font-family: var(--font-display);
+                letter-spacing: 0.04em;
+            }
+            [data-theme="hazard"] {
+                --p: 24 94% 55%;
+                --pc: 0 0% 100%;
+                --pf: 24 95% 46%;
+                --s: 199 94% 62%;
+                --sc: 199 100% 12%;
+                --sf: 199 94% 54%;
+                --a: 48 95% 64%;
+                --ac: 48 98% 16%;
+                --af: 48 96% 55%;
+                --n: 219 45% 14%;
+                --nc: 213 32% 88%;
+                --nf: 219 45% 10%;
+                --b1: 222 47% 10%;
+                --b2: 222 47% 8%;
+                --b3: 222 47% 6%;
+                --bc: 213 32% 90%;
+                --in: 199 90% 60%;
+                --inc: 199 100% 10%;
+                --su: 142 71% 45%;
+                --suc: 142 100% 12%;
+                --wa: 45 95% 63%;
+                --wac: 45 100% 18%;
+                --er: 9 92% 61%;
+                --erc: 9 100% 15%;
+            }
+        }
+
+        @layer components {
+            .section-spacing {
+                padding-block: var(--section-gap);
+            }
+            .section-content {
+                width: min(100%, var(--layout-max));
+                margin-inline: auto;
+                padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+            }
+            .section-title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: clamp(2.5rem, 6vw, 3.75rem);
+                line-height: 1.1;
+                letter-spacing: -0.02em;
+                text-align: center;
+                margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+                background-image: linear-gradient(90deg, color-mix(in srgb, hsl(var(--p)) 90%, transparent), color-mix(in srgb, hsl(var(--s)) 80%, transparent), color-mix(in srgb, hsl(var(--a)) 85%, transparent));
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            .section-subtitle {
+                font-size: clamp(1.25rem, 3vw, 2rem);
+                line-height: 1.5;
+                text-align: center;
+                color: hsl(var(--bc) / 0.78);
+                margin-bottom: clamp(1.25rem, 3vw, 2rem);
+            }
+            .section-description {
+                max-width: 60ch;
+                margin-inline: auto;
+                font-size: clamp(1rem, 2.4vw, 1.125rem);
+                color: hsl(var(--bc) / 0.72);
+            }
+            .section-grid {
+                display: grid;
+                gap: clamp(1.5rem, 3vw, 2.75rem);
+            }
+            .section-scroll-in {
+                scroll-margin-top: clamp(5rem, 12vw, 6.5rem);
+            }
+            .dh-section {
+                position: relative;
+                isolation: isolate;
+            }
+            .dh-card {
+                background-color: var(--card-backdrop);
+                backdrop-filter: blur(22px);
+                border-radius: 1.5rem;
+                border: 1px solid hsl(var(--p) / 0.2);
+                box-shadow: 0 30px 60px -35px color-mix(in srgb, hsl(var(--p)) 35%, transparent);
+            }
+            .hud-card {
+                background-color: color-mix(in srgb, hsl(var(--b1)) 88%, transparent);
+                border: 1px solid hsl(var(--p) / 0.25);
+            }
+        }
+
+        @layer utilities {
+            .z-background { z-index: var(--z-background); }
+            .z-loading { z-index: var(--z-loading); }
+            .hud-layer { z-index: var(--z-hud); }
+            .dh-gradient {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                background:
+                    radial-gradient(60% 75% at 20% 20%, color-mix(in srgb, hsl(var(--p)) 45%, transparent) 0%, transparent 70%),
+                    radial-gradient(50% 60% at 80% 30%, color-mix(in srgb, hsl(var(--s)) 40%, transparent) 0%, transparent 75%),
+                    radial-gradient(70% 80% at 50% 80%, color-mix(in srgb, hsl(var(--a)) 35%, transparent) 0%, transparent 85%);
+                opacity: 0.45;
+                z-index: var(--z-gradient);
+            }
+            .glass-panel {
+                backdrop-filter: blur(20px);
+                background-color: color-mix(in srgb, hsl(var(--b2)) 70%, transparent);
+            }
+            .hud-card {
+                background-color: color-mix(in srgb, hsl(var(--b1)) 85%, transparent);
+                box-shadow: 0 20px 50px -25px color-mix(in srgb, hsl(var(--p)) 35%, transparent);
+            }
+            .panel-blur {
+                background-color: var(--card-backdrop);
+                backdrop-filter: blur(24px);
+                border-radius: 1.25rem;
+                box-shadow: 0 24px 48px -28px color-mix(in srgb, hsl(var(--p)) 32%, transparent);
+            }
+            .skip-link {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border: 0;
+            }
+            .skip-link:focus {
+                position: fixed;
+                width: auto;
+                height: auto;
+                clip: auto;
+            }
+            .text-gradient {
+                background-image: linear-gradient(90deg, color-mix(in srgb, hsl(var(--p)) 90%, transparent), color-mix(in srgb, hsl(var(--s)) 80%, transparent), color-mix(in srgb, hsl(var(--a)) 85%, transparent));
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            .neon-text {
+                text-shadow:
+                    0 0 12px color-mix(in srgb, hsl(var(--p)) 60%, transparent),
+                    0 0 30px color-mix(in srgb, hsl(var(--s)) 45%, transparent);
+            }
+            .interactive-badge {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                box-shadow: 0 24px 50px -25px color-mix(in srgb, hsl(var(--p)) 40%, transparent);
+            }
+            .interactive-badge:focus-visible {
+                outline: 2px solid hsl(var(--p));
+                outline-offset: 4px;
+                transform: translateY(-2px);
+            }
+            .scanlines::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background-image: repeating-linear-gradient(transparent 0, transparent 2px, rgba(255,255,255,0.04) 2px, rgba(255,255,255,0.04) 4px);
+                mix-blend-mode: soft-light;
+                opacity: 0.25;
+            }
+            .crt {
+                position: relative;
+            }
+            .crt::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12), transparent 65%);
+                mix-blend-mode: screen;
+                opacity: 0.4;
+            }
+            .loading-screen {
+                background: color-mix(in srgb, hsl(var(--b1)) 88%, transparent);
+            }
+            .combo-counter {
+                filter: drop-shadow(0 12px 25px color-mix(in srgb, hsl(var(--p)) 40%, transparent));
+            }
+            .score-popup {
+                filter: drop-shadow(0 12px 32px color-mix(in srgb, hsl(var(--s)) 40%, transparent));
+            }
+            .dh-grid-auto {
+                display: grid;
+                gap: clamp(1.75rem, 4vw, 2.75rem);
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+            }
+            .badge-soft {
+                backdrop-filter: blur(14px);
+                background-color: color-mix(in srgb, hsl(var(--b3)) 70%, transparent);
+                border: 1px solid hsl(var(--p) / 0.18);
+            }
+            .panel-blur {
+                background-color: color-mix(in srgb, hsl(var(--b1)) 82%, transparent);
+                border: 1px solid hsl(var(--s) / 0.25);
+                backdrop-filter: blur(24px);
+            }
+        }
+    </style>
 </head>
-<body class="bg-base-200 text-base-content min-h-screen">
-	<div id="landing-background" class="fixed inset-0 -z-20"></div>
-    <div class="drawer lg:drawer-open min-h-screen">
-        <input id="navigation-drawer" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content flex flex-col min-h-screen">
-            <nav class="navbar bg-base-300/70 backdrop-blur-md border-b border-base-100/40 px-4 lg:px-6 sticky top-0 z-20">
-                <div class="navbar-start gap-2">
-                    <label for="navigation-drawer" class="btn btn-square btn-ghost lg:hidden" aria-label="Toggle navigation">
-                        <i class="fa-solid fa-bars"></i>
-                    </label>
-                    <span class="font-display text-xl tracking-wide">Digital Hazard</span>
+<body class="dh-body">
+    <!-- ============================================
+         PAGE STRUCTURE
+         ============================================
+         - Loading Screen
+         - Three.js Background Canvas
+         - Combo Counter (HUD)
+         - Score Popup (HUD)
+         - Game Over Modal
+         - Achievement Notification
+         - Navigation (Drawer + Header)
+         - Power-ups Container
+         - Main Content Sections:
+           * Hero (#home)
+           * About (#about)
+           * AI Engine (#engine)
+           * Project Cobalt (#cobalt)
+           * Project HazAI (#hazai)
+           * Stats (#stats)
+           * Industry (#industry)
+           * Contact (#contact)
+         ============================================ -->
+    <script>
+        window.DH_ASSET_PREFIX = '';
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
+    <script src="js/polyfills.js"></script>
+    <script src="js/main-loader.js" defer></script>
+    <a href="#main-content" class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-loading focus:bg-primary focus:text-primary-content focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg skip-link">Skip to main content</a>
+    
+    <!-- Loading Screen -->
+    <div class="fixed inset-0 flex flex-col items-center justify-center loading-screen-enhanced scanlines crt backdrop-blur-xl bg-gradient-to-br from-base-100 via-base-200 to-base-300 loading-screen" id="loadingScreen">
+        <div class="card bg-base-100/80 backdrop-blur-md shadow-2xl border border-primary/30 p-8 sm:p-12 max-w-md mx-4 rounded-2xl">
+            <div class="card-body items-center text-center gap-4">
+                <div class="loading-spinner loading-lg text-primary mb-2 loading-enhanced"></div>
+                <h2 class="text-3xl sm:text-4xl font-display font-bold loading-text-enhanced neon-text tracking-tight loading-primary">DIGITAL HAZARD</h2>
+                <p class="text-lg sm:text-xl text-base-content/80 font-semibold">Breaking the Meta</p>
+                <progress class="progress progress-primary w-full max-w-xs h-3 progress-enhanced shadow-inner" id="loadingProgress" value="0" max="100"></progress>
+                <div class="flex items-center gap-2">
+                    <span class="text-base font-mono text-primary font-bold" id="loadingPercentage">0%</span>
+                    <span class="text-sm text-base-content/60">loading...</span>
                 </div>
-                <div class="navbar-center hidden lg:flex">
-                    <ul class="menu menu-horizontal gap-2">
-                        <li><a href="#experience">Experience</a></li>
-                        <li><a href="#media">Media</a></li>
-                        <li><a href="#tech">Technology</a></li>
-                    </ul>
+                <div class="badge badge-ghost badge-sm gap-2 mt-2">
+                    <i class="fas fa-lightbulb text-warning"></i>
+                    <span id="loadingTip" class="text-xs">Click everywhere to find hidden secrets...</span>
                 </div>
-                <div class="navbar-end gap-3">
-                    <button id="theme-toggle" class="btn btn-ghost btn-sm" type="button" aria-label="Toggle theme">
-                        <i class="fa-solid fa-circle-half-stroke"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Elements -->
+    <canvas id="three-canvas" class="fixed inset-0 w-full h-full z-background"></canvas>
+    <div class="dh-gradient" aria-hidden="true"></div>
+
+    <!-- HUD Elements -->
+    <!-- Combo Counter -->
+    <div class="fixed top-1/2 right-4 sm:right-20 lg:right-4 transform -translate-y-1/2 opacity-0 transition-all duration-500 hidden sm:block scale-95 combo-counter" id="comboCounter" role="status" aria-live="polite" aria-label="Combo counter">
+        <div class="card bg-primary text-primary-content shadow-2xl border-2 border-primary-focus p-4 sm:p-5 w-24 sm:w-28 lg:w-32 hover:scale-105 transition-transform duration-300">
+            <div class="card-body items-center text-center gap-2 p-0">
+                <div class="text-3xl sm:text-5xl font-bold" id="comboNumber" aria-label="Current combo">0</div>
+                <div class="text-xs sm:text-sm uppercase font-semibold tracking-wider">COMBO</div>
+                <div class="badge badge-sm badge-ghost badge-outline text-xs" id="comboMultiplier" aria-label="Combo multiplier">&times;1.0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Score Popup -->
+    <div class="fixed pointer-events-none opacity-0 scale-0 transition-all duration-300" id="scorePopup" role="status" aria-live="polite" aria-atomic="true" class="score-popup">
+        <div class="badge badge-success badge-md sm:badge-lg">
+            <span id="scoreNumber" class="text-sm sm:text-base">+100</span>
+        </div>
+    </div>
+
+    <!-- Modals and Dialogs -->
+    <!-- Game Over Modal -->
+    <dialog id="gameOverModal" class="modal" role="dialog" aria-labelledby="gameOverTitle" aria-modal="true">
+        <div class="modal-box bg-base-100 border-2 border-error/50 shadow-2xl max-w-md">
+            <h3 class="font-bold text-3xl text-error mb-4 flex items-center gap-2" id="gameOverTitle">
+                <i class="fas fa-skull" aria-hidden="true"></i>
+                GAME OVER
+            </h3>
+            <div class="space-y-4">
+                <div class="stats stats-vertical sm:stats-horizontal shadow w-full">
+                    <div class="stat">
+                        <div class="stat-title text-base-content/70">Final Score</div>
+                        <div class="stat-value text-primary" id="gameOverScore">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-title text-base-content/70">Level Reached</div>
+                        <div class="stat-value text-accent" id="gameOverLevel">1</div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="flex gap-2 justify-center">
+                    <button class="btn btn-primary btn-lg" onclick="if(window.survivalGame) window.survivalGame.restartGame();" aria-label="Play Again">
+                        <i class="fas fa-redo mr-2" aria-hidden="true"></i>
+                        Play Again
                     </button>
-                    <a href="present.html" class="btn btn-primary btn-sm">Launch Deck</a>
+                    <form method="dialog">
+                        <button class="btn btn-ghost btn-lg" aria-label="Close">Close</button>
+                    </form>
+    </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button aria-label="Close game over modal">close</button>
+        </form>
+    </dialog>
+
+    <!-- Achievement Notification -->
+    <div class="toast toast-top toast-end w-full max-w-[90vw] sm:max-w-md" id="achievementNotification" role="alert" aria-live="assertive">
+        <div class="alert alert-success shadow-2xl border-2 border-success/50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div class="flex-1 min-w-0">
+                <h4 class="font-bold text-sm sm:text-base uppercase tracking-wide truncate" id="achievementTitle">Achievement Unlocked!</h4>
+                <p class="text-xs sm:text-sm opacity-90 truncate" id="achievementDesc">You've discovered something special</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation and Layout -->
+    <div class="site-shell relative min-h-screen flex flex-col">
+    <div class="drawer drawer-end lg:drawer-open dh-app">
+        <input id="drawer-toggle" type="checkbox" class="drawer-toggle" aria-label="Toggle navigation drawer">
+            <div class="drawer-content flex flex-col min-h-screen">
+                <!-- Primary Navigation -->
+                <header class="fixed inset-x-0 top-0 bg-base-100/90 backdrop-blur-xl border-b border-primary/20 shadow-lg" style="z-index: var(--z-navbar);">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <nav class="flex items-center justify-between gap-4" style="min-height: var(--navbar-height);">
+                            <div class="flex items-center gap-3">
+                    <label for="drawer-toggle" class="btn btn-square btn-ghost lg:hidden hover:bg-primary/10 transition-colors" aria-label="Open navigation menu">
+                        <i class="fas fa-bars text-xl" aria-hidden="true"></i>
+                    </label>
+                                <a href="#home" class="btn btn-ghost text-xl font-display font-bold hover:scale-105 transition-transform group px-2" aria-label="Digital Hazard Studio Home">
+                        <i class="fas fa-exclamation-triangle text-primary mr-2 group-hover:rotate-12 transition-transform" aria-hidden="true"></i>
+                        <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Digital Hazard</span>
+                    </a>
+                        </div>
+                            <div class="hidden lg:flex items-center gap-1">
+                                <a href="#home" class="px-3 py-2 rounded-lg font-medium transition-all hover:text-primary hover:bg-primary/10" aria-label="Navigate to Home section">Home</a>
+                                <a href="#about" class="px-3 py-2 rounded-lg font-medium transition-all hover:text-primary hover:bg-primary/10" aria-label="Navigate to About section">About</a>
+                                <a href="#engine" class="px-3 py-2 rounded-lg font-medium transition-all hover:text-primary hover:bg-primary/10" aria-label="Navigate to AI Engine section">AI Engine</a>
+                                <a href="#cobalt" class="px-3 py-2 rounded-lg font-medium transition-all hover:text-primary hover:bg-primary/10" aria-label="Navigate to Project Cobalt section">Project Cobalt</a>
+                                <a href="#stats" class="px-3 py-2 rounded-lg font-medium transition-all hover:text-primary hover:bg-primary/10" aria-label="Navigate to Stats section">Stats</a>
+                                <a href="#industry" class="px-3 py-2 rounded-lg font-medium transition-all hover:text-primary hover:bg-primary/10" aria-label="Navigate to Industry section">Industry</a>
+                                <a href="#contact" class="px-3 py-2 rounded-lg font-medium transition-all hover:text-primary hover:bg-primary/10" aria-label="Navigate to Contact section">Contact</a>
+                    </div>
+                            <div class="flex items-center gap-2">
+                        <a href="present.html" class="btn btn-primary btn-sm shadow-lg hover:shadow-xl hover:shadow-primary/50 hover:scale-105 transition-all rounded-lg group" aria-label="View interactive pitch deck">
+                            <i class="fas fa-presentation mr-2 group-hover:rotate-12 transition-transform" aria-hidden="true"></i>
+                            <span class="font-semibold">Pitch Deck</span>
+                        </a>
+                    <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="btn btn-ghost btn-circle hover:bg-primary/10 hover:scale-110 transition-all tooltip tooltip-bottom swap swap-rotate" aria-label="Change theme" data-tip="Change Theme">
+                            <input type="checkbox" />
+                            <i class="fas fa-palette text-lg swap-on" aria-hidden="true"></i>
+                            <i class="fas fa-paint-roller text-lg swap-off" aria-hidden="true"></i>
+                        </label>
+                        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-200/95 backdrop-blur-lg rounded-2xl w-52 p-3 shadow-2xl border-2 border-primary/20 dropdown-custom">
+                            <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-ghost justify-start hover:bg-primary/20 rounded-lg font-medium" aria-label="Hazard" value="hazard" checked/></li>
+                            <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-ghost justify-start hover:bg-primary/20 rounded-lg font-medium" aria-label="Dark" value="dark"/></li>
+                            <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-ghost justify-start hover:bg-primary/20 rounded-lg font-medium" aria-label="Cyberpunk" value="cyberpunk"/></li>
+                            <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-ghost justify-start hover:bg-primary/20 rounded-lg font-medium" aria-label="Synthwave" value="synthwave"/></li>
+                        </ul>
+                    </div>
+                                <div class="dropdown dropdown-end lg:hidden">
+                                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                                    </div>
+                                    <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow-lg border border-base-300 dropdown-custom" role="menu">
+                                        <li role="menuitem"><a href="#home" aria-label="Navigate to Home section">Home</a></li>
+                                        <li role="menuitem"><a href="#about" aria-label="Navigate to About section">About</a></li>
+                                        <li role="menuitem"><a href="#engine" aria-label="Navigate to AI Engine section">AI Engine</a></li>
+                                        <li role="menuitem"><a href="#cobalt" aria-label="Navigate to Project Cobalt section">Project Cobalt</a></li>
+                                        <li role="menuitem"><a href="#stats" aria-label="Navigate to Stats section">Stats</a></li>
+                                        <li role="menuitem"><a href="#industry" aria-label="Navigate to Industry section">Industry</a></li>
+                                        <li role="menuitem"><a href="#contact" aria-label="Navigate to Contact section">Contact</a></li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
-
-            <main class="flex-1 px-4 sm:px-8 lg:px-16 py-12 space-y-20">
-                <section class="hero min-h-[60vh] rounded-3xl bg-base-100/70 backdrop-blur-xl shadow-2xl border border-base-content/10" id="hero">
-                    <div class="hero-content flex-col lg:flex-row gap-12">
-                        <div class="space-y-6 max-w-xl">
-                            <span class="badge badge-outline badge-lg badge-primary/80 uppercase tracking-widest">Project Cobalt</span>
-                            <h1 class="text-5xl font-display font-bold leading-tight">An interactive story that breaks the pitch deck mold.</h1>
-                            <p class="text-lg text-base-content/80 leading-relaxed">Navigate a living presentation artboard where investors can play, explore, and connect with the vision behind Digital Hazard Studio. The journey blends immersive slides, an original arcade vignette, and a cinematic trailer.</p>
-                            <div class="flex flex-wrap gap-4">
-                                <a href="present.html" class="btn btn-primary btn-lg gap-2">
-                                    <i class="fa-solid fa-rocket"></i>
-                                    Enter Presentation
+                    </div>
+                </header>
+            <div class="fixed bottom-4 right-4 flex flex-col gap-2 z-50 animate__animated animate__fadeInRight" id="powerupContainer">
+                <button class="btn btn-circle btn-primary btn-lg shadow-xl relative tooltip tooltip-left hover:animate__animated hover:animate__pulse" id="powerup1" title="Meta Breaker: 2x Points Multiplier" data-type="multiplier" aria-label="Meta Breaker Power-up" data-tip="Meta Breaker: 2x Points">
+                    <i class="fas fa-bolt text-2xl"></i>
+                    <div class="badge badge-xs badge-error absolute -top-1 -right-1" id="powerup1Cooldown" style="display: none;">3</div>
+                </button>
+                <button class="btn btn-circle btn-secondary btn-lg shadow-xl relative tooltip tooltip-left hover:animate__animated hover:animate__pulse" id="powerup2" title="Secret Hunter: Reveal Hidden Easter Eggs" data-type="reveal" aria-label="Secret Hunter Power-up" data-tip="Secret Hunter: Reveal Secrets">
+                    <i class="fas fa-eye text-2xl"></i>
+                    <div class="badge badge-xs badge-error absolute -top-1 -right-1" id="powerup2Cooldown" style="display: none;">3</div>
+                </button>
+                <button class="btn btn-circle btn-accent btn-lg shadow-xl relative tooltip tooltip-left hover:animate__animated hover:animate__pulse" id="powerup3" title="Time Breaker: Freeze Combo Timer" data-type="freeze" aria-label="Time Breaker Power-up" data-tip="Time Breaker: Freeze Timer">
+                    <i class="fas fa-clock text-2xl"></i>
+                    <div class="badge badge-xs badge-error absolute -top-1 -right-1" id="powerup3Cooldown" style="display: none;">3</div>
+                </button>
+            </div>
+            <!-- Main Content -->
+            <main id="main-content" class="site-main flex-1 navbar-spacing" role="main">
+                <!-- Breadcrumbs Navigation -->
+                <div class="bg-base-200/50 backdrop-blur-sm border-b border-base-300/50 sticky top-16 z-30" style="margin-top: 4rem;">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                        <div class="breadcrumbs text-sm">
+                            <ul>
+                                <li><a href="#home" class="tooltip tooltip-bottom" data-tip="Home"><i class="fas fa-home mr-1"></i>Home</a></li>
+                                <li><a href="#about" class="tooltip tooltip-bottom" data-tip="About"><i class="fas fa-info-circle mr-1"></i>About</a></li>
+                                <li><a href="#engine" class="tooltip tooltip-bottom" data-tip="AI Engine"><i class="fas fa-brain mr-1"></i>Engine</a></li>
+                                <li><a href="#cobalt" class="tooltip tooltip-bottom" data-tip="Project Cobalt"><i class="fas fa-gamepad mr-1"></i>Cobalt</a></li>
+                                <li><a href="#stats" class="tooltip tooltip-bottom" data-tip="Statistics"><i class="fas fa-chart-bar mr-1"></i>Stats</a></li>
+                                <li><a href="#industry" class="tooltip tooltip-bottom" data-tip="Industry Insights"><i class="fas fa-industry mr-1"></i>Industry</a></li>
+                                <li><a href="#contact" class="tooltip tooltip-bottom" data-tip="Contact Us"><i class="fas fa-envelope mr-1"></i>Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="site-main-inner flex flex-col gap-24">
+                <!-- Hero Section -->
+                <section id="home" class="dh-section dh-hero hero min-h-screen relative overflow-hidden bg-gradient-to-b from-base-100 via-base-200/50 to-base-100">
+                    <div class="hero-overlay bg-gradient-to-br from-primary/5 via-transparent to-secondary/5"></div>
+                    <div class="hero-content w-full text-base-content relative z-10">
+                            <div class="section-content py-12 lg:py-16">
+                            <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-12 items-center">
+                                <div class="hero-copy flex flex-col gap-6 items-center lg:items-start text-center lg:text-left">
+                            <div class="inline-flex">
+                                        <div class="badge badge-primary badge-soft badge-lg gap-2 text-base sm:text-lg px-6 py-4 cursor-pointer hover:scale-110 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 interactive-badge animate-pulse-smooth rounded-full" data-achievement="hero-unlocked" data-points="100" tabindex="0" role="button" aria-label="Achievement Unlocked - Click to track progress">
+                                    <i class="fas fa-trophy"></i>
+                                    <span class="font-bold">ACHIEVEMENT UNLOCKED</span>
+                                </div>
+                            </div>
+                                    <h1 onclick="window.game?.foundEasterEgg?.('hero-title', 'Meta Breaker', 200)" class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-gradient leading-[1.1] tracking-tight drop-shadow-2xl">
+                                Breaking the Meta
+                            </h1>
+                                    <div class="flex justify-center lg:justify-start gap-1 text-3xl sm:text-4xl lg:text-5xl animate-pulse-slow">
+                                <span class="text-accent drop-shadow-glow">★</span>
+                                <span class="text-accent drop-shadow-glow">★</span>
+                                <span class="text-accent drop-shadow-glow">★</span>
+                                <span class="text-accent drop-shadow-glow">★</span>
+                                <span class="text-accent drop-shadow-glow">★</span>
+                            </div>
+                                    <div class="w-full grid gap-6">
+                                <div class="card bg-gradient-to-br from-error/10 to-error/5 border-2 border-error/30 hover:border-error/50 shadow-lg hover:shadow-error/20 transition-all duration-300 rounded-2xl">
+                                    <div class="card-body p-5 lg:p-7">
+                                        <h3 class="text-lg md:text-xl font-bold mb-4 text-error flex items-center gap-2">
+                                            <i class="fas fa-times-circle"></i>
+                                            <span>While others follow the industry playbook:</span>
+                                        </h3>
+                                        <ul class="space-y-3 text-base md:text-lg">
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/50 transition-colors">
+                                                <span class="text-error text-2xl flex-shrink-0">✗</span>
+                                                <span class="manifesto-fragment neon-text font-medium manifesto-error" data-fragment="1">Spend $200M+ per AAA game</span>
+                                            </li>
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/50 transition-colors">
+                                                <span class="text-error text-2xl flex-shrink-0">✗</span>
+                                                <span class="manifesto-fragment neon-text font-medium manifesto-error" data-fragment="2">Use AI tools that 87% of studios hate</span>
+                                            </li>
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/50 transition-colors">
+                                                <span class="text-error text-2xl flex-shrink-0">✗</span>
+                                                <span class="manifesto-fragment neon-text font-medium manifesto-error" data-fragment="3">Wait for VC funding that collapsed 85%</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/60 hover:border-primary/80 shadow-xl hover:shadow-primary/30 transition-all duration-300 rounded-2xl">
+                                    <div class="card-body p-5 lg:p-7">
+                                        <h3 class="text-lg md:text-xl font-bold mb-4 text-primary flex items-center gap-2">
+                                            <i class="fas fa-trophy"></i>
+                                            <span>We unlocked a different achievement:</span>
+                                        </h3>
+                                        <ul class="space-y-3 text-base md:text-lg">
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/30 transition-colors">
+                                                <span class="text-success text-2xl flex-shrink-0">✓</span>
+                                                <span class="text-primary font-bold neon-text">Build two revolutionary projects with veterans</span>
+                                            </li>
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/30 transition-colors">
+                                                <span class="text-success text-2xl flex-shrink-0">✓</span>
+                                                <span class="text-primary font-bold neon-text">Create AI tools that artists actually want</span>
+                                            </li>
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/30 transition-colors">
+                                                <span class="text-success text-2xl flex-shrink-0">✓</span>
+                                                <span class="text-primary font-bold neon-text">Bootstrapped. Profitable. Game-changing.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                                    <div class="space-y-2">
+                                <p class="text-3xl md:text-4xl lg:text-5xl font-display font-black text-gradient drop-shadow-lg">
+                                    Digital Hazard Studio
+                                </p>
+                                <p class="text-xl md:text-2xl font-bold text-base-content/90 italic">
+                                    We don't respawn the same failures.
+                                </p>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-stretch sm:items-center">
+                                <a href="#cobalt" class="btn btn-primary btn-lg shadow-xl hover:shadow-2xl hover:shadow-primary/50 btn-enhanced interactive-element group transition-all duration-300 hover:scale-105 rounded-xl tooltip tooltip-top" aria-label="Skip Tutorial" data-tip="Jump to Project Cobalt">
+                                    <i class="fas fa-gamepad mr-2 group-hover:animate-pulse" aria-hidden="true"></i>
+                                    <span class="font-bold">Skip Tutorial</span>
+                                    <i class="fas fa-forward ml-2" aria-hidden="true"></i>
                                 </a>
-                                <button id="open-game" class="btn btn-outline btn-lg gap-2" type="button">
-                                    <i class="fa-solid fa-gamepad"></i>
-                                    Play Arcade Preview
-                                </button>
+                                <a href="present.html" class="btn btn-outline btn-primary btn-lg shadow-lg hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 group rounded-xl tooltip tooltip-top" aria-label="View interactive pitch deck" data-tip="Interactive Presentation">
+                                    <i class="fas fa-presentation mr-2 group-hover:rotate-12 transition-transform" aria-hidden="true"></i>
+                                    <span class="font-bold">View Pitch Deck</span>
+                                </a>
                             </div>
                         </div>
-                        <div class="grid gap-4">
-                            <div class="stats shadow-lg bg-base-200/70 text-base-content">
-                                <div class="stat">
-                                    <div class="stat-title">Playable Minutes</div>
-                                    <div class="stat-value text-primary">05:00</div>
-                                    <div class="stat-desc">Curated narrative flow</div>
-                                </div>
-                                <div class="stat">
-                                    <div class="stat-title">Interactive Scenes</div>
-                                    <div class="stat-value text-secondary">12</div>
-                                    <div class="stat-desc">Slides, mini-game, AR bridge</div>
+                                <div class="hero-experience relative w-full max-w-2xl mx-auto">
+                            <div class="absolute -left-8 top-1/2 -translate-y-1/2 hidden lg:block animate-bounce-horizontal z-20">
+                                <div class="flex flex-col items-center gap-2">
+                                    <div class="badge badge-primary badge-soft badge-lg animate-pulse">PLAY NOW</div>
+                                    <i class="fas fa-arrow-right text-4xl text-primary animate-pulse" aria-hidden="true"></i>
                                 </div>
                             </div>
-                            <div class="card bg-base-200/80 border border-base-content/10 shadow-md">
+                                    <div class="card panel-blur border border-primary/50 hover:border-primary/70 shadow-2xl hover:shadow-primary/35 game-throw-in relative overflow-visible w-full transition-all duration-500 group rounded-2xl">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 rounded-2xl blur-2xl animate-pulse-slow opacity-75 group-hover:opacity-100 -z-10 transition-opacity"></div>
+                                <div class="card-body p-4 sm:p-6 lg:p-8 relative z-10 w-full">
+                                    <div class="flex justify-center mb-4">
+                                        <div class="badge badge-primary badge-soft badge-lg gap-2 shadow-lg px-6 py-4 text-base font-bold rounded-full animate-pulse-smooth">
+                                            <i class="fas fa-gamepad text-lg" aria-hidden="true"></i>
+                                            <span>SURVIVAL GAME</span>
+                                        </div>
+                                    </div>
+                                    <div class="demo-canvas-container relative w-full aspect-video bg-gradient-to-br from-base-300/70 to-base-200/70 rounded-2xl flex items-center justify-center overflow-hidden group-hover:scale-[1.02] transition-transform duration-300 border-2 border-primary/20">
+                                        <div class="text-center p-6">
+                                            <i class="fas fa-gamepad text-7xl sm:text-8xl text-primary/60 mb-4 animate-pulse-slow drop-shadow-glow" aria-hidden="true"></i>
+                                            <p class="text-xl sm:text-2xl font-bold text-base-content/80 mb-2">Ready to Play?</p>
+                                            <p class="text-sm sm:text-base text-base-content/60">Click the button below to start</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-center mt-6">
+                                        <button class="btn btn-primary btn-lg gap-3 shadow-2xl hover:shadow-primary/60 btn-enhanced interactive-element group/btn transition-all duration-300 hover:scale-110 rounded-2xl px-8 tooltip tooltip-top animate__animated animate__heartBeat animate__delay-1s" onclick="if(document.getElementById('gameModal')) { document.getElementById('gameModal').showModal(); }" aria-label="Open game in modal" data-tip="Play the Demo Game Now!">
+                                                    <i class="fas fa-play mr-1 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
+                                                    <span class="font-bold">Launch Survival Mode</span>
+                                                    <i class="fas fa-arrow-up-right-from-square ml-1 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                        </div>
+                                        </div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                                        <div class="card panel-blur border border-primary/30 shadow-lg hover:border-primary/60 transition-colors">
+                                            <div class="card-body p-4 gap-3">
+                                                <div class="badge badge-primary badge-sm gap-1 uppercase tracking-wide">
+                                                    <i class="fas fa-bolt" aria-hidden="true"></i>
+                                                    Instant Play
+                                        </div>
+                                                <h4 class="font-bold text-lg">No Install Required</h4>
+                                                <p class="text-sm text-base-content/70">Loads directly into a modal so you can jump into the prototype without leaving the site.</p>
+                                    </div>
+                                </div>
+                                        <div class="card panel-blur border border-secondary/30 shadow-lg hover:border-secondary/60 transition-colors">
+                                            <div class="card-body p-4 gap-3">
+                                                <div class="badge badge-secondary badge-sm gap-1 uppercase tracking-wide">
+                                                    <i class="fas fa-trophy" aria-hidden="true"></i>
+                                                    Gamified
+                            </div>
+                                                <h4 class="font-bold text-lg">Achievement Ready</h4>
+                                                <p class="text-sm text-base-content/70">Integrated with our gamification layer so every interaction powers the meta.</p>
+                                </div>
+                            </div>
+                        </div>
+                                </div>
+                            </div>
+                        <!-- Game Modal - Enhanced DaisyUI Pattern with Loading States -->
+                        <dialog id="gameModal" class="modal modal-bottom sm:modal-middle game-modal-enhanced game-modal" role="dialog" aria-labelledby="gameModalTitle" aria-modal="true">
+                            <div class="modal-box bg-base-100 border-2 border-primary/50 shadow-2xl w-11/12 max-w-6xl p-0 overflow-hidden" onclick="event.stopPropagation()">
+                                <div class="flex items-center justify-between p-4 sm:p-6 border-b border-base-300 bg-base-200/50">
+                                    <h3 class="font-bold text-xl sm:text-2xl flex items-center gap-2" id="gameModalTitle">
+                                        <i class="fas fa-gamepad text-primary" aria-hidden="true"></i>
+                                        <span>Survival Game</span>
+                                    </h3>
+                                    <div class="flex items-center gap-2">
+                                        <div class="loading loading-spinner loading-sm text-primary opacity-0 transition-opacity" id="gameLoadingSpinner" aria-label="Game loading"></div>
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost hover:btn-error" aria-label="Close game modal">
+                                                <i class="fas fa-times" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="p-4 sm:p-6" onclick="event.stopPropagation()">
+                                    <div class="demo-canvas-container relative w-full bg-base-300/20 rounded-lg border-2 border-base-300 demo-canvas-container-custom" onclick="event.stopPropagation()">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-base-200/90 rounded-lg z-20 transition-opacity duration-300" id="gameLoadingOverlay">
+                                            <div class="card bg-base-100 border-2 border-primary/30 shadow-xl p-6 max-w-md mx-4">
+                                                <div class="card-body items-center text-center gap-4">
+                                                    <div class="loading loading-spinner loading-lg text-primary"></div>
+                                                    <h4 class="card-title justify-center">Loading Game...</h4>
+                                                    <p class="text-sm text-base-content/70">Initializing game engine and assets</p>
+                                                    <progress class="progress progress-primary w-full" id="gameInitProgress" value="0" max="100"></progress>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm rounded-lg cursor-pointer hover:bg-black/20 transition-all z-10 game-click-overlay" id="gameClickHint">
+                                            <div class="card bg-base-100/90 border-2 border-accent/50 shadow-2xl p-6 max-w-sm mx-4">
+                                                <div class="card-body items-center text-center gap-3">
+                                                    <div class="badge badge-accent badge-lg gap-2 animate-bounce mb-2">
+                                                        <i class="fas fa-mouse-pointer" aria-hidden="true"></i>
+                                                        <span>CLICK TO START</span>
+                                                    </div>
+                                                        <p class="text-base-content font-bold">Survive • Shoot (SPACE) • Collect</p>
+                                                    <div class="divider my-2"></div>
+                                                    <div class="text-xs text-base-content/70 space-y-1">
+                                                        <p class="flex items-center justify-center gap-2">
+                                                            <kbd class="kbd kbd-sm">W</kbd>
+                                                            <kbd class="kbd kbd-sm">A</kbd>
+                                                            <kbd class="kbd kbd-sm">S</kbd>
+                                                            <kbd class="kbd kbd-sm">D</kbd>
+                                                            / Arrows: Move
+                                                        </p>
+                                                        <p class="flex items-center justify-center gap-2">
+                                                            <kbd class="kbd kbd-sm">SPACE</kbd>
+                                                            : Shoot
+                                                        </p>
+                                                        <p class="flex items-center justify-center gap-2">
+                                                            <i class="fas fa-mouse mr-1" aria-hidden="true"></i>
+                                                            Click: Shoot
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="absolute inset-0 flex items-center justify-center bg-error/10 rounded-lg z-30 opacity-0 pointer-events-none transition-opacity" id="gameErrorOverlay">
+                                            <div class="alert alert-error shadow-xl max-w-md mx-4">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <div>
+                                                    <h3 class="font-bold">Game Failed to Load</h3>
+                                                    <div class="text-xs" id="gameErrorMsg">Unable to initialize game engine. Please refresh the page.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <canvas class="demo-canvas bg-transparent rounded-lg w-full h-full max-w-full demo-canvas-custom" id="demo-canvas" width="800" height="400" aria-label="Survival Game - Use WASD to move, SPACE to shoot"></canvas>
+                                    </div>
+                                    <div class="flex flex-wrap justify-center gap-3 mt-4">
+                                        <div class="flex items-center gap-2 badge badge-outline badge-sm sm:badge-md">
+                                            <kbd class="kbd kbd-xs">W</kbd>
+                                            <kbd class="kbd kbd-xs">A</kbd>
+                                            <kbd class="kbd kbd-xs">S</kbd>
+                                            <kbd class="kbd kbd-xs">D</kbd>
+                                            <span class="ml-1">Move</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 badge badge-outline badge-sm sm:badge-md">
+                                            <kbd class="kbd kbd-xs">SPACE</kbd>
+                                            <span>Shoot</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 badge badge-outline badge-sm sm:badge-md">
+                                            <i class="fas fa-mouse text-xs" aria-hidden="true"></i>
+                                            <span>Click: Shoot</span>
+                                        </div>
+                                        <div class="flex items-center gap-2 badge badge-outline badge-sm sm:badge-md">
+                                            <kbd class="kbd kbd-xs">P</kbd>
+                                            <span>Pause</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form method="dialog" class="modal-backdrop">
+                                <button aria-label="Close game modal">close</button>
+                            </form>
+                        </dialog>
+                    </div>
+                    </div>
+                    <!-- Background Pattern -->
+                    <div class="absolute inset-0 opacity-10 pointer-events-none z-0">
+                        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+                        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse-slow"></div>
+                    </div>
+                </section>
+                
+                <!-- About Section -->
+                <section id="about" class="dh-section section-spacing bg-base-200 section-scroll-in" data-aos="fade-up">
+                    <div class="section-content">
+                        
+                            <div class="badge badge-secondary badge-soft badge-lg mb-4 text-lg px-6 py-3 animate__animated animate__bounceIn">
+                                [QUEST ACCEPTED]
+                            </div>
+                            <h2 class="section-title" data-aos="zoom-in">Challenge the Industry Meta</h2>
+                            <div class="alert alert-error mb-8 max-w-4xl mx-auto">
+                                <i class="fas fa-exclamation-circle text-2xl"></i>
+                                <div>
+                                    <div class="font-bold text-lg mb-2">The industry stats are broken:</div>
+                                    <ul class="space-y-2 text-base-content/90">
+                                        <li>
+                                            <span class="manifesto-fragment neon-text manifesto-error" data-fragment="4">$200M+ per game</span> 
+                                            <span class="badge badge-warning badge-sm ml-2">Power Level: OP</span>
+                                        </li>
+                                        <li>
+                                            <span class="manifesto-fragment neon-text manifesto-error" data-fragment="5">VC funding: -85%</span> 
+                                            <span class="badge badge-error badge-sm ml-2">Status: Nerfed</span>
+                                        </li>
+                                        <li>
+                                            <span class="manifesto-fragment neon-text manifesto-error" data-fragment="6">AI sentiment: 21% → 13%</span> 
+                                            <span class="badge badge-error badge-sm ml-2">Status Effect: Hated</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="badge badge-success badge-soft badge-lg mb-6 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="speedrun" data-points="250" tabindex="0" role="button" aria-label="Game Dev Speedrun Achievement - Click to track progress">
+                                [ACHIEVEMENT UNLOCKED: Game Dev Speedrun]
+                            </div>
+                            <p class="section-subtitle text-xl md:text-2xl mb-4">
+                                We're proving you don't need the meta to win.
+                            </p>
+                            <div class="card card-bordered card-lg bg-base-100 border-2 border-primary/50 p-6 mb-6 max-w-3xl mx-auto">
                                 <div class="card-body">
-                                    <h2 class="card-title text-secondary">Key Pillars</h2>
-                                    <ul class="space-y-2 text-base-content/80">
-                                        <li><i class="fa-solid fa-wand-magic-sparkles text-primary"></i> AI-powered generative art direction</li>
-                                        <li><i class="fa-solid fa-satellite-dish text-primary"></i> Persistent investor dashboard</li>
-                                        <li><i class="fa-solid fa-vr-cardboard text-primary"></i> Real-time 3D ambience and narrative cues</li>
+                                    <h3 class="card-title text-xl font-display font-bold mb-3 text-primary">Team Power Level:</h3>
+                                    <p class="text-lg md:text-xl text-base-content/90">
+                                        <span class="text-primary font-semibold neon-text">Riot, Disney, Marvel, DC, MIT, HP, Activision, Naughty Dog, Pixar</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="badge badge-info badge-soft badge-lg mb-4 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="class-artisan" data-points="150" tabindex="0" role="button" aria-label="Class Selected: Artisan - Click to track progress">
+                                [CLASS SELECTED: Artisan]
+                            </div>
+                            <p class="text-lg md:text-xl text-base-content/90 max-w-3xl mx-auto font-semibold">
+                                AI tools that <span class="text-success">buff</span> creativity, not <span class="text-error">nerf</span> it.
+                            </p>
+                            <p class="text-lg md:text-xl text-base-content/80 mt-4 max-w-3xl mx-auto">
+                                <span class="manifesto-fragment neon-text manifesto-error" data-fragment="7">While the industry burns $200M+ per game, we're proving you don't need that.</span> 
+                                <span class="text-primary font-semibold neon-text">While 52% of studios use AI but hate it, we're building tools artists actually want.</span>
+                            </p>
+                        </div>
+                        
+                        <!-- Game Mechanics Grid -->
+                        <div class="card panel-blur border border-base-300/60 shadow-lg p-6 mb-12">
+                            <div class="card-body p-0">
+                                <h3 class="card-title text-2xl font-display font-semibold mb-6 text-center justify-center">Core Game Mechanics</h3>
+                                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🎯</div>
+                                            <div class="text-sm font-semibold">Precision Combat</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🔄</div>
+                                            <div class="text-sm font-semibold">Procedural Levels</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🧠</div>
+                                            <div class="text-sm font-semibold">AI Enemies</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">⚡</div>
+                                            <div class="text-sm font-semibold">Power-ups</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🎲</div>
+                                            <div class="text-sm font-semibold">Roguelite</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🤝</div>
+                                            <div class="text-sm font-semibold">Co-op</div>
+                                        </div>
+                                    </div>
+                    </div>
+                </div>
+            </div>
+
+                        <!-- Feature Cards - Enhanced with loading animations -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="AI-Powered Design feature" style="animation-delay: 0.1s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.2s">
+                                        <i class="fas fa-brain text-2xl text-primary" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">AI-Powered Design</h3>
+                                    <p class="text-base-content/80">Our proprietary AI engine accelerates game development by generating intelligent content, from environmental assets to gameplay mechanics, all while maintaining artistic vision.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Veteran Team feature" style="animation-delay: 0.15s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.25s">
+                                        <i class="fas fa-gamepad text-2xl text-secondary" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Veteran Team</h3>
+                                    <p class="text-base-content/80">Led by industry veterans with over 15 years of experience, we combine traditional craftsmanship with cutting-edge AI technology to create unforgettable experiences.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Rapid Prototyping feature" style="animation-delay: 0.2s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.3s">
+                                        <i class="fas fa-rocket text-2xl text-accent" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Rapid Prototyping</h3>
+                                    <p class="text-base-content/80">Our AI-assisted workflow enables rapid iteration and prototyping, allowing us to explore creative possibilities faster than ever before.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Artist-Centric feature" style="animation-delay: 0.25s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.35s">
+                                        <i class="fas fa-palette text-2xl text-info" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Artist-Centric</h3>
+                                    <p class="text-base-content/80">We believe AI should empower artists, not replace them. Our tools enhance creativity while maintaining full artistic control and vision.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Procedural Generation feature" style="animation-delay: 0.3s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.4s">
+                                        <i class="fas fa-network-wired text-2xl text-success" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Procedural Generation</h3>
+                                    <p class="text-base-content/80">Advanced procedural content generation systems create infinite variations while ensuring quality and coherence across all game elements.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Community First feature" style="animation-delay: 0.35s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.45s">
+                                        <i class="fas fa-users text-2xl text-warning" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Community First</h3>
+                                    <p class="text-base-content/80">We're building with our community through playtesting, feedback loops, and educational initiatives to support the next generation of developers.</p>
+                                </div>
+                            </div>
+            </div>
+        </div>
+    </section>
+    
+                <!-- AI Engine Section -->
+                <section id="engine" class="dh-section section-spacing bg-base-100 section-scroll-in" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="section-content">
+                        
+                            <h2 class="section-title" data-aos="fade-down" data-aos-delay="200">HazardForge AI Engine</h2>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                                <h3 class="text-3xl font-display font-bold mb-4">Next-Gen Game Generation</h3>
+                                <p class="body-dense mb-4">
+                        HazardForge is our proprietary AI-powered game generation engine that revolutionizes
+                        the development pipeline. Built on advanced machine learning models and procedural
+                        generation algorithms, it enables unprecedented creative freedom.
+                    </p>
+                                <p class="body-dense mb-4">
+                        The engine integrates seamlessly with Unity, providing real-time AI assistance for
+                        asset creation, level design, gameplay balancing, and more. It learns from your
+                        artistic direction to generate content that matches your vision.
+                    </p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Real-time procedural asset generation</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Intelligent level design assistance</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Adaptive gameplay balancing</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>AI-driven narrative branching</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Automated QA and playtesting</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Style-consistent content generation</span>
+                                    </li>
+                    </ul>
+                </div>
+                            <div class="card bg-base-200 border border-base-300 p-6">
+                                <div class="mockup-code bg-neutral text-neutral-content">
+                                    <pre data-prefix="$"><code>// HazardForge AI Engine</code></pre>
+                                    <pre data-prefix=">" class="text-warning"><code>class AIGameGenerator {</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>  generateAsset(params) {</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>    return neuralNet.generate({</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>      type: params.type,</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>      quality: 'production'</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>    });</code></pre>
+                                    <pre data-prefix=">" class="text-warning"><code>  }</code></pre>
+                                    <pre data-prefix=">" class="text-warning"><code>}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+                <!-- Project Cobalt Section -->
+                <section id="cobalt" class="dh-section section-spacing bg-base-200 section-scroll-in">
+                    <div class="section-content">
+                        
+                            <div class="badge badge-primary badge-soft badge-lg mb-4 text-lg px-6 py-3">
+                                [NEW GAME+]
+                            </div>
+                            <h2 class="section-title">PROJECT COBALT: A Manifesto</h2>
+                            <div class="badge badge-error badge-soft badge-lg mb-4 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="hard-mode" data-points="200" tabindex="0" role="button" aria-label="Hard Mode Difficulty - Click to track progress">
+                                Difficulty: Hard Mode
+                            </div>
+                            <p class="text-2xl md:text-3xl font-display font-semibold mb-4 text-base-content/80 italic">
+                                Because 'Easy Mode' wasn't rebellious enough.
+                            </p>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="card lg:card-side bg-base-100 border-2 border-primary/50 shadow-2xl">
+                                <figure class="bg-base-200 p-8 lg:p-12 flex items-center justify-center">
+                                    <i class="fas fa-gamepad text-6xl lg:text-8xl text-primary" aria-hidden="true"></i>
+                                </figure>
+                                <div class="card-body">
+                                    <h4 class="card-title text-xl font-display font-bold text-center lg:text-left mb-2">Visual Inspiration</h4>
+                                    <p class="text-sm text-center lg:text-left text-base-content/70 mb-4">
+                                        Ghost in the Shell &bull; Hi-Fi Rush &bull; Persona 5 Royal<br>
+                                        Teen Titans &bull; FLCL
+                                    </p>
+                                    
+                                    <!-- Video Advert -->
+                                    <div class="relative w-full aspect-video bg-base-300/50 rounded-lg overflow-hidden group mt-4">
+                                        <video 
+                                            id="dhAdvertVideo"
+                                            class="w-full h-full object-cover"
+                                            preload="metadata"
+                                            playsinline
+                                            controls
+                                            controlslist="nodownload"
+                                            aria-label="Digital Hazard Game Trailer"
+                                        >
+                                            <source src="dh_advert.mp4" type="video/mp4">
+                                            <!-- Fallback content -->
+                                            <div class="absolute inset-0 flex items-center justify-center bg-base-300/50">
+                                                <div class="text-center">
+                                                    <i class="fas fa-video text-6xl text-primary/50 mb-4" aria-hidden="true"></i>
+                                                    <p class="text-lg font-bold text-base-content/70">Game Trailer</p>
+                                                    <p class="text-sm text-base-content/60 mt-2">Video not supported</p>
+                                                </div>
+                                            </div>
+                                        </video>
+                                        <!-- Custom controls overlay (shown when paused) -->
+                                        <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer pointer-events-none" id="videoPlayOverlay" aria-hidden="true">
+                                            <div class="badge badge-primary badge-soft badge-lg gap-2 pointer-events-none">
+                                                <i class="fas fa-play" aria-hidden="true"></i>
+                                                <span>Play Trailer</span>
+                                            </div>
+                                        </div>
+                                        <!-- Mute/Unmute toggle button -->
+                                        <button 
+                                            id="videoMuteToggle"
+                                            class="absolute bottom-2 right-2 btn btn-circle btn-sm btn-ghost bg-black/50 hover:bg-black/70 text-white border-none backdrop-blur-sm z-10"
+                                            aria-label="Toggle video audio"
+                                            title="Toggle audio"
+                                        >
+                                            <i class="fas fa-volume-up" id="videoMuteIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <div class="card bg-base-100 border-2 border-primary/50 p-4 mb-4">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">[STATS]</h4>
+                                    <ul class="space-y-2 text-sm md:text-base">
+                                        <li class="flex items-center gap-2 cursor-pointer hover:bg-base-200 p-1 rounded transition-colors" data-stat="squad-builder" tabindex="0" role="button" aria-label="Multiplayer Squad-Builder stat">
+                                            <span class="badge badge-primary badge-sm">Multiplayer Squad-Builder</span>
+                                            <span class="text-xs text-base-content/70">(Max Level)</span>
+                                        </li>
+                                        <li class="flex items-center gap-2 cursor-pointer hover:bg-base-200 p-1 rounded transition-colors" data-stat="gameplay" tabindex="0" role="button" aria-label="Flashy Punchy Gameplay stat">
+                                            <span class="badge badge-success badge-sm">Flashy, Punchy Gameplay</span>
+                                            <span class="text-xs text-base-content/70">(Meta-Breaking)</span>
+                                        </li>
+                                        <li class="flex items-center gap-2 cursor-pointer hover:bg-base-200 p-1 rounded transition-colors" data-stat="anchor" tabindex="0" role="button" aria-label="Anchor System stat">
+                                            <span class="badge badge-info badge-sm">Anchor System</span>
+                                            <span class="text-xs text-base-content/70">(New Mechanics Unlocked)</span>
+                                        </li>
+                                        <li class="flex items-center gap-2 cursor-pointer hover:bg-base-200 p-1 rounded transition-colors" data-stat="ip-collab" tabindex="0" role="button" aria-label="IP Collaborations stat">
+                                            <span class="badge badge-warning badge-sm">IP Collaborations</span>
+                                            <span class="text-xs text-base-content/70">(No DLC Required)</span>
+                                        </li>
+                                    </ul>
+                </div>
+                                <h3 class="text-3xl font-display font-bold mb-4">Designed to be as fun to watch as it is to play</h3>
+                                <p class="body-dense text-lg">
+                        <span class="manifesto-fragment neon-text manifesto-error" data-fragment="8">Flashy, Punchy Gameplay</span> that combines power fantasy, large-scale combat, and over-the-top visuals. 
+                        Heroes unleash massive VFX, ultimates, and squad synergy attacks. Constant action with no downtime - teamwork is key.
+                    </p>
+                                <div class="divider"></div>
+                                <h4 class="text-2xl font-display font-semibold text-primary">The Anchor System</h4>
+                                <p class="body-dense mb-4">
+                        <span class="text-primary font-semibold neon-text">Because linear stories are for the weak.</span> Each run is tailored to a specific Anchor character and squad. 
+                        Modular stories allow standalone packs with unique environments and enemies. 
+                        The <span class="font-semibold">"Lend Your Might"</span> mechanic enables super-charged ultimate abilities.
+                    </p>
+                                <div class="alert alert-info shadow-md">
+                                    <i class="fas fa-info-circle text-xl" aria-hidden="true"></i>
+                                    <div>
+                                        <strong>IP Collaborations Without the IP Baggage:</strong> 
+                                        Modular DLC structure enables collaborations with external IPs (Mortal Kombat, Doom, Mega Man, Judge Dredd, Borderlands, Street Fighter, Gears of War) while maintaining flexible storytelling that doesn't affect source IPs.
+                                    </div>
+                                </div>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-dice text-primary"></i>
+                                        <span>Procedurally generated worlds with endless variety</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-users text-primary"></i>
+                                        <span>Cooperative multiplayer PvE gameplay</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-crosshairs text-primary"></i>
+                                        <span>Isometric tactical combat system</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-brain text-primary"></i>
+                                        <span>AI-driven enemy behaviors and encounters</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-chart-line text-primary"></i>
+                                        <span>Dynamic difficulty adaptation</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-box text-primary"></i>
+                                        <span>Extensive loot and progression systems</span>
+                                    </li>
+                    </ul>
+                                <div class="flex gap-4">
+                                    <a href="present.html" class="btn btn-primary btn-lg shadow-sm">
+                                        <i class="fas fa-presentation mr-2" aria-hidden="true"></i>
+                                        View Pitch Deck
+                                    </a>
+                    </div>
+                                <div class="alert alert-info shadow-md">
+                                    <i class="fas fa-info-circle text-xl" aria-hidden="true"></i>
+                                    <div>
+                                        <strong>Development Status:</strong> Currently in vertical slice phase with active
+                            playtesting. We're refining core mechanics and gathering community feedback as we
+                            prepare for our seed funding round.
+                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+                <!-- Project HazAI Section -->
+                <section id="hazai" class="section-spacing bg-base-100 section-scroll-in" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="section-content">
+                        
+                            <div class="badge badge-secondary badge-soft badge-lg mb-4 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="dlc-unlocked" data-points="300" tabindex="0" role="button" aria-label="DLC Unlocked Achievement - Click to track progress">
+                                [DLC UNLOCKED]
+                            </div>
+                            <h2 class="section-title">HAZAI: Artists Go From Noob to OP</h2>
+                            <div class="alert alert-error mb-8 max-w-4xl mx-auto">
+                                <i class="fas fa-exclamation-circle text-2xl"></i>
+                                <div>
+                                    <div class="font-bold text-lg mb-2">The Problem:</div>
+                                    <ul class="space-y-2 text-base-content/90">
+                                        <li>
+                                            <span class="manifesto-fragment neon-text manifesto-error" data-fragment="9">Industry AI tools:</span> 
+                                            <span class="badge badge-error badge-sm ml-2">Status Effect [HATED] (87% of studios)</span>
+                                        </li>
+                                        <li>
+                                            <span class="text-base-content/90">No tools for professional 2D space</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                                <div class="badge badge-secondary badge-soft badge-lg mb-4">$155B Animation Software Market</div>
+                                <div class="card bg-success/10 border-2 border-success/50 p-4 mb-4">
+                                    <h4 class="text-lg font-bold mb-3 text-success">The Solution:</h4>
+                                    <ul class="space-y-2 text-sm md:text-base">
+                                        <li class="flex items-start gap-2 cursor-pointer hover:bg-success/20 p-2 rounded transition-colors" data-stat="deep-integration" tabindex="0" role="button" aria-label="Deep Integration solution">
+                                            <span class="text-success text-xl">→</span>
+                                            <span><strong>Deep Integration:</strong> <span class="badge badge-success badge-sm">Buff: +100% Workflow</span></span>
+                                        </li>
+                                        <li class="flex items-start gap-2 cursor-pointer hover:bg-info/20 p-2 rounded transition-colors" data-stat="granular-control" tabindex="0" role="button" aria-label="Granular Control solution">
+                                            <span class="text-success text-xl">→</span>
+                                            <span><strong>Granular Control:</strong> <span class="badge badge-info badge-sm">Debuff Removed: -0% Compromise</span></span>
+                                        </li>
+                                        <li class="flex items-start gap-2 cursor-pointer hover:bg-primary/20 p-2 rounded transition-colors" data-stat="artists-op" tabindex="0" role="button" aria-label="Artists Become OP solution">
+                                            <span class="text-success text-xl">→</span>
+                                            <span><strong>Artists Become OP:</strong> <span class="badge badge-primary badge-sm">Power Level: MAX</span></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h3 class="text-3xl font-display font-bold mb-4">Enhance, Not Replace, Artistic Expression</h3>
+                                <p class="body-dense text-lg">
+                                    <span class="manifesto-fragment neon-text manifesto-error" data-fragment="10">No robust AI tools exist for the professional 2D space.</span> 
+                                    <span class="text-primary font-semibold neon-text">Until now.</span>
+                                </p>
+                                <div class="badge badge-success badge-soft badge-lg mb-4 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="artistic-expression" data-points="350" tabindex="0" role="button" aria-label="Artistic Expression Achievement - Click to track progress">
+                                    [ACHIEVEMENT UNLOCKED]<br>
+                                    Enhanced, Not Replaced: Artistic Expression<br>
+                                    ★★★★★
+                                </div>
+                                <div class="divider"></div>
+                                <h4 class="text-2xl font-display font-semibold text-secondary">Deep Integration. Granular Control. Zero Compromise.</h4>
+                                <p class="body-dense mb-4">
+                                    Deep integration with industry standards: <span class="font-semibold">Toon Boom, Moho, TVPaint, Unity, Unreal</span>. 
+                                    Artists retain granular control over visuals. A platform evolving alongside studio workflows.
+                                </p>
+                                <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full mt-6 bg-base-100 border border-base-300">
+                                    <div class="stat" data-points="150">
+                                        <div class="stat-figure text-secondary">
+                                            <i class="fas fa-globe text-4xl" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="stat-title">Global Market</div>
+                                        <div class="stat-value text-secondary">$155B</div>
+                                        <div class="stat-desc">Animation Software</div>
+                                    </div>
+                                    <div class="stat" data-points="150">
+                                        <div class="stat-figure text-primary">
+                                            <i class="fas fa-palette text-4xl" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="stat-title">2D Animation Market</div>
+                                        <div class="stat-value text-primary">$39B</div>
+                                        <div class="stat-desc">Worldwide</div>
+                                    </div>
+                                    <div class="stat" data-points="150">
+                                        <div class="stat-figure text-accent">
+                                            <i class="fas fa-chart-line text-4xl" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="stat-title">Target Attach Rate</div>
+                                        <div class="stat-value text-accent">1-4%</div>
+                                        <div class="stat-desc">Projected</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-base-200 border-2 border-secondary/50 shadow-2xl">
+                                <div class="card-body">
+                                    <h4 class="text-2xl font-display font-bold mb-4 text-center">Problem Solved</h4>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-times-circle text-error mt-1"></i>
+                                            <span>2D animation requires extensive manual redrawing</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-times-circle text-error mt-1"></i>
+                                            <span>Current AI tools lack production-level control</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-times-circle text-error mt-1"></i>
+                                            <span>Poor integration with industry-standard tools</span>
+                                        </li>
+                                    </ul>
+                                    <div class="divider"></div>
+                                    <h4 class="text-xl font-display font-bold mb-4 text-center text-success">Our Solution</h4>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-check-circle text-success mt-1"></i>
+                                            <span><strong>Deep Integration:</strong> Works with Toon Boom, Moho, TVPaint, Unity, Unreal</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-check-circle text-success mt-1"></i>
+                                            <span><strong>Granular Control:</strong> Artists maintain full creative authority</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-check-circle text-success mt-1"></i>
+                                            <span><strong>Production-Ready:</strong> Studio/project-specific training models</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -87,170 +1249,798 @@
                     </div>
                 </section>
 
-                <section id="experience" class="space-y-10">
-                    <header class="space-y-3">
-                        <h2 class="section-title">Interactive Experience</h2>
-                        <p class="section-subtitle">A cohesive flow of narrative chapters, tactile gameplay, and design language tuned for futuristic storytelling.</p>
-                    </header>
-                    <div class="grid gap-8 lg:grid-cols-3">
-                        <article class="card glass-card shadow-xl border border-primary/20">
-                            <div class="card-body space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <span class="btn btn-circle btn-primary btn-sm"><i class="fa-solid fa-bolt"></i></span>
-                                    <h3 class="card-title">Cinematic Timeline</h3>
+                <!-- Stats Section -->
+                <section id="stats" class="dh-section section-spacing bg-base-200 section-scroll-in" data-aos="fade-up" data-aos-duration="800">
+                    <div class="section-content">
+                        
+                            <h2 class="section-title" data-aos="flip-up" data-aos-delay="100">Our Journey</h2>
+                        </div>
+                        <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100 border border-base-300">
+                            <div class="stat">
+                                <div class="stat-figure text-primary">
+                                    <i class="fas fa-calendar text-4xl" aria-hidden="true"></i>
                                 </div>
-                                <p class="text-base-content/80">Slide chapters embrace diegetic UI, ambient audio, and orchestrated lighting cues to signal key transitions and data moments.</p>
-                                <span class="badge badge-soft">Chapters 1-4</span>
+                                <div class="stat-title">Years Experience</div>
+                                <div class="stat-value text-primary" data-target="15">0</div>
+                                <div class="stat-desc">Combined team experience</div>
                             </div>
-                        </article>
-                        <article class="card glass-card shadow-xl border border-secondary/20">
-                            <div class="card-body space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <span class="btn btn-circle btn-secondary btn-sm"><i class="fa-solid fa-gamepad"></i></span>
-                                    <h3 class="card-title">Arcade Prototype</h3>
+                            <div class="stat">
+                                <div class="stat-figure text-secondary">
+                                    <i class="fas fa-clock text-4xl" aria-hidden="true"></i>
                                 </div>
-                                <p class="text-base-content/80">A lightweight skill challenge anchors the pitch’s core mechanic—emergent AI companions that adapt to player behavior.</p>
-                                <span class="badge badge-soft">Unity-to-Web Bridge</span>
+                                <div class="stat-title">Months in Development</div>
+                                <div class="stat-value text-secondary" data-target="16">0</div>
+                                <div class="stat-desc">Active development time</div>
                             </div>
-                        </article>
-                        <article class="card glass-card shadow-xl border border-accent/20">
-                            <div class="card-body space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <span class="btn btn-circle btn-accent btn-sm"><i class="fa-solid fa-cubes"></i></span>
-                                    <h3 class="card-title">Spatial Ambient Layer</h3>
+                            <div class="stat">
+                                <div class="stat-figure text-accent">
+                                    <i class="fas fa-users text-4xl" aria-hidden="true"></i>
+                </div>
+                                <div class="stat-title">Team Members</div>
+                                <div class="stat-value text-accent" data-target="6">0</div>
+                                <div class="stat-desc">Core team size</div>
+                </div>
+                            <div class="stat">
+                                <div class="stat-figure text-info">
+                                    <i class="fas fa-cube text-4xl" aria-hidden="true"></i>
+                </div>
+                                <div class="stat-title">AI-Generated Assets</div>
+                                <div class="stat-value text-info" data-target="100">0</div>
+                                <div class="stat-desc">Production-ready assets</div>
+                </div>
+            </div>
+
+                        <!-- Steps Component: Development Roadmap -->
+                        <div class="section-content mt-16" data-aos="fade-up">
+                            <div class="badge badge-info badge-soft badge-lg mb-6 text-lg px-6 py-3">
+                                [DEVELOPMENT ROADMAP]
+                            </div>
+                            <h3 class="text-3xl lg:text-4xl font-display font-bold text-center mb-12 text-gradient">Our Path Forward</h3>
+
+                            <ul class="steps steps-vertical lg:steps-horizontal w-full">
+                                <li class="step step-primary" data-aos="flip-left" data-aos-delay="100">
+                                    <div class="text-left lg:text-center">
+                                        <div class="badge badge-primary mb-2">Q1 2025</div>
+                                        <div class="font-bold">Seed Funding</div>
+                                        <div class="text-sm text-base-content/70">Close seed round</div>
+                                    </div>
+                                </li>
+                                <li class="step step-primary" data-aos="flip-left" data-aos-delay="200">
+                                    <div class="text-left lg:text-center">
+                                        <div class="badge badge-secondary mb-2">Q2 2025</div>
+                                        <div class="font-bold">Alpha Release</div>
+                                        <div class="text-sm text-base-content/70">Cobalt alpha testing</div>
+                                    </div>
+                                </li>
+                                <li class="step step-secondary" data-aos="flip-left" data-aos-delay="300">
+                                    <div class="text-left lg:text-center">
+                                        <div class="badge badge-accent mb-2">Q3 2025</div>
+                                        <div class="font-bold">HAZAI Beta</div>
+                                        <div class="text-sm text-base-content/70">Early access program</div>
+                                    </div>
+                                </li>
+                                <li class="step" data-aos="flip-left" data-aos-delay="400">
+                                    <div class="text-left lg:text-center">
+                                        <div class="badge badge-ghost mb-2">Q4 2025</div>
+                                        <div class="font-bold">Full Launch</div>
+                                        <div class="text-sm text-base-content/70">Public release</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Timeline Component: Company Milestones -->
+                        <div class="section-content mt-16" data-aos="fade-up">
+                            <div class="badge badge-primary badge-soft badge-lg mb-6 text-lg px-6 py-3">
+                                [ACHIEVEMENT TIMELINE]
+                            </div>
+                            <h3 class="text-3xl lg:text-4xl font-display font-bold text-center mb-12 text-gradient">Company Milestones</h3>
+
+                            <ul class="timeline timeline-vertical lg:timeline-horizontal">
+                                <li data-aos="fade-right" data-aos-delay="100">
+                                    <div class="timeline-start timeline-box panel-blur border-primary/50 hover:border-primary transition-all duration-300">
+                                        <div class="badge badge-primary mb-2">2023</div>
+                                        <h4 class="font-bold">Studio Founded</h4>
+                                        <p class="text-sm text-base-content/70">Digital Hazard Studio established with vision to revolutionize AI in gaming</p>
+                                    </div>
+                                    <div class="timeline-middle">
+                                        <div class="avatar placeholder">
+                                            <div class="bg-primary text-primary-content w-12 rounded-full">
+                                                <i class="fas fa-flag text-xl"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="bg-primary"/>
+                                </li>
+                                <li data-aos="fade-right" data-aos-delay="200">
+                                    <hr class="bg-primary"/>
+                                    <div class="timeline-middle">
+                                        <div class="avatar placeholder">
+                                            <div class="bg-secondary text-secondary-content w-12 rounded-full">
+                                                <i class="fas fa-gamepad text-xl"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-end timeline-box panel-blur border-secondary/50 hover:border-secondary transition-all duration-300">
+                                        <div class="badge badge-secondary mb-2">Early 2024</div>
+                                        <h4 class="font-bold">Project Cobalt Prototype</h4>
+                                        <p class="text-sm text-base-content/70">First playable vertical slice with AI-generated assets completed</p>
+                                    </div>
+                                    <hr class="bg-secondary"/>
+                                </li>
+                                <li data-aos="fade-right" data-aos-delay="300">
+                                    <hr class="bg-secondary"/>
+                                    <div class="timeline-start timeline-box panel-blur border-accent/50 hover:border-accent transition-all duration-300">
+                                        <div class="badge badge-accent mb-2">Mid 2024</div>
+                                        <h4 class="font-bold">HAZAI Development</h4>
+                                        <p class="text-sm text-base-content/70">AI animation tools platform development initiated</p>
+                                    </div>
+                                    <div class="timeline-middle">
+                                        <div class="avatar placeholder">
+                                            <div class="bg-accent text-accent-content w-12 rounded-full">
+                                                <i class="fas fa-palette text-xl"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="bg-accent"/>
+                                </li>
+                                <li data-aos="fade-right" data-aos-delay="400">
+                                    <hr class="bg-accent"/>
+                                    <div class="timeline-middle">
+                                        <div class="avatar placeholder">
+                                            <div class="bg-success text-success-content w-12 rounded-full">
+                                                <i class="fas fa-rocket text-xl"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-end timeline-box panel-blur border-success/50 hover:border-success transition-all duration-300">
+                                        <div class="badge badge-success mb-2">2025</div>
+                                        <h4 class="font-bold">Seed Funding Round</h4>
+                                        <p class="text-sm text-base-content/70">Preparing for investment to scale operations and accelerate development</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+        </div>
+    </section>
+
+                <!-- Industry Section -->
+                <section id="industry" class="dh-section section-spacing bg-base-200 section-scroll-in" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="section-content">
+                        
+                            <h2 class="section-title" data-aos="zoom-in-up" data-aos-delay="150">Industry Insights</h2>
+                            <p class="section-subtitle">
+                The gaming industry is at an inflection point. As AI adoption accelerates and development costs rise,
+                Digital Hazard Studio is positioned at the forefront of innovation, leveraging AI to create immersive
+                experiences while maintaining artistic vision.
+            </p>
+                        </div>
+                        <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100 border border-base-300">
+                            <div class="stat">
+                                <div class="stat-figure text-primary">
+                                    <i class="fas fa-chart-line text-4xl" aria-hidden="true"></i>
                                 </div>
-                                <p class="text-base-content/80">Dynamic particle fields powered by Three.js react to slide context, building momentum from intro narrative to financials.</p>
-                                <span class="badge badge-soft">Real-time 3D</span>
+                                <div class="stat-title">Global Gaming Market 2024</div>
+                                <div class="stat-value text-primary" data-target="177.9" data-suffix="B">0</div>
+                                <div class="stat-desc">Newzoo Global Games Market Report</div>
                             </div>
-                        </article>
+                            <div class="stat">
+                                <div class="stat-figure text-secondary">
+                                    <i class="fas fa-robot text-4xl" aria-hidden="true"></i>
+                                </div>
+                                <div class="stat-title">AI Adoption Rate</div>
+                                <div class="stat-value text-secondary" data-target="52" data-suffix="%">0</div>
+                                <div class="stat-desc">Up from 31% in 2023 (GDC Survey)</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-figure text-accent">
+                                    <i class="fas fa-dollar-sign text-4xl" aria-hidden="true"></i>
+                </div>
+                                <div class="stat-title">Average AAA Development Cost</div>
+                                <div class="stat-value text-accent" data-target="200" data-suffix="M+">0</div>
+                                <div class="stat-desc">Doubled from $100M five years ago</div>
+                </div>
+                            <div class="stat">
+                                <div class="stat-figure text-info">
+                                    <i class="fas fa-users text-4xl" aria-hidden="true"></i>
+                </div>
+                                <div class="stat-title">Global Players</div>
+                                <div class="stat-value text-info" data-target="3.42" data-suffix="B">0</div>
+                                <div class="stat-desc">61.5% of world population</div>
+                </div>
+            </div>
+                        <!-- Radial Progress Visualization -->
+                        <div class="section-content mt-16" data-aos="fade-up">
+                            <h3 class="text-2xl lg:text-3xl font-display font-bold text-center mb-10 text-gradient">Market Growth & Adoption</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+                                <div class="flex flex-col items-center gap-4" data-aos="zoom-in" data-aos-delay="100">
+                                    <div class="tooltip tooltip-primary" data-tip="AI adoption up from 31% in 2023">
+                                        <div class="radial-progress text-primary border-4 border-primary/30 bg-base-100" style="--value:52; --size:10rem; --thickness: 0.8rem;" role="progressbar" aria-label="AI Adoption Rate">
+                                            <div class="text-center">
+                                                <div class="text-3xl font-bold">52%</div>
+                                                <div class="text-xs">AI Adoption</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="badge badge-primary badge-lg gap-2">
+                                        <i class="fas fa-robot"></i>
+                                        Studios Using AI
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center gap-4" data-aos="zoom-in" data-aos-delay="200">
+                                    <div class="tooltip tooltip-secondary" data-tip="61.5% of world population">
+                                        <div class="radial-progress text-secondary border-4 border-secondary/30 bg-base-100" style="--value:61.5; --size:10rem; --thickness: 0.8rem;" role="progressbar" aria-label="Global Player Penetration">
+                                            <div class="text-center">
+                                                <div class="text-3xl font-bold">61.5%</div>
+                                                <div class="text-xs">Penetration</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="badge badge-secondary badge-lg gap-2">
+                                        <i class="fas fa-globe"></i>
+                                        Global Players
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center gap-4" data-aos="zoom-in" data-aos-delay="300">
+                                    <div class="tooltip tooltip-accent" data-tip="Doubled from $100M five years ago">
+                                        <div class="radial-progress text-accent border-4 border-accent/30 bg-base-100" style="--value:100; --size:10rem; --thickness: 0.8rem;" role="progressbar" aria-label="AAA Cost Increase">
+                                            <div class="text-center">
+                                                <div class="text-3xl font-bold">2x</div>
+                                                <div class="text-xs">Cost Rise</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="badge badge-accent badge-lg gap-2">
+                                        <i class="fas fa-chart-line"></i>
+                                        AAA Budgets
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center gap-4" data-aos="zoom-in" data-aos-delay="400">
+                                    <div class="tooltip tooltip-success" data-tip="Studios hate current AI tools">
+                                        <div class="radial-progress text-error border-4 border-error/30 bg-base-100" style="--value:87; --size:10rem; --thickness: 0.8rem;" role="progressbar" aria-label="Studios Dissatisfied with AI Tools">
+                                            <div class="text-center">
+                                                <div class="text-3xl font-bold">87%</div>
+                                                <div class="text-xs">Hate AI</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="badge badge-error badge-lg gap-2">
+                                        <i class="fas fa-thumbs-down"></i>
+                                        Tool Satisfaction
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 text-center">
+                            <p class="text-base-content/60 text-sm italic">
+                    Data sources: GDC State of the Industry Survey, Newzoo Global Games Market Report,
+                    Unity Gaming Report, Google Cloud/Harris Poll Developer Survey
+                </p>
+            </div>
+        </div>
+    </section>
+
+                <!-- FAQ Section with Collapse Components -->
+                <section id="faq" class="dh-section section-spacing bg-base-200 section-scroll-in" data-aos="fade-up">
+                    <div class="section-content max-w-4xl mx-auto">
+                        <div class="badge badge-accent badge-soft badge-lg mb-6 text-lg px-6 py-3">
+                            [HELP & INFO]
+                        </div>
+                        <h2 class="section-title">Frequently Asked Questions</h2>
+                        <p class="section-subtitle mb-12">Everything you need to know about Digital Hazard Studio</p>
+
+                        <div class="space-y-4">
+                            <div class="collapse collapse-plus bg-base-100 border border-base-300 hover:border-primary transition-colors" data-aos="fade-right" data-aos-delay="100">
+                                <input type="radio" name="faq-accordion" checked="checked" />
+                                <div class="collapse-title text-xl font-bold flex items-center gap-3">
+                                    <div class="avatar placeholder">
+                                        <div class="bg-primary text-primary-content w-8 rounded-full">
+                                            <i class="fas fa-question text-sm"></i>
+                                        </div>
+                                    </div>
+                                    What makes Digital Hazard Studio different?
+                                </div>
+                                <div class="collapse-content">
+                                    <p>We're not just another AI company. We combine veteran game development experience with cutting-edge AI technology to create tools that artists actually want to use. Our focus is on empowerment, not replacement—giving creators superpowers while maintaining full artistic control.</p>
+                                </div>
+                            </div>
+
+                            <div class="collapse collapse-plus bg-base-100 border border-base-300 hover:border-secondary transition-colors" data-aos="fade-right" data-aos-delay="200">
+                                <input type="radio" name="faq-accordion" />
+                                <div class="collapse-title text-xl font-bold flex items-center gap-3">
+                                    <div class="avatar placeholder">
+                                        <div class="bg-secondary text-secondary-content w-8 rounded-full">
+                                            <i class="fas fa-gamepad text-sm"></i>
+                                        </div>
+                                    </div>
+                                    What stage is Project Cobalt in?
+                                </div>
+                                <div class="collapse-content">
+                                    <p>Project Cobalt is currently in vertical slice phase with active playtesting. We have a functional prototype showcasing core gameplay mechanics, AI-generated assets, and our unique anchor system. We're refining based on community feedback as we prepare for our seed funding round.</p>
+                                </div>
+                            </div>
+
+                            <div class="collapse collapse-plus bg-base-100 border border-base-300 hover:border-accent transition-colors" data-aos="fade-right" data-aos-delay="300">
+                                <input type="radio" name="faq-accordion" />
+                                <div class="collapse-title text-xl font-bold flex items-center gap-3">
+                                    <div class="avatar placeholder">
+                                        <div class="bg-accent text-accent-content w-8 rounded-full">
+                                            <i class="fas fa-palette text-sm"></i>
+                                        </div>
+                                    </div>
+                                    How does HAZAI differ from other AI art tools?
+                                </div>
+                                <div class="collapse-content">
+                                    <p>HAZAI is specifically built for professional 2D animation workflows with deep integration into industry-standard tools like Toon Boom, Moho, and TVPaint. Unlike generic AI tools, it provides granular control at every step, allowing artists to maintain their unique style while dramatically accelerating their workflow.</p>
+                                </div>
+                            </div>
+
+                            <div class="collapse collapse-plus bg-base-100 border border-base-300 hover:border-success transition-colors" data-aos="fade-right" data-aos-delay="400">
+                                <input type="radio" name="faq-accordion" />
+                                <div class="collapse-title text-xl font-bold flex items-center gap-3">
+                                    <div class="avatar placeholder">
+                                        <div class="bg-success text-success-content w-8 rounded-full">
+                                            <i class="fas fa-rocket text-sm"></i>
+                                        </div>
+                                    </div>
+                                    Are you seeking investment?
+                                </div>
+                                <div class="collapse-content">
+                                    <p>Yes! We're currently preparing for our seed funding round. We're looking for strategic investors who share our vision of empowering creators with AI technology. We're bootstrapped, profitable, and have proven traction with two revolutionary projects in development.</p>
+                                </div>
+                            </div>
+
+                            <div class="collapse collapse-plus bg-base-100 border border-base-300 hover:border-info transition-colors" data-aos="fade-right" data-aos-delay="500">
+                                <input type="radio" name="faq-accordion" />
+                                <div class="collapse-title text-xl font-bold flex items-center gap-3">
+                                    <div class="avatar placeholder">
+                                        <div class="bg-info text-info-content w-8 rounded-full">
+                                            <i class="fas fa-users text-sm"></i>
+                                        </div>
+                                    </div>
+                                    How can I get involved?
+                                </div>
+                                <div class="collapse-content">
+                                    <p>We're always looking for talented developers, artists, and playtesters! Join our Discord community for early access to our tools, participate in playtests, or reach out directly at admin@digitalhazardstudio.com. We also regularly post updates on our social media channels.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                <section id="media" class="space-y-10">
-                    <header class="space-y-3">
-                        <h2 class="section-title">Cinematic Trailer</h2>
-                        <p class="section-subtitle">Preview the high-energy teaser that sets the tone for Project Cobalt.</p>
-                    </header>
-                    <div class="grid lg:grid-cols-[2fr,1fr] gap-8 items-start">
-                        <div class="card bg-base-100/80 border border-base-content/10 shadow-xl overflow-hidden">
-                            <figure class="bg-base-300/40">
-                                <video id="hero-video" class="w-full aspect-video" controls preload="metadata" poster="assets/trailer-poster.jpg">
-                                    <source src="assets/dh_advert.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                            </figure>
-                            <div class="card-body">
-                                <h3 class="card-title">Hazard Pulse — Trailer 01</h3>
-                                <p class="text-base-content/70">Shot entirely in-engine, the teaser fuses neural matte paintings with quick-hit clips from the vertical slice.</p>
-                                <div class="card-actions justify-end">
-                                    <button class="btn btn-outline btn-sm" data-video="mute-toggle">
-                                        <i class="fa-solid fa-volume-xmark"></i>
-                                        Toggle Mute
-                                    </button>
+                <!-- Contact Section -->
+                <section id="contact" class="dh-section section-spacing bg-base-100 section-scroll-in" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="section-content max-w-4xl flex flex-col gap-10 text-center">
+                        <div>
+                            <h2 class="section-title" data-aos="bounce-in" data-aos-delay="100">Join Our Journey</h2>
+                            <p class="section-subtitle">
+                    We're always looking for talented individuals passionate about innovation in game development.
+                    Whether you're an investor, developer, artist, or just someone who shares our vision,
+                    we'd love to hear from you.
+                </p>
+                        </div>
+                        <div class="card panel-blur border border-base-300/60 shadow-lg">
+                            <div class="card-body p-8 space-y-6">
+                                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                                    <i class="fas fa-envelope text-primary text-2xl" aria-hidden="true"></i>
+                                    <a href="mailto:admin@digitalhazardstudio.com" class="text-xl link link-primary hover:link-secondary">
+                                        admin@digitalhazardstudio.com
+                                    </a>
+                                </div>
+                                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                                    <i class="fas fa-map-marker-alt text-secondary text-2xl" aria-hidden="true"></i>
+                                    <span class="text-lg">2804 Gateway Oaks Drive #100, Sacramento, CA 95833</span>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="space-y-4">
+                                    <h6 class="text-lg font-semibold">Follow Us</h6>
+                                    <div class="flex justify-center gap-4">
+                                        <a href="https://www.linkedin.com/company/digitalhazard" target="_blank" class="btn btn-circle btn-primary shadow-sm tooltip tooltip-top hover:animate__animated hover:animate__rubberBand" aria-label="LinkedIn" data-tip="Follow on LinkedIn">
+                                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="https://www.instagram.com/digitalhazardstudio/" target="_blank" class="btn btn-circle btn-primary shadow-sm tooltip tooltip-top hover:animate__animated hover:animate__rubberBand" aria-label="Instagram" data-tip="Follow on Instagram">
+                                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="https://www.facebook.com/digitalhazardstudio/" target="_blank" class="btn btn-circle btn-primary shadow-sm tooltip tooltip-top hover:animate__animated hover:animate__rubberBand" aria-label="Facebook" data-tip="Follow on Facebook">
+                                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="https://discord.gg/H28QhSQETp" target="_blank" class="btn btn-circle btn-primary shadow-sm tooltip tooltip-top hover:animate__animated hover:animate__rubberBand" aria-label="Discord" data-tip="Join our Discord">
+                                            <i class="fab fa-discord" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="pt-2">
+                                    <a href="https://www.digitalhazardstudio.com" target="_blank" class="btn btn-primary btn-lg shadow-md">
+                                        Visit Our Website
+                                        <i class="fas fa-external-link-alt ml-2" aria-hidden="true"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <aside class="card bg-base-100/70 border border-base-content/10 shadow-xl">
-                            <div class="card-body space-y-4">
-                                <h3 class="card-title">Media Notes</h3>
-                                <ul class="space-y-3 text-base-content/75">
-                                    <li><i class="fa-solid fa-circle-nodes text-primary"></i> Dolby Atmos render targeting spatial platforms.</li>
-                                    <li><i class="fa-solid fa-film text-secondary"></i> Edit locked at 59.94fps for buttery playback.</li>
-                                    <li><i class="fa-solid fa-timeline text-accent"></i> Adaptive captions align with slide accessibility guidelines.</li>
-                                </ul>
-                                <a href="present.html#slide-game" class="btn btn-primary btn-sm">Jump to Interactive Slide</a>
-                            </div>
-                        </aside>
                     </div>
                 </section>
-
-                <section id="tech" class="space-y-10">
-                    <header class="space-y-3">
-                        <h2 class="section-title">Technology Stack</h2>
-                        <p class="section-subtitle">Meticulously orchestrated tooling keeps fidelity high and iteration loops fast.</p>
-                    </header>
-                    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                        <div class="glass-card p-6 shadow-xl border border-primary/20 space-y-3">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-brain-circuit text-2xl text-primary"></i>
-                                <h3 class="font-semibold text-lg">Generative Pipelines</h3>
-                            </div>
-                            <p class="text-base-content/75">Stable Diffusion XL, ElevenLabs vocal prototyping, and custom Houdini accelerators for rapid ideation.</p>
-                        </div>
-                        <div class="glass-card p-6 shadow-xl border border-secondary/20 space-y-3">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-code-branch text-2xl text-secondary"></i>
-                                <h3 class="font-semibold text-lg">Delivery Infrastructure</h3>
-                            </div>
-                            <p class="text-base-content/75">Next-gen hosting via Static Web Apps, automated Lighthouse audits, and in-browser performance telemetry.</p>
-                        </div>
-                        <div class="glass-card p-6 shadow-xl border border-accent/20 space-y-3">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-cube text-2xl text-accent"></i>
-                                <h3 class="font-semibold text-lg">Immersive Layer</h3>
-                            </div>
-                            <p class="text-base-content/75">Three.js particle systems, GSAP sequencing, and Web Audio for adaptive ambience.</p>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </main>
 
-            <footer class="bg-base-300/60 backdrop-blur-lg border-t border-base-content/10 py-6 text-sm">
-                <div class="max-w-6xl mx-auto px-4 sm:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div class="space-y-1">
-                        <p class="font-semibold">Digital Hazard Studio</p>
-                        <p class="text-base-content/60">Fusing pitchcraft with playable futures.</p>
+            <!-- Footer -->
+            <footer class="site-footer bg-base-200 text-base-content border-t border-base-300">
+                <div class="section-content py-12">
+                    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-exclamation-triangle text-primary text-3xl" aria-hidden="true"></i>
+                                <p class="font-display font-bold text-2xl">Digital Hazard Studio</p>
+                            </div>
+                            <p class="text-base-content/70 leading-relaxed">
+                                Powered by HazardForge AI Engine. We break the meta with AI-first production pipelines that help studios ship faster.
+                            </p>
+                            <div class="space-y-3 text-sm sm:text-base">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-envelope text-primary text-lg" aria-hidden="true"></i>
+                                    <a href="mailto:admin@digitalhazardstudio.com" class="link link-primary hover:link-secondary text-base">
+                                        admin@digitalhazardstudio.com
+                                    </a>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i class="fas fa-map-marker-alt text-secondary mt-1" aria-hidden="true"></i>
+                                    <span>2804 Gateway Oaks Drive #100, Sacramento, CA 95833</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <h6 class="text-lg font-semibold uppercase tracking-wide">Company</h6>
+                            <ul class="grid gap-2 text-base">
+                                <li><a href="#about" class="link link-hover">About</a></li>
+                                <li><a href="#engine" class="link link-hover">AI Engine</a></li>
+                                <li><a href="#cobalt" class="link link-hover">Project Cobalt</a></li>
+                                <li><a href="#stats" class="link link-hover">Stats</a></li>
+                                <li><a href="#industry" class="link link-hover">Industry</a></li>
+                                <li><a href="#contact" class="link link-hover">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="space-y-4">
+                            <h6 class="text-lg font-semibold uppercase tracking-wide">Connect</h6>
+                            <p class="text-base-content/70">Follow the studio and join our community channels.</p>
+                            <div class="flex flex-wrap items-center gap-3">
+                                <a href="https://www.linkedin.com/company/digitalhazard" target="_blank" class="btn btn-circle btn-primary shadow-sm" aria-label="LinkedIn">
+                                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://www.instagram.com/digitalhazardstudio/" target="_blank" class="btn btn-circle btn-primary shadow-sm" aria-label="Instagram">
+                                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://www.facebook.com/digitalhazardstudio/" target="_blank" class="btn btn-circle btn-primary shadow-sm" aria-label="Facebook">
+                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://discord.gg/H28QhSQETp" target="_blank" class="btn btn-circle btn-primary shadow-sm" aria-label="Discord">
+                                    <i class="fab fa-discord" aria-hidden="true"></i>
+                                </a>
                     </div>
-                    <div class="flex gap-3 text-base-content/70">
-                        <a href="#hero" class="link link-hover">Top</a>
-                        <a href="present.html" class="link link-hover">Presentation</a>
-                        <a href="mailto:hello@digitalhazard.gg" class="link link-hover">Contact</a>
+                        </div>
+                    </div>
+                    <div class="mt-10 border-t border-base-300 pt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm text-base-content/70">
+                        <span>&copy; 2025 Digital Hazard Inc. All rights reserved.</span>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <a href="present.html" class="btn btn-outline btn-sm btn-primary shadow-sm" aria-label="Open the interactive pitch deck">Pitch Deck</a>
+                            <a href="https://www.digitalhazardstudio.com" target="_blank" class="btn btn-primary btn-sm shadow-sm" aria-label="Visit Digital Hazard Studio official website">
+                                Visit Our Website
+                                <i class="fas fa-external-link-alt ml-2" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </footer>
         </div>
-        <div class="drawer-side z-30">
-            <label for="navigation-drawer" class="drawer-overlay"></label>
-            <aside class="menu p-6 w-72 min-h-full bg-base-100/90 backdrop-blur-xl border-r border-base-content/10">
-                <div class="flex items-center justify-between mb-6">
-                    <span class="text-lg font-semibold">Navigate</span>
-                    <label for="navigation-drawer" class="btn btn-ghost btn-sm lg:hidden"><i class="fa-solid fa-xmark"></i></label>
-                </div>
-                <ul class="menu gap-1">
-                    <li><a href="#hero"><i class="fa-solid fa-house"></i> Hero</a></li>
-                    <li><a href="#experience"><i class="fa-solid fa-asterisk"></i> Experience</a></li>
-                    <li><a href="#media"><i class="fa-solid fa-clapperboard"></i> Media</a></li>
-                    <li><a href="#tech"><i class="fa-solid fa-microchip"></i> Technology</a></li>
-                    <li><a href="present.html"><i class="fa-solid fa-panorama"></i> Presentation</a></li>
-                </ul>
-                <div class="divider"></div>
-                <div class="space-y-3 text-sm text-base-content/70">
-                    <p>Built with Tailwind CSS, DaisyUI, and vanilla ES modules. Three.js renders the ambient background particles.</p>
-                    <p class="font-semibold text-base-content">Version 2.0 — Static Reimagining</p>
-                </div>
-            </aside>
+        <!-- Sidebar Drawer - DaisyUI Blueprint Pattern: Responsive Offcanvas Drawer Sidebar -->
+        <div class="drawer-side drawer-custom">
+            <label for="drawer-toggle" class="drawer-overlay drawer-overlay-custom" aria-label="Close navigation menu"></label>
+            <ul class="menu min-h-full w-80 bg-base-200 text-base-content p-4 gap-2">
+                <li class="mb-4">
+                    <a onclick="window.game?.foundEasterEgg?.('footer-logo', 'Footer Explorer', 150)"  href="#home" class="text-lg font-display font-bold">
+                        <i class="fas fa-exclamation-triangle text-primary" aria-hidden="true"></i>
+                        Digital Hazard
+                    </a>
+                </li>
+                <li><a href="#home"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle" aria-hidden="true"></i> About</a></li>
+                <li><a href="#engine"><i class="fas fa-cog" aria-hidden="true"></i> AI Engine</a></li>
+                <li><a href="#cobalt"><i class="fas fa-gamepad" aria-hidden="true"></i> Project Cobalt</a></li>
+                <li><a href="#stats"><i class="fas fa-chart-bar" aria-hidden="true"></i> Stats</a></li>
+                <li><a href="#industry"><i class="fas fa-industry" aria-hidden="true"></i> Industry</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                <li class="mt-4">
+                    <a href="present.html" class="btn btn-primary btn-sm shadow-sm">
+                        <i class="fas fa-presentation mr-2" aria-hidden="true"></i>
+                        Pitch Deck
+                    </a>
+                </li>
+            </ul>
+        </div>
         </div>
     </div>
 
-    <dialog id="game-dialog" class="modal">
-        <form method="dialog" class="modal-backdrop">
-            <button class="hidden" aria-hidden="true">close</button>
-        </form>
-        <article class="modal-box max-w-3xl bg-base-200/95 backdrop-blur-xl border border-primary/20">
-            <header class="flex items-center justify-between mb-4">
-                <h3 class="font-display text-2xl">Arcade Preview</h3>
-                <button type="button" class="btn btn-ghost btn-sm" data-close-modal>
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </header>
-            <section id="game-root" class="relative w-full h-[420px] rounded-xl overflow-hidden bg-base-100/80 border border-base-content/10"></section>
-            <footer class="flex justify-between items-center mt-4 text-sm text-base-content/70">
-                <span>Use WASD / Arrow keys to move. Collect shards, dodge anomalies.</span>
-                <button type="button" class="btn btn-primary btn-sm" data-close-modal>Close</button>
-            </footer>
-        </article>
-    </dialog>
+    <!-- Scripts -->
+    <!-- Polyfills first for browser compatibility -->
+    
+    <!-- Config and Utils - Load early (non-module for static compatibility) -->
+    
+    <!-- Game Loader - Load before init-shared.js to enable DHGameLoader -->
+    <!-- Shared Initialization Utilities (DRY) -->
+    
+    <!-- Animation Libraries -->
+    
+    <!-- Video playback enhancements -->
+    <script src="js/video-handler.js" defer></script>
+    
+    <!-- Page-specific initialization -->
+    <script src="js/page-init.js" defer></script>
+    
+    <!-- Test Suite (load conditionally in debug mode) -->
+    <script>
+        // Only load test suite in development/debug mode
+        if (window.CONFIG?.DEBUG || document.documentElement.hasAttribute('data-env') && document.documentElement.getAttribute('data-env') === 'dev') {
+            const testScript = document.createElement('script');
+            testScript.src = 'js/test-suite.js';
+            testScript.defer = true;
+            document.head.appendChild(testScript);
+        }
+    </script>
+    
+    <!-- Unified Game Initialization -->
+    <script>
+        (function() {
+            'use strict';
+            
+            /**
+             * Unified game initialization for both index.html and present.html
+             * Handles modal opening, game loading, and error states
+             */
+            window.initGameSystem = function() {
+                console.log('[GameInit] Initializing unified game system...' );
+                
+                // Check if game modal exists
+                const gameModal = document.getElementById('gameModal');
+                if (!gameModal) {
+                    console.error('[GameInit] Game modal not found');
+                    return;
+                }
+                
+                // Check if demo canvas exists
+                const demoCanvas = document.getElementById('demo-canvas');
+                if (!demoCanvas) {
+                    console.error('[GameInit] Demo canvas not found');
+                    return;
+                }
+                
+                // Game loading states
+                const loadingOverlay = document.getElementById('gameLoadingOverlay');
+                const errorOverlay = document.getElementById('gameErrorOverlay');
+                const clickHint = document.getElementById('gameClickHint');
+                const loadingSpinner = document.getElementById('gameLoadingSpinner');
+                const errorMsg = document.getElementById('gameErrorMsg');
+                
+                // Function to show loading state
+                function showLoading(message = 'Loading game...') {
+                    if (loadingOverlay) {
+                        loadingOverlay.style.opacity = '1';
+                        loadingOverlay.style.pointerEvents = 'auto';
+                    }
+                    if (loadingSpinner) loadingSpinner.classList.remove('opacity-0');
+                    if (errorOverlay) errorOverlay.style.opacity = '0';
+                    console.log('[GameInit]', message);
+                }
+                
+                // Function to show error state
+                function showError(message) {
+                    if (errorOverlay) errorOverlay.style.opacity = '1';
+                    if (errorMsg) errorMsg.textContent = message;
+                    if (loadingOverlay) loadingOverlay.style.opacity = '0';
+                    if (loadingSpinner) loadingSpinner.classList.add('opacity-0');
+                    console.error('[GameInit] Error:', message);
+                }
+                
+                // Function to hide loading
+                function hideLoading() {
+                    if (loadingOverlay) {
+                        loadingOverlay.style.opacity = '0';
+                        loadingOverlay.style.pointerEvents = 'none';
+                    }
+                    if (loadingSpinner) loadingSpinner.classList.add('opacity-0');
+                    if (errorOverlay) errorOverlay.style.opacity = '0';
+                }
+                
+                // Function to start game
+                function startGame() {
+                    console.log('[GameInit] Starting game...' );
+                    
+                    // Check if SurvivalGame is available
+                    if (typeof window.SurvivalGame === 'undefined') {
+                        showError('Game engine not loaded. Please refresh the page.');
+                        return;
+                    }
+                    
+                    try {
+                        // Create game instance
+                        window.survivalGame = new window.SurvivalGame('demo-canvas');
+                        
+                        // Start the game
+                        if (window.survivalGame && typeof window.survivalGame.startGame === 'function') {
+                            window.survivalGame.startGame();
+                            hideLoading();
+                            
+                            // Hide click hint after game starts
+                            if (clickHint) {
+                                clickHint.style.opacity = '0';
+                                clickHint.style.pointerEvents = 'none';
+                            }
+                            
+                            console.log('[GameInit] Game started successfully');
+                        } else {
+                            throw new Error('Game start method not available');
+                        }
+                    } catch (error) {
+                        showError(`Failed to start game: ${error.message}`);
+                    }
+                }
+                
+                // Prevent modal from closing when clicking on game canvas
+                const gameCanvas = document.getElementById('demo-canvas');
+                const canvasContainer = document.querySelector('.demo-canvas-container');
+                if (gameCanvas) {
+                    gameCanvas.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+                    gameCanvas.addEventListener('mousedown', (e) => {
+                        e.stopPropagation();
+                    });
+                    gameCanvas.addEventListener('mouseup', (e) => {
+                        e.stopPropagation();
+                    });
+                }
+                if (canvasContainer) {
+                    canvasContainer.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+                }
+                
+                // Prevent backdrop clicks from closing modal when game is active
+                gameModal.addEventListener('cancel', (e) => {
+                    // Only prevent default if game is playing
+                    if (window.survivalGame && window.survivalGame.engine && window.survivalGame.engine.state === 'playing') {
+                        e.preventDefault();
+                        // Optionally show a message that they need to pause first
+                        console.log('[GameInit] Prevented modal close - game is active. Pause first.');
+                    }
+                });
+                
+                // Pause Three.js background animations when game modal opens
+                function pauseBackgroundAnimations() {
+                    document.body.classList.add('game-modal-open');
+                    
+                    // Stop Three.js animation loops
+                    if (window.DHThreeBackground && window.DHThreeBackground.pause) {
+                        window.DHThreeBackground.pause();
+                    }
+                    
+                    // Also check for threejs-background.js animation frame
+                    if (window.threeJSBackgroundAnimation) {
+                        cancelAnimationFrame(window.threeJSBackgroundAnimation);
+                        window.threeJSBackgroundAnimation = null;
+                    }
+                    
+                    // Stop main.js Three.js animation
+                    if (window.mainThreeJSAnimation) {
+                        cancelAnimationFrame(window.mainThreeJSAnimation);
+                        window.mainThreeJSAnimation = null;
+                    }
+                }
+                
+                // Resume Three.js background animations when game modal closes
+                function resumeBackgroundAnimations() {
+                    document.body.classList.remove('game-modal-open');
+                    
+                    // Resume Three.js animation loops
+                    if (window.DHThreeBackground && window.DHThreeBackground.resume) {
+                        window.DHThreeBackground.resume();
+                    }
+                }
+                
+                // Modal open handler
+                gameModal.addEventListener('show', () => {
+                    console.log('[GameInit] Game modal opened');
+                    pauseBackgroundAnimations();
+                    showLoading('Initializing game...' );
+                    
+                    // Check if game modules are loaded
+                    if (typeof window.SurvivalGame !== 'undefined') {
+                        // Game modules are already loaded, start immediately
+                        setTimeout(startGame, 500);
+                    } else {
+                        // Wait for game modules to load
+                        showLoading('Loading game modules...' );
+                        
+                        let attempts = 0;
+                        const maxAttempts = 50; // 5 seconds max wait
+                        
+                        const checkModules = () => {
+                            attempts++;
+                            
+                            if (typeof window.SurvivalGame !== 'undefined') {
+                                console.log('[GameInit] Game modules loaded');
+                                startGame();
+                            } else if (attempts >= maxAttempts) {
+                                showError('Game modules failed to load. Please refresh the page.');
+                            } else {
+                                setTimeout(checkModules, 100);
+                            }
+                        };
+                        
+                        checkModules();
+                    }
+                });
+                
+                // Modal close handler
+                gameModal.addEventListener('close', () => {
+                    console.log('[GameInit] Game modal closed');
+                    resumeBackgroundAnimations();
+                    hideLoading();
+                    
+                    // Dispose game instance
+                    if (window.survivalGame && typeof window.survivalGame.dispose === 'function') {
+                        window.survivalGame.dispose();
+                        window.survivalGame = null;
+                    }
+                });
+                
+                // Also handle open attribute changes (for browsers that use attribute instead of events)
+                const modalObserver = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
+                            if (gameModal.hasAttribute('open') || gameModal.classList.contains('modal-open')) {
+                                pauseBackgroundAnimations();
+                            } else {
+                                resumeBackgroundAnimations();
+                            }
+                        }
+                    });
+                });
+                
+                modalObserver.observe(gameModal, { attributes: true, attributeFilter: ['open'] });
+                
+                console.log('[GameInit] Game system initialized');
+            };
+            
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', window.initGameSystem);
+            } else {
+                window.initGameSystem();
+            }
+            
+            // Also initialize when DHInit is ready (for present.html)
+            window.addEventListener('DHInitReady', () => {
+                if (!window.gameSystemInitialized) {
+                    window.initGameSystem();
+                    window.gameSystemInitialized = true;
+                }
+            });
+            
+        })();
+    </script>
 
-    <script type="module" src="js/main.js"></script>
+    <!-- AOS Initialization -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // Initialize AOS for scroll animations
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                offset: 100,
+                delay: 50
+            });
+        }
+    </script>
 </body>
 </html>

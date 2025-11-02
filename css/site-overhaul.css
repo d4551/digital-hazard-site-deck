@@ -1,0 +1,806 @@
+:root {
+    --dh-bg: #020617;
+    --dh-surface: rgba(10, 14, 33, 0.75);
+    --dh-surface-strong: rgba(18, 24, 52, 0.85);
+    --dh-border: rgba(148, 163, 255, 0.2);
+    --dh-accent: #7c3aed;
+    --dh-accent-soft: rgba(124, 58, 237, 0.4);
+    --dh-secondary: #38bdf8;
+    --dh-text-primary: #f8fafc;
+    --dh-text-secondary: rgba(226, 232, 240, 0.72);
+    --dh-glow-primary: 0 0 45px rgba(124, 58, 237, 0.35);
+    --dh-glow-secondary: 0 0 65px rgba(56, 189, 248, 0.25);
+    --dh-grid-color: rgba(56, 189, 248, 0.08);
+    --dh-card-radius: 20px;
+    --dh-transition: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+body.dh-body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.15), transparent 45%),
+                radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.2), transparent 50%),
+                var(--dh-bg);
+    color: var(--dh-text-primary);
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    position: relative;
+    letter-spacing: 0.01em;
+}
+
+#three-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -2;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Hide Three.js background when game modal is open */
+body:has(#gameModal[open]) #three-canvas,
+body:has(#gameModal.modal-open) #three-canvas,
+.game-modal-open #three-canvas {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.dh-gradient {
+    position: fixed;
+    inset: 0;
+    background:
+        linear-gradient(135deg, rgba(56, 189, 248, 0.18), transparent 40%),
+        linear-gradient(315deg, rgba(124, 58, 237, 0.15), transparent 40%),
+        radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.18), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(190, 24, 93, 0.12), transparent 45%);
+    z-index: -1;
+    opacity: 0.85;
+    mix-blend-mode: screen;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Hide gradient overlay when game modal is open */
+body:has(#gameModal[open]) .dh-gradient,
+body:has(#gameModal.modal-open) .dh-gradient,
+.game-modal-open .dh-gradient {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Ensure game modal has proper z-index and backdrop doesn't interfere */
+#gameModal.game-modal-enhanced {
+    z-index: var(--z-modals, 1000) !important;
+}
+
+#gameModal.game-modal-enhanced::backdrop {
+    z-index: var(--z-modal-backdrop, 999) !important;
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+/* Ensure game canvas receives pointer events */
+.demo-canvas-container,
+#demo-canvas {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Disable pointer events on modal backdrop when game is active */
+.game-modal-enhanced::backdrop {
+    pointer-events: auto;
+}
+
+/* Ensure game canvas container has proper layering */
+.demo-canvas-container-custom {
+    isolation: isolate;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.dh-app {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 3rem clamp(1.25rem, 2.5vw, 3rem) 6rem;
+}
+
+.dh-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.25rem 1.75rem;
+    border-radius: calc(var(--dh-card-radius) + 8px);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.5));
+    border: 1px solid var(--dh-border);
+    backdrop-filter: blur(18px);
+    box-shadow: var(--dh-glow-secondary);
+    position: sticky;
+    top: 1.5rem;
+    z-index: 15;
+}
+
+.dh-body .navbar {
+    background: linear-gradient(135deg, rgba(12, 18, 43, 0.85), rgba(10, 12, 30, 0.75));
+    border: 1px solid rgba(148, 163, 255, 0.16);
+    backdrop-filter: blur(18px);
+    border-radius: calc(var(--dh-card-radius) + 10px);
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 25px 45px rgba(2, 6, 23, 0.45);
+}
+
+.dh-body .navbar .btn-ghost,
+.dh-body .navbar .menu a {
+    border-radius: 999px;
+    transition: all 220ms var(--dh-transition);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    color: rgba(226, 232, 240, 0.7);
+}
+
+.dh-body .navbar .menu a:hover,
+.dh-body .navbar .menu a:focus {
+    color: var(--dh-text-primary);
+    background: rgba(56, 189, 248, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.2);
+}
+
+.dh-body .drawer-content {
+    gap: 3rem;
+}
+
+.dh-body .drawer-content main {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding-top: clamp(7rem, 10vw, 8.5rem);
+}
+
+.dh-brand {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.dh-brand .icon {
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.85), rgba(124, 58, 237, 0.9));
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: rgba(15, 23, 42, 0.95);
+    box-shadow: 0 15px 40px rgba(56, 189, 248, 0.35);
+}
+
+.dh-brand h1 {
+    font-family: 'Rajdhani', 'Inter', sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2rem);
+    margin: 0;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.dh-nav {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.dh-nav a {
+    text-decoration: none;
+    color: var(--dh-text-secondary);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.6rem 0.9rem;
+    border-radius: 999px;
+    transition: all 220ms var(--dh-transition);
+}
+
+.dh-nav a:hover,
+.dh-nav a:focus {
+    color: var(--dh-text-primary);
+    background: rgba(56, 189, 248, 0.15);
+    box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.25);
+}
+
+.dh-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: 999px;
+    padding: 0.7rem 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 1), rgba(56, 189, 248, 1));
+    color: #0f172a;
+    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.35);
+    transition: transform 220ms var(--dh-transition), box-shadow 220ms ease;
+}
+
+.dh-cta:hover,
+.dh-cta:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 45px rgba(56, 189, 248, 0.45);
+}
+
+.dh-main {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.dh-section {
+    position: relative;
+    border-radius: calc(var(--dh-card-radius) + 4px);
+    padding: clamp(2.5rem, 4vw, 3.5rem);
+    background: linear-gradient(160deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.65));
+    border: 1px solid rgba(148, 163, 255, 0.08);
+    box-shadow: var(--dh-glow-primary);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+.dh-section::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: calc(var(--dh-card-radius) + 2px);
+    background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.15), transparent 55%),
+                radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.12), transparent 55%);
+    opacity: 0.65;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.dh-section-content {
+    position: relative;
+    z-index: 2;
+}
+
+.dh-section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.dh-section .section-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.dh-section .section-title {
+    font-family: 'Rajdhani', 'Inter', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dh-text-primary);
+}
+
+.dh-section .section-subtitle,
+.dh-section .body-dense,
+.dh-section .card-body p,
+.dh-section p {
+    color: var(--dh-text-secondary);
+    line-height: 1.7;
+}
+
+.dh-section .badge {
+    border-radius: 999px;
+    padding: 0.5rem 1.5rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    color: rgba(226, 232, 240, 0.85);
+}
+
+.dh-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    font-size: 0.75rem;
+    color: rgba(56, 189, 248, 0.75);
+    font-weight: 600;
+}
+
+.dh-title {
+    font-family: 'Rajdhani', 'Inter', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.dh-deck-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.75rem;
+}
+
+.dh-card {
+    background: linear-gradient(180deg, var(--dh-surface-strong), rgba(12, 10, 39, 0.85));
+    border-radius: var(--dh-card-radius);
+    padding: 1.8rem;
+    border: 1px solid rgba(148, 163, 255, 0.12);
+    box-shadow: 0 25px 40px rgba(2, 6, 23, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: transform 220ms var(--dh-transition), box-shadow 220ms ease, border 220ms ease;
+}
+
+.dh-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(56, 189, 248, 0.35);
+    box-shadow: 0 35px 60px rgba(14, 165, 233, 0.25);
+}
+
+.dh-section .card {
+    background: linear-gradient(175deg, rgba(10, 14, 33, 0.9), rgba(16, 18, 40, 0.72));
+    border-radius: var(--dh-card-radius);
+    border: 1px solid rgba(148, 163, 255, 0.14);
+    box-shadow: 0 18px 40px rgba(2, 6, 23, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.dh-section .card:hover {
+    border-color: rgba(56, 189, 248, 0.35);
+    box-shadow: 0 28px 55px rgba(56, 189, 248, 0.22);
+}
+
+.dh-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+.dh-card p {
+    margin: 0;
+    color: var(--dh-text-secondary);
+    line-height: 1.6;
+}
+
+.dh-flex {
+    display: flex;
+    gap: 3rem;
+    align-items: stretch;
+}
+
+.dh-flex-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.dh-glass-panel {
+    border-radius: var(--dh-card-radius);
+    padding: 1.8rem;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.78));
+    border: 1px solid rgba(148, 163, 255, 0.16);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), var(--dh-glow-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dh-grid-split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+.dh-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.dh-chip {
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(226, 232, 240, 0.85);
+    background: rgba(56, 189, 248, 0.16);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.dh-body .btn {
+    border-radius: 999px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition: transform 220ms var(--dh-transition), box-shadow 220ms ease;
+}
+
+.dh-body .btn-primary {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 1), rgba(56, 189, 248, 1));
+    border: none;
+    color: #0f172a;
+    box-shadow: 0 15px 35px rgba(124, 58, 237, 0.35);
+}
+
+.dh-body .btn-primary:hover,
+.dh-body .btn-primary:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 45px rgba(56, 189, 248, 0.4);
+}
+
+.dh-body .btn-outline.btn-primary {
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: rgba(226, 232, 240, 0.85);
+    background: rgba(56, 189, 248, 0.08);
+}
+
+.dh-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.dh-metric {
+    padding: 1.5rem;
+    border-radius: var(--dh-card-radius);
+    background: linear-gradient(175deg, rgba(56, 189, 248, 0.12), rgba(124, 58, 237, 0.1));
+    border: 1px solid rgba(148, 163, 255, 0.16);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dh-metric strong {
+    font-size: 2rem;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.1em;
+}
+
+.dh-metric span {
+    font-size: 0.85rem;
+    color: rgba(226, 232, 240, 0.75);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.dh-grid-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    position: relative;
+}
+
+.dh-grid-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: clamp(0.5rem, 5vw, 3rem);
+    width: 2px;
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.65), rgba(124, 58, 237, 0.65));
+    opacity: 0.6;
+}
+
+.dh-timeline-card {
+    padding-left: clamp(2.8rem, 6vw, 4rem);
+    position: relative;
+}
+
+.dh-timeline-card::before {
+    content: attr(data-year);
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    color: rgba(226, 232, 240, 0.5);
+    text-transform: uppercase;
+}
+
+.dh-timeline-card::after {
+    content: "";
+    position: absolute;
+    left: clamp(0.45rem, 4vw, 2.25rem);
+    top: 1.2rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(124, 58, 237, 0.95));
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+.dh-timeline-card .dh-card {
+    background: rgba(15, 23, 42, 0.82);
+    border: 1px solid rgba(148, 163, 255, 0.16);
+}
+
+.dh-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.dh-contact-card {
+    padding: 1.5rem;
+    border-radius: var(--dh-card-radius);
+    border: 1px solid rgba(148, 163, 255, 0.18);
+    background: rgba(10, 14, 33, 0.78);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.dh-contact-card h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.dh-contact-card a {
+    color: rgba(56, 189, 248, 0.85);
+    text-decoration: none;
+}
+
+.dh-contact-card a:hover,
+.dh-contact-card a:focus {
+    color: rgba(96, 165, 250, 1);
+    text-decoration: underline;
+}
+
+.dh-footer {
+    margin-top: 4rem;
+    padding: 2rem 0 1rem;
+    color: rgba(148, 163, 184, 0.7);
+    font-size: 0.8rem;
+    text-align: center;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+/* Hero composition */
+.dh-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 3rem;
+    align-items: center;
+}
+
+.dh-hero-headline {
+    font-family: 'Rajdhani', 'Inter', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4rem);
+    margin: 0 0 1.2rem;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+}
+
+.dh-hero-subhead {
+    margin: 0 0 2rem;
+    font-size: 1.1rem;
+    color: var(--dh-text-secondary);
+    line-height: 1.7;
+}
+
+.dh-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+.dh-body #home.hero {
+    background: linear-gradient(160deg, rgba(10, 14, 33, 0.9), rgba(8, 10, 24, 0.72));
+    border-radius: calc(var(--dh-card-radius) + 8px);
+    border: 1px solid rgba(148, 163, 255, 0.1);
+    box-shadow: 0 30px 60px rgba(2, 6, 23, 0.55);
+}
+
+.dh-body #home .hero-overlay {
+    background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.18), transparent 55%),
+                radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.18), transparent 60%);
+    opacity: 0.8;
+}
+
+.dh-body #home .hero-content {
+    align-items: stretch;
+    text-align: left;
+}
+
+.dh-body #home .hero-content > div:first-child {
+    background: rgba(10, 13, 35, 0.55);
+    border: 1px solid rgba(148, 163, 255, 0.12);
+    border-radius: var(--dh-card-radius);
+    padding: clamp(1.75rem, 3vw, 2.4rem);
+    box-shadow: 0 30px 60px rgba(2, 6, 23, 0.45);
+}
+
+.dh-body #home .card {
+    background: rgba(12, 18, 43, 0.78);
+    border-radius: var(--dh-card-radius);
+    border: 1px solid rgba(148, 163, 255, 0.16);
+}
+
+.dh-scoreboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.dh-score-card {
+    border-radius: calc(var(--dh-card-radius) - 4px);
+    padding: 1.25rem;
+    border: 1px solid rgba(148, 163, 255, 0.18);
+    background: rgba(10, 13, 35, 0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.dh-body #gamificationHUD {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    position: fixed;
+    right: clamp(1rem, 3vw, 2.5rem);
+    top: clamp(5.5rem, 8vw, 7.5rem);
+    max-width: 220px;
+    z-index: 25;
+}
+
+.dh-body #gamificationHUD .card {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.75));
+    border: 1px solid rgba(148, 163, 255, 0.2);
+    border-radius: calc(var(--dh-card-radius) - 6px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 20px 40px rgba(2, 6, 23, 0.6);
+}
+
+.dh-body #gamificationHUD progress {
+    height: 0.45rem;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.dh-body #gamificationHUD progress::-webkit-progress-bar {
+    background: rgba(30, 41, 59, 0.8);
+}
+
+.dh-body #gamificationHUD progress::-webkit-progress-value {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 1), rgba(124, 58, 237, 1));
+}
+
+.dh-body #scorePopup {
+    right: clamp(1rem, 3vw, 2.5rem);
+    top: clamp(18rem, 25vw, 22rem);
+    background: rgba(12, 18, 43, 0.85);
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(56, 189, 248, 0.25);
+}
+
+.dh-body #comboCounter .card {
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.95), rgba(56, 189, 248, 0.85));
+    border-radius: calc(var(--dh-card-radius) - 10px);
+}
+
+.dh-body #achievementNotification {
+    background: rgba(10, 13, 35, 0.9);
+    border-radius: var(--dh-card-radius);
+    border: 1px solid rgba(148, 163, 255, 0.18);
+    box-shadow: 0 25px 40px rgba(56, 189, 248, 0.25);
+    padding: 0.5rem;
+}
+
+.dh-body #achievementNotification .alert {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    gap: 1rem;
+}
+
+.dh-body #achievementNotification #achievementTitle {
+    letter-spacing: 0.18em;
+    color: rgba(226, 232, 240, 0.9);
+}
+
+.dh-body #achievementNotification #achievementDesc {
+    color: rgba(148, 163, 184, 0.8);
+}
+
+.dh-score-card span {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(226, 232, 240, 0.6);
+}
+
+.dh-score-card strong {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.3rem;
+    letter-spacing: 0.18em;
+}
+
+/* Gamification modal adjustments */
+dialog#gameModal .modal-box {
+    background: linear-gradient(170deg, rgba(10, 13, 35, 0.95), rgba(12, 18, 43, 0.9));
+    border-radius: 24px;
+    border: 1px solid rgba(148, 163, 255, 0.2);
+    backdrop-filter: blur(24px);
+}
+
+/* Responsive refinements */
+@media (max-width: 1024px) {
+    .dh-header {
+        flex-direction: column;
+        align-items: flex-start;
+        position: static;
+    }
+
+    .dh-nav {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .dh-main {
+        margin-top: 2rem;
+        gap: 4rem;
+    }
+
+    .dh-hero-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 720px) {
+    .dh-app {
+        padding: 1.8rem 1.2rem 4rem;
+    }
+
+    .dh-header {
+        padding: 1rem 1.2rem;
+    }
+
+    .dh-nav {
+        gap: 0.6rem;
+    }
+
+    .dh-section {
+        padding: 2rem 1.4rem;
+    }
+
+    .dh-grid-timeline::before {
+        display: none;
+    }
+
+    .dh-timeline-card {
+        padding-left: 0;
+    }
+
+    .dh-timeline-card::before,
+    .dh-timeline-card::after {
+        display: none;
+    }
+
+    .dh-chip-row {
+        gap: 0.5rem;
+    }
+}

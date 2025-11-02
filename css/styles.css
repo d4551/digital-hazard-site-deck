@@ -1,0 +1,79 @@
+/* Global Styles for Presentation - Basic resets and presentation-specific overrides */
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: var(--base-content);
+}
+
+/* Slide container enhancements */
+.slide-container {
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Easter egg hover effects */
+.easter-egg {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.easter-egg:hover {
+  transform: scale(1.2);
+}
+
+/* Progress indicator */
+.slide-progress-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+  z-index: var(--z-presentation-nav-controls);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .slide {
+    padding: 1rem;
+  }
+  
+  .presentation-hud,
+  .presentation-powerups {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Ensure smooth scrolling for presentation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Loading screen fade */
+#loadingScreen {
+  transition: opacity 0.5s ease-out;
+}
+
+#loadingScreen.opacity-0 {
+  opacity: 0;
+  pointer-events: none;
+}
