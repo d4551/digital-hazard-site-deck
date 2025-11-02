@@ -351,18 +351,45 @@
             const temp = document.createElement('div');
             temp.textContent = html; // This escapes all HTML
             
-            // However, for command output formatting, we need to allow certain safe tags
-            // Only for output from our own commands (not user input)
-            // If html contains allowed patterns, use innerHTML, otherwise use textContent
-            const allowedTags = ['div', 'span', 'pre', 'strong', 'em'];
-            const hasOnlyAllowedTags = /<\/?(?:div|span|pre|strong|em|br)[^>]*>/i.test(html) && 
-                                       !/<script|<iframe|javascript:|onerror|onclick/i.test(html);
+            // For command output formatting, we use a strict allowlist approach
+            // Only allow specific safe patterns from our trusted command outputs
+            const dangerousPatterns = [
+                /<script/i,
+                /<iframe/i,
+                /javascript:/i,
+                /data:/i,
+                /on\w+\s*=/i, // Event handlers (onclick, onerror, onload, etc.)
+                /<embed/i,
+                /<object/i,
+                /<link/i,
+                /<meta/i,
+                /<form/i,
+                /<input/i,
+                /<button/i
+            ];
             
-            if (hasOnlyAllowedTags) {
-                return html; // Trusted command output with safe formatting
-            } else {
-                return temp.innerHTML; // Escaped user input
+            // Check for any dangerous patterns
+            const hasDangerousContent = dangerousPatterns.some(pattern => pattern.test(html));
+            
+            if (hasDangerousContent) {
+                // Return escaped text for any suspicious content
+                return temp.innerHTML;
             }
+            
+            // Only allow very specific safe tags for formatting
+            const allowedTags = /<\/?(?:div|span|pre|br)[^>]*>/i;
+            const hasOnlySafeTags = allowedTags.test(html) && !/<\w+\s+\w+=/i.test(html); // No attributes except class
+            
+            if (hasOnlySafeTags && /class="[^"]*"/.test(html)) {
+                // Allow only class attributes on safe tags
+                return html;
+            } else if (html.includes('<') || html.includes('>')) {
+                // If it looks like HTML but doesn't match safe patterns, escape it
+                return temp.innerHTML;
+            }
+            
+            // Plain text, return as-is
+            return html;
         }
         
         escapeHTML(text) {
@@ -374,10 +401,15 @@
         simulateLoading(message) {
             const loader = document.createElement('div');
             loader.className = 'cli-loading text-warning flex items-center gap-2';
-            loader.innerHTML = `
-                <span class="loading loading-spinner loading-xs"></span>
-                <span>${message}</span>
-            `;
+            
+            const spinner = document.createElement('span');
+            spinner.className = 'loading loading-spinner loading-xs';
+            
+            const messageSpan = document.createElement('span');
+            messageSpan.textContent = message; // Safe - uses textContent
+            
+            loader.appendChild(spinner);
+            loader.appendChild(messageSpan);
             this.output.appendChild(loader);
             this.scrollToBottom();
         }

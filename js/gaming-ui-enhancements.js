@@ -221,6 +221,11 @@
                     background-clip: text;
                     animation: neon-pulse 1s ease-in-out infinite;
                 }
+                
+                @keyframes ripple {
+                    0% { transform: scale(0); opacity: 1; }
+                    100% { transform: scale(20); opacity: 0; }
+                }
             `;
             document.head.appendChild(style);
         },
@@ -230,6 +235,12 @@
          */
         addGlitchEffects() {
             const titles = document.querySelectorAll('.section-title, h1, h2');
+            
+            // Store interval IDs for cleanup
+            if (!this.glitchIntervals) {
+                this.glitchIntervals = [];
+            }
+            
             titles.forEach((title, index) => {
                 // Add glitch effect on hover
                 title.addEventListener('mouseenter', () => {
@@ -246,7 +257,13 @@
                 
                 // Random glitch every 10-20 seconds
                 const glitchInterval = Math.random() * 10000 + 10000;
-                setInterval(() => {
+                const intervalId = setInterval(() => {
+                    // Check if element still exists in DOM
+                    if (!document.body.contains(title)) {
+                        clearInterval(intervalId);
+                        return;
+                    }
+                    
                     if (Math.random() < 0.3) { // 30% chance
                         const originalText = title.textContent;
                         title.setAttribute('data-text', originalText);
@@ -256,6 +273,9 @@
                         }, 300);
                     }
                 }, glitchInterval);
+                
+                // Store interval ID for potential cleanup
+                this.glitchIntervals.push(intervalId);
             });
         },
         
@@ -292,7 +312,7 @@
                 card.classList.add('gaming-glow-hover');
                 
                 card.addEventListener('click', () => {
-                    // Create ripple effect
+                    // Create ripple effect (animation already defined in CSS above)
                     const ripple = document.createElement('div');
                     ripple.style.cssText = `
                         position: absolute;
@@ -303,15 +323,6 @@
                         pointer-events: none;
                         animation: ripple 0.6s ease-out;
                     `;
-                    
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        @keyframes ripple {
-                            0% { transform: scale(0); opacity: 1; }
-                            100% { transform: scale(20); opacity: 0; }
-                        }
-                    `;
-                    document.head.appendChild(style);
                     
                     card.style.position = 'relative';
                     card.style.overflow = 'hidden';
