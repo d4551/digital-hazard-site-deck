@@ -334,7 +334,7 @@
 
     <!-- HUD Elements -->
     <!-- Combo Counter -->
-    <div class="fixed top-1/2 right-4 sm:right-20 lg:right-4 transform -translate-y-1/2 opacity-0 transition-all duration-500 hidden sm:block scale-95 combo-counter" id="comboCounter" role="status" aria-live="polite" aria-label="Combo counter">
+    <div class="fixed top-1/2 right-4 sm:right-20 lg:right-4 transform -translate-y-1/2 opacity-0 transition-all duration-500 hidden scale-95 combo-counter" id="comboCounter" role="status" aria-live="polite" aria-label="Combo counter">
         <div class="card bg-primary text-primary-content shadow-2xl border-2 border-primary-focus p-4 sm:p-5 w-24 sm:w-28 lg:w-32 hover:scale-105 transition-transform duration-300">
             <div class="card-body items-center text-center gap-2 p-0">
                 <div class="text-3xl sm:text-5xl font-bold" id="comboNumber" aria-label="Current combo">0</div>
@@ -345,7 +345,7 @@
     </div>
 
     <!-- Score Popup -->
-    <div class="fixed pointer-events-none opacity-0 scale-0 transition-all duration-300" id="scorePopup" role="status" aria-live="polite" aria-atomic="true" class="score-popup">
+    <div class="fixed pointer-events-none opacity-0 scale-0 transition-all duration-300 hidden" id="scorePopup" role="status" aria-live="polite" aria-atomic="true">
         <div class="badge badge-success badge-md sm:badge-lg">
             <span id="scoreNumber" class="text-sm sm:text-base">+100</span>
         </div>
@@ -388,7 +388,7 @@
     </dialog>
 
     <!-- Achievement Notification -->
-    <div class="toast toast-top toast-end w-full max-w-[90vw] sm:max-w-md" id="achievementNotification" role="alert" aria-live="assertive">
+    <div class="toast toast-top toast-end w-full max-w-[90vw] sm:max-w-md hidden" id="achievementNotification" role="alert" aria-live="assertive">
         <div class="alert alert-success shadow-2xl border-2 border-success/50">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -479,111 +479,47 @@
             </div>
             <!-- Main Content -->
             <main id="main-content" class="site-main flex-1 navbar-spacing" role="main">
-                <!-- Breadcrumbs Navigation -->
-                <div class="bg-base-200/50 backdrop-blur-sm border-b border-base-300/50 sticky top-16 z-30" style="margin-top: 4rem;">
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                        <div class="breadcrumbs text-sm">
-                            <ul>
-                                <li><a href="#home" class="tooltip tooltip-bottom" data-tip="Home"><i class="fas fa-home mr-1"></i>Home</a></li>
-                                <li><a href="#about" class="tooltip tooltip-bottom" data-tip="About"><i class="fas fa-info-circle mr-1"></i>About</a></li>
-                                <li><a href="#engine" class="tooltip tooltip-bottom" data-tip="AI Engine"><i class="fas fa-brain mr-1"></i>Engine</a></li>
-                                <li><a href="#cobalt" class="tooltip tooltip-bottom" data-tip="Project Cobalt"><i class="fas fa-gamepad mr-1"></i>Cobalt</a></li>
-                                <li><a href="#stats" class="tooltip tooltip-bottom" data-tip="Statistics"><i class="fas fa-chart-bar mr-1"></i>Stats</a></li>
-                                <li><a href="#industry" class="tooltip tooltip-bottom" data-tip="Industry Insights"><i class="fas fa-industry mr-1"></i>Industry</a></li>
-                                <li><a href="#contact" class="tooltip tooltip-bottom" data-tip="Contact Us"><i class="fas fa-envelope mr-1"></i>Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="site-main-inner flex flex-col gap-24">
+                <div class="site-main-inner flex flex-col gap-32 py-8">
                 <!-- Hero Section -->
                 <section id="home" class="dh-section dh-hero hero min-h-screen relative overflow-hidden bg-gradient-to-b from-base-100 via-base-200/50 to-base-100">
                     <div class="hero-overlay bg-gradient-to-br from-primary/5 via-transparent to-secondary/5"></div>
                     <div class="hero-content w-full text-base-content relative z-10">
                             <div class="section-content py-12 lg:py-16">
                             <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-12 items-center">
-                                <div class="hero-copy flex flex-col gap-6 items-center lg:items-start text-center lg:text-left">
-                            <div class="inline-flex">
-                                        <div class="badge badge-primary badge-soft badge-lg gap-2 text-base sm:text-lg px-6 py-4 cursor-pointer hover:scale-110 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 interactive-badge animate-pulse-smooth rounded-full" data-achievement="hero-unlocked" data-points="100" tabindex="0" role="button" aria-label="Achievement Unlocked - Click to track progress">
-                                    <i class="fas fa-trophy"></i>
-                                    <span class="font-bold">ACHIEVEMENT UNLOCKED</span>
-                                </div>
-                            </div>
-                                    <h1 onclick="window.game?.foundEasterEgg?.('hero-title', 'Meta Breaker', 200)" class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-gradient leading-[1.1] tracking-tight drop-shadow-2xl">
-                                Breaking the Meta
-                            </h1>
-                                    <div class="flex justify-center lg:justify-start gap-1 text-3xl sm:text-4xl lg:text-5xl animate-pulse-slow">
-                                <span class="text-accent drop-shadow-glow">★</span>
-                                <span class="text-accent drop-shadow-glow">★</span>
-                                <span class="text-accent drop-shadow-glow">★</span>
-                                <span class="text-accent drop-shadow-glow">★</span>
-                                <span class="text-accent drop-shadow-glow">★</span>
-                            </div>
-                                    <div class="w-full grid gap-6">
-                                <div class="card bg-gradient-to-br from-error/10 to-error/5 border-2 border-error/30 hover:border-error/50 shadow-lg hover:shadow-error/20 transition-all duration-300 rounded-2xl">
-                                    <div class="card-body p-5 lg:p-7">
-                                        <h3 class="text-lg md:text-xl font-bold mb-4 text-error flex items-center gap-2">
-                                            <i class="fas fa-times-circle"></i>
-                                            <span>While others follow the industry playbook:</span>
-                                        </h3>
-                                        <ul class="space-y-3 text-base md:text-lg">
-                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/50 transition-colors">
-                                                <span class="text-error text-2xl flex-shrink-0">✗</span>
-                                                <span class="manifesto-fragment neon-text font-medium manifesto-error" data-fragment="1">Spend $200M+ per AAA game</span>
-                                            </li>
-                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/50 transition-colors">
-                                                <span class="text-error text-2xl flex-shrink-0">✗</span>
-                                                <span class="manifesto-fragment neon-text font-medium manifesto-error" data-fragment="2">Use AI tools that 87% of studios hate</span>
-                                            </li>
-                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/50 transition-colors">
-                                                <span class="text-error text-2xl flex-shrink-0">✗</span>
-                                                <span class="manifesto-fragment neon-text font-medium manifesto-error" data-fragment="3">Wait for VC funding that collapsed 85%</span>
-                                            </li>
-                                        </ul>
+                                <div class="hero-copy flex flex-col gap-8 items-center lg:items-start text-center lg:text-left max-w-2xl">
+                                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display font-black text-gradient leading-tight tracking-tight">
+                                        AA Games & AI Tools.<br>Built by Veterans.
+                                    </h1>
+
+                                    <p class="text-xl sm:text-2xl text-base-content/80 leading-relaxed">
+                                        Digital Hazard Studio delivers production-ready games and AI tools from a team with experience at Riot, Disney, Marvel, DC, Activision, Naughty Dog, and Pixar.
+                                    </p>
+
+                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full">
+                                        <div class="card bg-base-200/50 border border-base-300/50 p-6">
+                                            <div class="text-4xl font-black text-primary mb-2">14+</div>
+                                            <div class="text-sm text-base-content/70 uppercase tracking-wide">Team Members</div>
+                                        </div>
+                                        <div class="card bg-base-200/50 border border-base-300/50 p-6">
+                                            <div class="text-4xl font-black text-primary mb-2">2</div>
+                                            <div class="text-sm text-base-content/70 uppercase tracking-wide">Active Projects</div>
+                                        </div>
+                                        <div class="card bg-base-200/50 border border-base-300/50 p-6">
+                                            <div class="text-4xl font-black text-primary mb-2">$155B</div>
+                                            <div class="text-sm text-base-content/70 uppercase tracking-wide">Target Market</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/60 hover:border-primary/80 shadow-xl hover:shadow-primary/30 transition-all duration-300 rounded-2xl">
-                                    <div class="card-body p-5 lg:p-7">
-                                        <h3 class="text-lg md:text-xl font-bold mb-4 text-primary flex items-center gap-2">
-                                            <i class="fas fa-trophy"></i>
-                                            <span>We unlocked a different achievement:</span>
-                                        </h3>
-                                        <ul class="space-y-3 text-base md:text-lg">
-                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/30 transition-colors">
-                                                <span class="text-success text-2xl flex-shrink-0">✓</span>
-                                                <span class="text-primary font-bold neon-text">Build two revolutionary projects with veterans</span>
-                                            </li>
-                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/30 transition-colors">
-                                                <span class="text-success text-2xl flex-shrink-0">✓</span>
-                                                <span class="text-primary font-bold neon-text">Create AI tools that artists actually want</span>
-                                            </li>
-                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/30 transition-colors">
-                                                <span class="text-success text-2xl flex-shrink-0">✓</span>
-                                                <span class="text-primary font-bold neon-text">Bootstrapped. Profitable. Game-changing.</span>
-                                            </li>
-                                        </ul>
+
+                                    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                        <a href="#cobalt" class="btn btn-primary btn-lg shadow-xl hover:shadow-2xl hover:shadow-primary/50 group transition-all duration-300" aria-label="View Projects">
+                                            <span class="font-bold">View Projects</span>
+                                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="present.html" class="btn btn-outline btn-lg transition-all duration-300" aria-label="View Pitch Deck">
+                                            <i class="fas fa-presentation mr-2" aria-hidden="true"></i>
+                                            <span class="font-bold">Pitch Deck</span>
+                                        </a>
                                     </div>
-                                </div>
-                            </div>
-                                    <div class="space-y-2">
-                                <p class="text-3xl md:text-4xl lg:text-5xl font-display font-black text-gradient drop-shadow-lg">
-                                    Digital Hazard Studio
-                                </p>
-                                <p class="text-xl md:text-2xl font-bold text-base-content/90 italic">
-                                    We don't respawn the same failures.
-                                </p>
-                            </div>
-                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-stretch sm:items-center">
-                                <a href="#cobalt" class="btn btn-primary btn-lg shadow-xl hover:shadow-2xl hover:shadow-primary/50 btn-enhanced interactive-element group transition-all duration-300 hover:scale-105 rounded-xl tooltip tooltip-top" aria-label="Skip Tutorial" data-tip="Jump to Project Cobalt">
-                                    <i class="fas fa-gamepad mr-2 group-hover:animate-pulse" aria-hidden="true"></i>
-                                    <span class="font-bold">Skip Tutorial</span>
-                                    <i class="fas fa-forward ml-2" aria-hidden="true"></i>
-                                </a>
-                                <a href="present.html" class="btn btn-outline btn-primary btn-lg shadow-lg hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 group rounded-xl tooltip tooltip-top" aria-label="View interactive pitch deck" data-tip="Interactive Presentation">
-                                    <i class="fas fa-presentation mr-2 group-hover:rotate-12 transition-transform" aria-hidden="true"></i>
-                                    <span class="font-bold">View Pitch Deck</span>
-                                </a>
-                            </div>
                         </div>
                                 <div class="hero-experience relative w-full max-w-2xl mx-auto">
                             <div class="absolute -left-8 top-1/2 -translate-y-1/2 hidden lg:block animate-bounce-horizontal z-20">
