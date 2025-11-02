@@ -47,6 +47,7 @@
                     'AI Engine': 'ONLINE',
                     'Game Mode': 'HARD MODE',
                     'Players Connected': '3.42B',
+                    'Funding Winter': '-70% ~ -85%',
                     'Studio Status': 'OP'
                 };
                 
@@ -54,6 +55,79 @@
                 for (const [key, value] of Object.entries(stats)) {
                     output += `<div class="ml-2"><span class="text-secondary">${key}:</span> <span class="text-primary">${value}</span></div>`;
                 }
+                return output;
+            }
+        },
+        kpi: {
+            description: 'Display 2024-2025 KPI intel',
+            usage: 'kpi',
+            execute: async function(args, terminal) {
+                terminal.simulateLoading('Pulling KPI telemetry...');
+                await terminal.delay(1200);
+
+                if (window.game && window.game.addPoints) {
+                    window.game.addPoints(75, 'Terminal KPI intel');
+                }
+
+                const intel = [
+                    {
+                        label: 'Global Market 2024',
+                        value: '$177.9B',
+                        note: '→ $188.8B in 2025 • 3.7% CAGR to $198B by 2027'
+                    },
+                    {
+                        label: 'AI Adoption',
+                        value: '52% → 90%',
+                        note: 'Studios using AI (GDC) vs. dev integration (Google Cloud / Harris)'
+                    },
+                    {
+                        label: 'AI Sentiment',
+                        value: '13% Positive',
+                        note: 'Down from 21% • Negative sentiment up to 30%'
+                    },
+                    {
+                        label: 'AI Game Generators',
+                        value: '$1.64B → $21.26B',
+                        note: 'Market scaling at 29.2% CAGR through 2034'
+                    },
+                    {
+                        label: 'Indie Steam Revenue',
+                        value: '$4.9B',
+                        note: '82% YoY growth • Top 0.5% of games capture 80% revenue'
+                    }
+                ];
+
+                let output = '<div class="text-primary font-bold">[KPI WAR ROOM]</div>';
+                intel.forEach(item => {
+                    output += `<div class="ml-2 mb-1"><span class="text-secondary">${item.label}:</span> <span class="text-success">${item.value}</span><div class="text-base-content/60 ml-4">${item.note}</div></div>`;
+                });
+                output += '<div class="mt-2 text-base-content/60">Command bonus applied. Keep farming intel.</div>';
+                return output;
+            }
+        },
+        funding: {
+            description: 'Show VC and investment reality',
+            usage: 'funding',
+            execute: async function(args, terminal) {
+                terminal.simulateLoading('Scanning venture capital landscape...');
+                await terminal.delay(1300);
+
+                if (window.game && window.game.addPoints) {
+                    window.game.addPoints(65, 'Terminal funding intel');
+                }
+
+                const lines = [
+                    '<span class="text-error">2024 VC:</span> $1.9B – $5.5B (down from $12B in 2021)',
+                    '<span class="text-warning">2025 Pace:</span> $627M mid-year • zero $100M+ rounds',
+                    '<span class="text-accent">Series A Crunch:</span> 11.5% graduation since 2018 • 4% for 2021+ seeds',
+                    '<span class="text-secondary">Hot Sectors:</span> AI tools up to 22% of funding • Web3 holds 35% of deals'
+                ];
+
+                let output = '<div class="text-error font-bold">[FUNDING WINTER ACTIVE]</div>';
+                lines.forEach(line => {
+                    output += `<div class="ml-2">${line}</div>`;
+                });
+                output += '<div class="mt-2 text-base-content/60">Solution: stay profitable, ship faster, own community.</div>';
                 return output;
             }
         },
@@ -341,55 +415,55 @@
         addLine(html) {
             const line = document.createElement('div');
             line.className = 'cli-line mb-1';
-            // Sanitize HTML to prevent XSS - only allow safe HTML from trusted command outputs
             line.innerHTML = this.sanitizeHTML(html);
             this.output.appendChild(line);
         }
-        
+
         sanitizeHTML(html) {
-            // Create a temporary div to parse HTML
-            const temp = document.createElement('div');
-            temp.textContent = html; // This escapes all HTML
-            
-            // For command output formatting, we use a strict allowlist approach
-            // Only allow specific safe patterns from our trusted command outputs
-            const dangerousPatterns = [
-                /<script/i,
-                /<iframe/i,
-                /javascript:/i,
-                /data:/i,
-                /on\w+\s*=/i, // Event handlers (onclick, onerror, onload, etc.)
-                /<embed/i,
-                /<object/i,
-                /<link/i,
-                /<meta/i,
-                /<form/i,
-                /<input/i,
-                /<button/i
-            ];
-            
-            // Check for any dangerous patterns
-            const hasDangerousContent = dangerousPatterns.some(pattern => pattern.test(html));
-            
-            if (hasDangerousContent) {
-                // Return escaped text for any suspicious content
-                return temp.innerHTML;
+            if (typeof html !== 'string' || html.length === 0) {
+                return '';
             }
-            
-            // Only allow very specific safe tags for formatting
-            const allowedTags = /<\/?(?:div|span|pre|br)[^>]*>/i;
-            const hasOnlySafeTags = allowedTags.test(html) && !/<\w+\s+\w+=/i.test(html); // No attributes except class
-            
-            if (hasOnlySafeTags && /class="[^"]*"/.test(html)) {
-                // Allow only class attributes on safe tags
+
+            // Fast-path: plain text
+            if (!/[<>]/.test(html)) {
                 return html;
-            } else if (html.includes('<') || html.includes('>')) {
-                // If it looks like HTML but doesn't match safe patterns, escape it
-                return temp.innerHTML;
             }
-            
-            // Plain text, return as-is
-            return html;
+
+            const forbiddenPattern = /(javascript:|data:|<\/(?:script|iframe|object|embed|link|meta|style)\b|<(?:script|iframe|object|embed|link|meta|style)\b|on[a-z]+\s*=)/i;
+            if (forbiddenPattern.test(html)) {
+                const escape = document.createElement('div');
+                escape.textContent = html;
+                return escape.innerHTML;
+            }
+
+            const allowedTags = new Set(['DIV', 'SPAN', 'PRE', 'BR', 'CODE', 'I', 'STRONG']);
+            const template = document.createElement('template');
+            template.innerHTML = html;
+
+            const sanitizeNode = (node) => {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (!allowedTags.has(node.tagName)) {
+                        const textReplacement = document.createTextNode(node.textContent || '');
+                        node.replaceWith(textReplacement);
+                        return;
+                    }
+
+                    Array.from(node.attributes).forEach(attr => {
+                        if (attr.name !== 'class') {
+                            node.removeAttribute(attr.name);
+                        }
+                    });
+                } else if (node.nodeType !== Node.TEXT_NODE) {
+                    node.parentNode?.removeChild(node);
+                    return;
+                }
+
+                Array.from(node.childNodes).forEach(child => sanitizeNode(child));
+            };
+
+            Array.from(template.content.childNodes).forEach(child => sanitizeNode(child));
+
+            return template.innerHTML;
         }
         
         escapeHTML(text) {
@@ -450,8 +524,31 @@
             this.output.scrollTop = this.output.scrollHeight;
         }
         
-        toggle() {
-            this.container.classList.toggle('hidden');
+        toggle(forceVisible) {
+            if (!this.container) return;
+
+            const shouldShow = typeof forceVisible === 'boolean'
+                ? forceVisible
+                : this.container.classList.contains('hidden');
+
+            this.container.classList.toggle('hidden', !shouldShow);
+            this.container.setAttribute('aria-hidden', String(!shouldShow));
+            this.container.toggleAttribute('data-cli-open', shouldShow);
+
+            if (shouldShow) {
+                this.scrollToBottom();
+                if (this.input) {
+                    this.input.focus();
+                }
+            } else if (this.input) {
+                this.input.blur();
+            }
+
+            if (window.cliToggleButton) {
+                window.cliToggleButton.setAttribute('aria-pressed', String(shouldShow));
+                window.cliToggleButton.setAttribute('data-tip', shouldShow ? 'Terminal: Close CLI' : 'Terminal: Open CLI');
+                window.cliToggleButton.classList.toggle('btn-active', shouldShow);
+            }
         }
     }
 
@@ -464,9 +561,12 @@
             cliContainer.id = 'cliTerminalContainer';
             cliContainer.className = 'fixed bottom-4 right-4 z-50 w-full max-w-2xl hidden';
             cliContainer.style.maxHeight = '600px';
+            cliContainer.setAttribute('role', 'region');
+            cliContainer.setAttribute('aria-label', 'Digital Hazard Command Line Interface');
+            cliContainer.setAttribute('aria-hidden', 'true');
             document.body.appendChild(cliContainer);
         }
-        
+
         window.cliTerminal = new CLITerminal('cliTerminalContainer');
         
         // Add toggle button to navbar
@@ -477,23 +577,41 @@
     
     function addCLIToggleButton() {
         // Find the powerup container or navigation area
-        const powerupContainer = document.getElementById('powerupContainer');
-        const navArea = document.querySelector('.site-footer') || document.querySelector('nav');
-        
-        if (powerupContainer) {
+        if (window.cliToggleButton) {
+            return;
+        }
+
+        const createButton = () => {
             const btn = document.createElement('button');
             btn.className = 'btn btn-circle btn-info btn-lg shadow-xl relative tooltip tooltip-left hover:animate__animated hover:animate__pulse';
             btn.setAttribute('data-tip', 'Terminal: Open CLI');
             btn.setAttribute('aria-label', 'Open Terminal');
-            btn.innerHTML = `<i class="fas fa-terminal text-2xl"></i>`;
-            btn.onclick = () => {
+            btn.setAttribute('aria-pressed', 'false');
+            btn.innerHTML = `<i class="fas fa-terminal text-2xl" aria-hidden="true"></i>`;
+            btn.addEventListener('click', () => {
                 window.cliTerminal?.toggle();
-                // Award points for discovering CLI
                 if (window.game && window.game.foundEasterEgg) {
                     window.game.foundEasterEgg('cli-discoverer', 'Terminal Explorer', 250);
                 }
-            };
-            powerupContainer.appendChild(btn);
+            });
+            return btn;
+        };
+
+        const powerupContainer = document.getElementById('powerupContainer');
+        const navArea = document.querySelector('.site-footer .footer-links') || document.querySelector('.site-footer') || document.querySelector('nav');
+
+        const button = createButton();
+
+        if (powerupContainer) {
+            powerupContainer.appendChild(button);
+            window.cliToggleButton = button;
+        } else if (navArea) {
+            navArea.appendChild(button);
+            window.cliToggleButton = button;
+        } else {
+            document.body.appendChild(button);
+            button.classList.add('fixed', 'bottom-6', 'right-6', 'z-50');
+            window.cliToggleButton = button;
         }
     }
 
