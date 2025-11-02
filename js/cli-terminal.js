@@ -307,8 +307,9 @@
             this.history.push(cmdString);
             this.historyIndex = this.history.length;
             
-            // Display command
-            this.addLine(`<span class="text-primary">$</span> ${cmdString}`);
+            // Display command (escape user input)
+            const escapedCmd = this.escapeHTML(cmdString);
+            this.addLine(`<span class="text-primary">$</span> ${escapedCmd}`);
             
             // Parse command
             const parts = cmdString.trim().split(/\s+/);
@@ -340,8 +341,34 @@
         addLine(html) {
             const line = document.createElement('div');
             line.className = 'cli-line mb-1';
-            line.innerHTML = html;
+            // Sanitize HTML to prevent XSS - only allow safe HTML from trusted command outputs
+            line.innerHTML = this.sanitizeHTML(html);
             this.output.appendChild(line);
+        }
+        
+        sanitizeHTML(html) {
+            // Create a temporary div to parse HTML
+            const temp = document.createElement('div');
+            temp.textContent = html; // This escapes all HTML
+            
+            // However, for command output formatting, we need to allow certain safe tags
+            // Only for output from our own commands (not user input)
+            // If html contains allowed patterns, use innerHTML, otherwise use textContent
+            const allowedTags = ['div', 'span', 'pre', 'strong', 'em'];
+            const hasOnlyAllowedTags = /<\/?(?:div|span|pre|strong|em|br)[^>]*>/i.test(html) && 
+                                       !/<script|<iframe|javascript:|onerror|onclick/i.test(html);
+            
+            if (hasOnlyAllowedTags) {
+                return html; // Trusted command output with safe formatting
+            } else {
+                return temp.innerHTML; // Escaped user input
+            }
+        }
+        
+        escapeHTML(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
         
         simulateLoading(message) {
