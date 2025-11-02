@@ -1,0 +1,1043 @@
+/* Smooth Animations and Visual Polish */
+/* Separation of concerns: All animation styles centralized */
+/* Standardized with DaisyUI 5 - many animations moved to daisyui-standardized.css */
+
+/* Improved Animation Easing - DaisyUI 5 compatible */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes rgbShift {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        filter: hue-rotate(180deg);
+    }
+    100% {
+        filter: hue-rotate(0deg);
+    }
+}
+/* Smooth Hover Transitions - Use CSS variables for timing */
+.card,
+.feature-card,
+.stat-card,
+.info-card {
+    transition: all var(--animation-normal, 300ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.card:hover,
+.feature-card:hover,
+.stat-card:hover,
+.info-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Button Hover States - Use CSS variables */
+.btn {
+    transition: all var(--animation-fast, 150ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+/* Improved Loading States */
+.loading-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Smooth Pulse Animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse-smooth {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Float Animation Improvement */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Smooth Color Transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* Improved Contrast for Better Readability */
+.text-base-content {
+    color: hsl(var(--bc));
+    /* Ensure WCAG AA contrast (4.5:1 for normal text) */
+}
+
+.text-base-content\/70 {
+    color: color-mix(in srgb, hsl(var(--bc)) 70%, transparent);
+    /* Fallback for browsers without color-mix */
+}
+
+/* Better Focus Visible States */
+*:focus-visible {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: hsl(var(--p));
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+}
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Badge Animations */
+.badge-earned {
+    animation: bounce 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Progress Bar Smooth Fill - Use CSS variables */
+.progress {
+    transition: width var(--animation-normal, 300ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+/* Toast/Alert Animations - Use CSS variables */
+.toast {
+    animation: slideInRight var(--animation-normal, 300ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Skeleton Loading States */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        hsl(var(--b2)) 25%,
+        hsl(var(--b3)) 50%,
+        hsl(var(--b2)) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Improved Hover Glow Effects */
+.glow-hover:hover {
+    filter: drop-shadow(0 0 8px currentColor);
+    transition: filter 0.3s ease;
+}
+
+/* Smooth Theme Transitions */
+html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Game Canvas Animations */
+.demo-canvas {
+    transition: opacity 0.3s ease;
+}
+
+.demo-canvas:hover {
+    opacity: 0.95;
+}
+
+/* Think Different Visual Effects */
+
+/* Typewriter Effect for Manifesto Quotes */
+@keyframes typewriter {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+.typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid;
+    animation: typewriter 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: currentColor; }
+}
+
+/* Glitch Effect for Rebel Moments */
+@keyframes glitch {
+    0%, 100% {
+        transform: translate(0);
+        filter: hue-rotate(0deg);
+    }
+    10% {
+        transform: translate(-2px, 2px);
+        filter: hue-rotate(90deg);
+    }
+    20% {
+        transform: translate(2px, -2px);
+        filter: hue-rotate(180deg);
+    }
+    30% {
+        transform: translate(-2px, -2px);
+        filter: hue-rotate(270deg);
+    }
+    40% {
+        transform: translate(2px, 2px);
+        filter: hue-rotate(360deg);
+    }
+    50%, 90% {
+        transform: translate(0);
+        filter: hue-rotate(0deg);
+    }
+}
+
+.glitch {
+    animation: glitch 0.3s ease-in-out;
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% {
+        clip: rect(31px, 9999px, 94px, 0);
+    }
+    20% {
+        clip: rect(42px, 9999px, 75px, 0);
+    }
+    40% {
+        clip: rect(8px, 9999px, 85px, 0);
+    }
+    60% {
+        clip: rect(80px, 9999px, 12px, 0);
+    }
+    80% {
+        clip: rect(55px, 9999px, 60px, 0);
+    }
+    100% {
+        clip: rect(90px, 9999px, 23px, 0);
+    }
+}
+
+/* Censored Reveal Effect */
+.censored {
+    background: black;
+    color: black;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+.censored:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.censored.revealed {
+    background: transparent;
+    color: inherit;
+    cursor: default;
+}
+
+/* Manifesto Fragment Highlight */
+/* Interactive badges - Use CSS variables */
+.interactive-badge {
+    transition: all var(--animation-normal, 300ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1));
+    cursor: pointer;
+    user-select: none;
+}
+
+.interactive-badge:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.interactive-badge:active {
+    transform: scale(0.98);
+}
+
+.interactive-badge:focus {
+    outline: 2px solid var(--fallback-p, oklch(var(--p)));
+    outline-offset: 2px;
+}
+
+.manifesto-fragment {
+    position: relative;
+    cursor: help;
+    transition: all var(--animation-fast, 150ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.manifesto-fragment:hover {
+    background-color: rgba(249, 115, 22, 0.2);
+    border-radius: 3px;
+    padding: 0 2px;
+    transform: scale(1.02);
+}
+
+.manifesto-fragment::after {
+    content: '✨';
+    opacity: 0;
+    position: absolute;
+    right: -20px;
+    transition: opacity 0.2s ease;
+}
+
+.manifesto-fragment:hover::after {
+    opacity: 1;
+}
+
+/* Rebel Action Glow */
+.rebel-action {
+    animation: rebel-glow 2s ease-in-out infinite;
+}
+
+@keyframes rebel-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(249, 115, 22, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(249, 115, 22, 0.8), 0 0 30px rgba(249, 115, 22, 0.4);
+    }
+}
+
+/* High Combo Glitch Effect */
+.combo-high {
+    animation: combo-glitch 0.5s ease-in-out;
+}
+
+@keyframes combo-glitch {
+    0%, 100% {
+        transform: translate(0) scale(1);
+        filter: hue-rotate(0deg);
+    }
+    25% {
+        transform: translate(-1px, 1px) scale(1.05);
+        filter: hue-rotate(90deg);
+    }
+    50% {
+        transform: translate(1px, -1px) scale(1.05);
+        filter: hue-rotate(180deg);
+    }
+    75% {
+        transform: translate(-1px, -1px) scale(1.05);
+        filter: hue-rotate(270deg);
+    }
+}
+
+/* Particle Burst (triggered on rebel moments) */
+.particle-burst {
+    position: relative;
+    overflow: visible;
+}
+
+@keyframes particle-burst {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2) translateY(-50px);
+        opacity: 0;
+    }
+}
+
+.particle-burst::before,
+.particle-burst::after {
+    content: '✱';
+    position: absolute;
+    animation: particle-burst 1s ease-out forwards;
+    font-size: 20px;
+    color: #f97316;
+}
+
+.particle-burst::before {
+    left: -10px;
+    animation-delay: 0.1s;
+}
+
+.particle-burst::after {
+    right: -10px;
+    animation-delay: 0.2s;
+}
+
+/* Game "Throw In" Animation - Draws attention to the game canvas */
+.game-throw-in {
+    animation: throw-into-game 4s ease-in-out infinite;
+    transform-origin: center center;
+}
+
+@keyframes throw-into-game {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        box-shadow: 0 25px 50px -12px rgba(249, 115, 22, 0.5);
+    }
+    25% {
+        transform: scale(1.05) rotate(1deg);
+        box-shadow: 0 35px 70px -12px rgba(249, 115, 22, 0.7), 0 0 40px rgba(249, 115, 22, 0.4);
+    }
+    50% {
+        transform: scale(1.08) rotate(-1deg);
+        box-shadow: 0 40px 80px -12px rgba(249, 115, 22, 0.8), 0 0 50px rgba(249, 115, 22, 0.5);
+    }
+    75% {
+        transform: scale(1.05) rotate(1deg);
+        box-shadow: 0 35px 70px -12px rgba(249, 115, 22, 0.7), 0 0 40px rgba(249, 115, 22, 0.4);
+    }
+}
+
+/* Pulse Slow for Glow Effect */
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Horizontal Bounce for Arrow */
+@keyframes bounce-horizontal {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-10px);
+    }
+}
+
+.animate-bounce-horizontal {
+    animation: bounce-horizontal 2s ease-in-out infinite;
+}
+
+/* Vertical Bounce for Bottom Badge */
+@keyframes bounce-vertical {
+    0%, 100% {
+        transform: translateY(0) translateX(-50%);
+    }
+    50% {
+        transform: translateY(-10px) translateX(-50%);
+    }
+}
+
+.animate-bounce-vertical {
+    animation: bounce-vertical 2s ease-in-out infinite;
+}
+
+/* Pulse Smooth for Badge */
+.animate-pulse-smooth {
+    animation: pulse-smooth 2s ease-in-out infinite;
+}
+
+@keyframes pulse-smooth {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+/* Game Click Overlay Animation */
+.game-click-overlay {
+    animation: fade-in-out 3s ease-in-out infinite;
+}
+
+@keyframes fade-in-out {
+    0%, 100% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.game-click-overlay:hover {
+    opacity: 1;
+}
+
+/* Section Scroll Animations - Use Intersection Observer in JS */
+.section-scroll-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--animation-slow, 500ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1)),
+                transform var(--animation-slow, 500ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.section-scroll-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Fade-in utility class */
+.fade-in {
+    animation: fadeIn var(--animation-normal, 300ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1)) forwards;
+}
+
+/* Slide-up utility class */
+.slide-up {
+    animation: slideUp var(--animation-normal, 300ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1)) forwards;
+}
+
+/* Scale-in utility class */
+.scale-in {
+    animation: scaleIn var(--animation-normal, 300ms) var(--easing-out, cubic-bezier(0.4, 0, 0.2, 1)) forwards;
+}
+
+/* Enhanced Game Canvas Hover */
+.demo-canvas-container:hover .game-throw-in {
+    animation-duration: 2s;
+    transform: scale(1.1) !important;
+}
+
+.demo-canvas-container:hover .game-click-overlay {
+    opacity: 0 !important;
+}
+
+
+/* Enhanced Loading Animations */
+@keyframes pulse-glow {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+  50% { 
+    opacity: 0.8; 
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px currentColor);
+  }
+}
+
+@keyframes float-up {
+  0% { transform: translateY(0px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-10px); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.loading-enhanced {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.loading-text-enhanced {
+  animation: float-up 0.8s ease-out;
+}
+
+.progress-enhanced {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Smooth transitions for all interactive elements */
+.interactive-element {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-element:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Enhanced button hover effects */
+.btn-enhanced:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn-enhanced:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Card hover enhancements */
+.card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* Improved focus states */
+.focus-enhanced:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}
+
+
+/* Gamer-Themed UI Enhancements */
+
+/* Neon glow effects */
+.neon-glow {
+  box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor, 0 0 20px currentColor;
+}
+
+.neon-text {
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor, 0 0 20px currentColor;
+}
+
+/* Scanlines effect */
+.scanlines::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03),
+    rgba(0, 0, 0, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+}
+
+/* CRT effect */
+.crt::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+  pointer-events: none;
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.glitch:hover {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Pixelated effect */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Retro button effects */
+.btn-retro {
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 200%;
+  animation: shimmer 3s infinite;
+}
+
+.btn-retro:hover {
+  background-position: 100% 0;
+}
+
+/* Achievement popup enhancements */
+.achievement-popup {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+}
+
+.achievement-popup::before {
+  content: "🏆";
+  font-size: 2rem;
+  position: absolute;
+  top: -1rem;
+  left: 1rem;
+  background: var(--color-base-100);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-accent);
+}
+
+/* HUD enhancements */
+.hud-element {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.hud-element:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px var(--color-primary);
+}
+
+/* Loading screen enhancements */
+.loading-screen-enhanced {
+  background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #020617 100%);
+  position: relative;
+}
+
+.loading-screen-enhanced::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(249, 115, 22, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(250, 204, 21, 0.1) 0%, transparent 50%);
+}
+
+/* Game modal enhancements */
+.game-modal-enhanced {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-modal-enhanced .modal-box {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Interactive badge enhancements */
+.interactive-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-badge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.interactive-badge:hover::before {
+  left: 100%;
+}
+
+/* Manifesto fragment animations */
+.manifesto-fragment {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.manifesto-fragment:nth-child(1) { animation-delay: 0.1s; }
+.manifesto-fragment:nth-child(2) { animation-delay: 0.3s; }
+.manifesto-fragment:nth-child(3) { animation-delay: 0.5s; }
+.manifesto-fragment:nth-child(4) { animation-delay: 0.7s; }
+.manifesto-fragment:nth-child(5) { animation-delay: 0.9s; }
+.manifesto-fragment:nth-child(6) { animation-delay: 1.1s; }
+.manifesto-fragment:nth-child(7) { animation-delay: 1.3s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced card interactions */
+.card-gamer {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card-gamer:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: var(--color-primary);
+  box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2);
+}
+
+/* Progress bar enhancements */
+.progress-gamer {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+.progress-gamer::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+.progress-gamer::-moz-progress-bar {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+@keyframes slide-in-right {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-in-right {
+    animation: slide-in-right 0.5s ease-out;
+}
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.animate-fade-out {
+    animation: fade-out 0.5s ease-out forwards;
+}
+/* Notification Styles */
+.achievement-notification {
+    display: none;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    z-index: var(--z-hud-notifications);
+}
+
+.score-popup {
+    z-index: var(--z-hud-notifications);
+}
+
+.combo-counter {
+    z-index: var(--z-hud-combo);
+}
+
+.loading-screen {
+    z-index: var(--z-loading);
+}
+
+.skip-link {
+    z-index: var(--z-skip-link);
+}
+
+.navbar-custom {
+    z-index: var(--z-navbar);
+    min-height: var(--navbar-height);
+}
+
+.dropdown-custom {
+    z-index: var(--z-dropdown);
+}
+
+.game-modal {
+    z-index: var(--z-modals);
+}
+/* Additional Styles */
+.manifesto-error {
+    color: var(--color-error);
+}
+
+.drawer-custom {
+    z-index: var(--z-drawer-side);
+}
+
+.drawer-overlay-custom {
+    z-index: var(--z-drawer-overlay);
+}
+/* Loading Styles */
+.loading-primary {
+    color: var(--color-primary);
+}
+.demo-canvas-container-custom {
+    min-height: 400px;
+}
+.demo-canvas-custom {
+    background: transparent;
+    max-width: 100%;
+    display: block;
+}
+.dh-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dh-section.active {
+    opacity: 1;
+    transform: translateY(0);
+    animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}

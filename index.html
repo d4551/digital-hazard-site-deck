@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="hazard">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Hazard — Immersive Pitch Deck</title>
+    <meta name="description" content="Digital Hazard is an interactive pitch deck with playable game prototype, cinematic video, and dynamic 3D storytelling.">
+    <meta name="color-scheme" content="dark light">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.50/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-3hF6kZcpKjcUGZr1s+bsrzu5iYle0xleqrs9jwELyhl725LLJoPLD114F8CbnMD4HzyBbs6k8ZZrPmSu2Mz/vw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="bg-base-200 text-base-content min-h-screen">
+	<div id="landing-background" class="fixed inset-0 -z-20"></div>
+    <div class="drawer lg:drawer-open min-h-screen">
+        <input id="navigation-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col min-h-screen">
+            <nav class="navbar bg-base-300/70 backdrop-blur-md border-b border-base-100/40 px-4 lg:px-6 sticky top-0 z-20">
+                <div class="navbar-start gap-2">
+                    <label for="navigation-drawer" class="btn btn-square btn-ghost lg:hidden" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </label>
+                    <span class="font-display text-xl tracking-wide">Digital Hazard</span>
+                </div>
+                <div class="navbar-center hidden lg:flex">
+                    <ul class="menu menu-horizontal gap-2">
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#media">Media</a></li>
+                        <li><a href="#tech">Technology</a></li>
+                    </ul>
+                </div>
+                <div class="navbar-end gap-3">
+                    <button id="theme-toggle" class="btn btn-ghost btn-sm" type="button" aria-label="Toggle theme">
+                        <i class="fa-solid fa-circle-half-stroke"></i>
+                    </button>
+                    <a href="present.html" class="btn btn-primary btn-sm">Launch Deck</a>
+                </div>
+            </nav>
+
+            <main class="flex-1 px-4 sm:px-8 lg:px-16 py-12 space-y-20">
+                <section class="hero min-h-[60vh] rounded-3xl bg-base-100/70 backdrop-blur-xl shadow-2xl border border-base-content/10" id="hero">
+                    <div class="hero-content flex-col lg:flex-row gap-12">
+                        <div class="space-y-6 max-w-xl">
+                            <span class="badge badge-outline badge-lg badge-primary/80 uppercase tracking-widest">Project Cobalt</span>
+                            <h1 class="text-5xl font-display font-bold leading-tight">An interactive story that breaks the pitch deck mold.</h1>
+                            <p class="text-lg text-base-content/80 leading-relaxed">Navigate a living presentation artboard where investors can play, explore, and connect with the vision behind Digital Hazard Studio. The journey blends immersive slides, an original arcade vignette, and a cinematic trailer.</p>
+                            <div class="flex flex-wrap gap-4">
+                                <a href="present.html" class="btn btn-primary btn-lg gap-2">
+                                    <i class="fa-solid fa-rocket"></i>
+                                    Enter Presentation
+                                </a>
+                                <button id="open-game" class="btn btn-outline btn-lg gap-2" type="button">
+                                    <i class="fa-solid fa-gamepad"></i>
+                                    Play Arcade Preview
+                                </button>
+                            </div>
+                        </div>
+                        <div class="grid gap-4">
+                            <div class="stats shadow-lg bg-base-200/70 text-base-content">
+                                <div class="stat">
+                                    <div class="stat-title">Playable Minutes</div>
+                                    <div class="stat-value text-primary">05:00</div>
+                                    <div class="stat-desc">Curated narrative flow</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-title">Interactive Scenes</div>
+                                    <div class="stat-value text-secondary">12</div>
+                                    <div class="stat-desc">Slides, mini-game, AR bridge</div>
+                                </div>
+                            </div>
+                            <div class="card bg-base-200/80 border border-base-content/10 shadow-md">
+                                <div class="card-body">
+                                    <h2 class="card-title text-secondary">Key Pillars</h2>
+                                    <ul class="space-y-2 text-base-content/80">
+                                        <li><i class="fa-solid fa-wand-magic-sparkles text-primary"></i> AI-powered generative art direction</li>
+                                        <li><i class="fa-solid fa-satellite-dish text-primary"></i> Persistent investor dashboard</li>
+                                        <li><i class="fa-solid fa-vr-cardboard text-primary"></i> Real-time 3D ambience and narrative cues</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="experience" class="space-y-10">
+                    <header class="space-y-3">
+                        <h2 class="section-title">Interactive Experience</h2>
+                        <p class="section-subtitle">A cohesive flow of narrative chapters, tactile gameplay, and design language tuned for futuristic storytelling.</p>
+                    </header>
+                    <div class="grid gap-8 lg:grid-cols-3">
+                        <article class="card glass-card shadow-xl border border-primary/20">
+                            <div class="card-body space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="btn btn-circle btn-primary btn-sm"><i class="fa-solid fa-bolt"></i></span>
+                                    <h3 class="card-title">Cinematic Timeline</h3>
+                                </div>
+                                <p class="text-base-content/80">Slide chapters embrace diegetic UI, ambient audio, and orchestrated lighting cues to signal key transitions and data moments.</p>
+                                <span class="badge badge-soft">Chapters 1-4</span>
+                            </div>
+                        </article>
+                        <article class="card glass-card shadow-xl border border-secondary/20">
+                            <div class="card-body space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="btn btn-circle btn-secondary btn-sm"><i class="fa-solid fa-gamepad"></i></span>
+                                    <h3 class="card-title">Arcade Prototype</h3>
+                                </div>
+                                <p class="text-base-content/80">A lightweight skill challenge anchors the pitch’s core mechanic—emergent AI companions that adapt to player behavior.</p>
+                                <span class="badge badge-soft">Unity-to-Web Bridge</span>
+                            </div>
+                        </article>
+                        <article class="card glass-card shadow-xl border border-accent/20">
+                            <div class="card-body space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="btn btn-circle btn-accent btn-sm"><i class="fa-solid fa-cubes"></i></span>
+                                    <h3 class="card-title">Spatial Ambient Layer</h3>
+                                </div>
+                                <p class="text-base-content/80">Dynamic particle fields powered by Three.js react to slide context, building momentum from intro narrative to financials.</p>
+                                <span class="badge badge-soft">Real-time 3D</span>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <section id="media" class="space-y-10">
+                    <header class="space-y-3">
+                        <h2 class="section-title">Cinematic Trailer</h2>
+                        <p class="section-subtitle">Preview the high-energy teaser that sets the tone for Project Cobalt.</p>
+                    </header>
+                    <div class="grid lg:grid-cols-[2fr,1fr] gap-8 items-start">
+                        <div class="card bg-base-100/80 border border-base-content/10 shadow-xl overflow-hidden">
+                            <figure class="bg-base-300/40">
+                                <video id="hero-video" class="w-full aspect-video" controls preload="metadata" poster="assets/trailer-poster.jpg">
+                                    <source src="assets/dh_advert.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title">Hazard Pulse — Trailer 01</h3>
+                                <p class="text-base-content/70">Shot entirely in-engine, the teaser fuses neural matte paintings with quick-hit clips from the vertical slice.</p>
+                                <div class="card-actions justify-end">
+                                    <button class="btn btn-outline btn-sm" data-video="mute-toggle">
+                                        <i class="fa-solid fa-volume-xmark"></i>
+                                        Toggle Mute
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <aside class="card bg-base-100/70 border border-base-content/10 shadow-xl">
+                            <div class="card-body space-y-4">
+                                <h3 class="card-title">Media Notes</h3>
+                                <ul class="space-y-3 text-base-content/75">
+                                    <li><i class="fa-solid fa-circle-nodes text-primary"></i> Dolby Atmos render targeting spatial platforms.</li>
+                                    <li><i class="fa-solid fa-film text-secondary"></i> Edit locked at 59.94fps for buttery playback.</li>
+                                    <li><i class="fa-solid fa-timeline text-accent"></i> Adaptive captions align with slide accessibility guidelines.</li>
+                                </ul>
+                                <a href="present.html#slide-game" class="btn btn-primary btn-sm">Jump to Interactive Slide</a>
+                            </div>
+                        </aside>
+                    </div>
+                </section>
+
+                <section id="tech" class="space-y-10">
+                    <header class="space-y-3">
+                        <h2 class="section-title">Technology Stack</h2>
+                        <p class="section-subtitle">Meticulously orchestrated tooling keeps fidelity high and iteration loops fast.</p>
+                    </header>
+                    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        <div class="glass-card p-6 shadow-xl border border-primary/20 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-brain-circuit text-2xl text-primary"></i>
+                                <h3 class="font-semibold text-lg">Generative Pipelines</h3>
+                            </div>
+                            <p class="text-base-content/75">Stable Diffusion XL, ElevenLabs vocal prototyping, and custom Houdini accelerators for rapid ideation.</p>
+                        </div>
+                        <div class="glass-card p-6 shadow-xl border border-secondary/20 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-code-branch text-2xl text-secondary"></i>
+                                <h3 class="font-semibold text-lg">Delivery Infrastructure</h3>
+                            </div>
+                            <p class="text-base-content/75">Next-gen hosting via Static Web Apps, automated Lighthouse audits, and in-browser performance telemetry.</p>
+                        </div>
+                        <div class="glass-card p-6 shadow-xl border border-accent/20 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-cube text-2xl text-accent"></i>
+                                <h3 class="font-semibold text-lg">Immersive Layer</h3>
+                            </div>
+                            <p class="text-base-content/75">Three.js particle systems, GSAP sequencing, and Web Audio for adaptive ambience.</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="bg-base-300/60 backdrop-blur-lg border-t border-base-content/10 py-6 text-sm">
+                <div class="max-w-6xl mx-auto px-4 sm:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="space-y-1">
+                        <p class="font-semibold">Digital Hazard Studio</p>
+                        <p class="text-base-content/60">Fusing pitchcraft with playable futures.</p>
+                    </div>
+                    <div class="flex gap-3 text-base-content/70">
+                        <a href="#hero" class="link link-hover">Top</a>
+                        <a href="present.html" class="link link-hover">Presentation</a>
+                        <a href="mailto:hello@digitalhazard.gg" class="link link-hover">Contact</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <div class="drawer-side z-30">
+            <label for="navigation-drawer" class="drawer-overlay"></label>
+            <aside class="menu p-6 w-72 min-h-full bg-base-100/90 backdrop-blur-xl border-r border-base-content/10">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="text-lg font-semibold">Navigate</span>
+                    <label for="navigation-drawer" class="btn btn-ghost btn-sm lg:hidden"><i class="fa-solid fa-xmark"></i></label>
+                </div>
+                <ul class="menu gap-1">
+                    <li><a href="#hero"><i class="fa-solid fa-house"></i> Hero</a></li>
+                    <li><a href="#experience"><i class="fa-solid fa-asterisk"></i> Experience</a></li>
+                    <li><a href="#media"><i class="fa-solid fa-clapperboard"></i> Media</a></li>
+                    <li><a href="#tech"><i class="fa-solid fa-microchip"></i> Technology</a></li>
+                    <li><a href="present.html"><i class="fa-solid fa-panorama"></i> Presentation</a></li>
+                </ul>
+                <div class="divider"></div>
+                <div class="space-y-3 text-sm text-base-content/70">
+                    <p>Built with Tailwind CSS, DaisyUI, and vanilla ES modules. Three.js renders the ambient background particles.</p>
+                    <p class="font-semibold text-base-content">Version 2.0 — Static Reimagining</p>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <dialog id="game-dialog" class="modal">
+        <form method="dialog" class="modal-backdrop">
+            <button class="hidden" aria-hidden="true">close</button>
+        </form>
+        <article class="modal-box max-w-3xl bg-base-200/95 backdrop-blur-xl border border-primary/20">
+            <header class="flex items-center justify-between mb-4">
+                <h3 class="font-display text-2xl">Arcade Preview</h3>
+                <button type="button" class="btn btn-ghost btn-sm" data-close-modal>
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </header>
+            <section id="game-root" class="relative w-full h-[420px] rounded-xl overflow-hidden bg-base-100/80 border border-base-content/10"></section>
+            <footer class="flex justify-between items-center mt-4 text-sm text-base-content/70">
+                <span>Use WASD / Arrow keys to move. Collect shards, dodge anomalies.</span>
+                <button type="button" class="btn btn-primary btn-sm" data-close-modal>Close</button>
+            </footer>
+        </article>
+    </dialog>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

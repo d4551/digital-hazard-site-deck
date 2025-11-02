@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="hazard">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Hazard Studio - Project Cobalt Pitch Deck</title>
+    <meta name="theme-color" content="#020617">
+    <meta name="color-scheme" content="dark">
+    
+    <!-- Tailwind CSS 4 (Play CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- DaisyUI 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
+    <!-- Gamification Enhancements -->
+    <link rel="stylesheet" href="css/gamification.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-3hF6kZcpKjcUGZr1s+bsrzu5iYle0xleqrs9jwELyhl725LLJoPLD114F8CbnMD4HzyBbs6k8ZZrPmSu2Mz/vw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Font Preloads -->
+    <link href="fonts/rajdhani/latin-700-normal.woff2" rel="preload" as="font" type="font/woff2" crossorigin="anonymous">
+    <link href="fonts/inter/inter-400-normal.woff2" rel="preload" as="font" type="font/woff2" crossorigin="anonymous">
+
+    <!-- Local Fonts -->
+    <style>
+        @font-face {
+            font-family: 'Rajdhani';
+            font-style: normal;
+            font-weight: 300;
+            font-display: swap;
+            src: url('fonts/rajdhani/latin-300-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Rajdhani';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('fonts/rajdhani/latin-400-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Rajdhani';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('fonts/rajdhani/latin-600-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Rajdhani';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('fonts/rajdhani/latin-700-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 300;
+            font-display: swap;
+            src: url('fonts/inter/inter-300-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('fonts/inter/inter-400-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: url('fonts/inter/inter-500-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('fonts/inter/inter-600-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('fonts/inter/inter-700-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 800;
+            font-display: swap;
+            src: url('fonts/inter/inter-800-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Orbitron';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('fonts/orbitron/orbitron-400-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Orbitron';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('fonts/orbitron/orbitron-700-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Orbitron';
+            font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url('fonts/orbitron/orbitron-900-normal.woff2') format('woff2');
+        }
+    </style>
+
+    <noscript>
+        <style>
+            html { visibility: visible !important; opacity: 1 !important; }
+        </style>
+    </noscript>
+    
+    <style type="text/tailwindcss">
+        @theme {
+            --color-primary: #f97316;
+            --color-secondary: #38bdf8;
+            --color-accent: #facc15;
+            --font-display: 'Rajdhani', 'Inter', system-ui, sans-serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+        }
+
+        :root {
+            --z-background: -20;
+            --z-gradient: -10;
+            --z-loading: 60;
+            --z-navbar: 50;
+            --z-hud: 40;
+            --layout-max: 90rem;
+            --section-gap: clamp(4rem, 10vw, 6.5rem);
+            --card-backdrop: color-mix(in srgb, hsl(var(--b2)) 78%, transparent);
+        }
+
+        @layer base {
+            html {
+                color-scheme: dark;
+            }
+            body {
+                min-height: 100vh;
+                font-family: var(--font-body);
+                background-color: hsl(var(--b1));
+                color: hsl(var(--bc));
+            }
+            body.dh-body {
+                font-family: var(--font-body);
+            }
+            h1, h2, h3, h4, h5, h6, .font-display {
+                font-family: var(--font-display);
+                letter-spacing: 0.04em;
+            }
+            [data-theme="hazard"] {
+                --p: 24 94% 55%;
+                --pc: 0 0% 100%;
+                --pf: 24 95% 46%;
+                --s: 199 94% 62%;
+                --sc: 199 100% 12%;
+                --sf: 199 94% 54%;
+                --a: 48 95% 64%;
+                --ac: 48 98% 16%;
+                --af: 48 96% 55%;
+                --n: 219 45% 14%;
+                --nc: 213 32% 88%;
+                --nf: 219 45% 10%;
+                --b1: 222 47% 10%;
+                --b2: 222 47% 8%;
+                --b3: 222 47% 6%;
+                --bc: 213 32% 90%;
+                --in: 199 90% 60%;
+                --inc: 199 100% 10%;
+                --su: 142 71% 45%;
+                --suc: 142 100% 12%;
+                --wa: 45 95% 63%;
+                --wac: 45 100% 18%;
+                --er: 9 92% 61%;
+                --erc: 9 100% 15%;
+            }
+        }
+
+        @layer components {
+            .section-spacing {
+                padding-block: var(--section-gap);
+            }
+            .section-content {
+                width: min(100%, var(--layout-max));
+                margin-inline: auto;
+                padding-inline: clamp(1.25rem, 5vw, 3.5rem);
+            }
+            .section-title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: clamp(2.5rem, 6vw, 3.75rem);
+                line-height: 1.1;
+                letter-spacing: -0.02em;
+                text-align: center;
+                margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+                background-image: linear-gradient(90deg, color-mix(in srgb, hsl(var(--p)) 90%, transparent), color-mix(in srgb, hsl(var(--s)) 80%, transparent), color-mix(in srgb, hsl(var(--a)) 85%, transparent));
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            .section-subtitle {
+                font-size: clamp(1.25rem, 3vw, 2rem);
+                line-height: 1.5;
+                text-align: center;
+                color: hsl(var(--bc) / 0.78);
+                margin-bottom: clamp(1.25rem, 3vw, 2rem);
+            }
+            .section-description {
+                max-width: 60ch;
+                margin-inline: auto;
+                font-size: clamp(1rem, 2.4vw, 1.125rem);
+                color: hsl(var(--bc) / 0.72);
+            }
+            .section-grid {
+                display: grid;
+                gap: clamp(1.5rem, 3vw, 2.75rem);
+            }
+            .dh-section {
+                position: relative;
+                isolation: isolate;
+            }
+            .presentation-shell {
+                position: relative;
+                isolation: isolate;
+            }
+            .slide-shell {
+                width: min(100%, 64rem);
+                margin-inline: auto;
+                padding-inline: clamp(1.25rem, 5vw, 3rem);
+            }
+            .presentation-hud .card {
+                background-color: color-mix(in srgb, hsl(var(--b1)) 84%, transparent);
+                border: 1px solid hsl(var(--p) / 0.25);
+                box-shadow: 0 20px 45px -30px color-mix(in srgb, hsl(var(--p)) 40%, transparent);
+            }
+            .presentation-nav-controls {
+                background-color: color-mix(in srgb, hsl(var(--b1)) 85%, transparent);
+                backdrop-filter: blur(24px);
+                border: 1px solid hsl(var(--s) / 0.2);
+            }
+            .panel-blur {
+                background-color: var(--card-backdrop);
+                backdrop-filter: blur(24px);
+                border-radius: 1.25rem;
+                box-shadow: 0 24px 48px -28px color-mix(in srgb, hsl(var(--p)) 32%, transparent);
+            }
+        }
+
+        @layer utilities {
+            .z-background { z-index: var(--z-background); }
+            .z-loading { z-index: var(--z-loading); }
+            .hud-layer { z-index: var(--z-hud); }
+            .dh-gradient {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                background:
+                    radial-gradient(60% 75% at 20% 20%, color-mix(in srgb, hsl(var(--p)) 45%, transparent) 0%, transparent 70%),
+                    radial-gradient(50% 60% at 80% 30%, color-mix(in srgb, hsl(var(--s)) 40%, transparent) 0%, transparent 75%),
+                    radial-gradient(70% 80% at 50% 80%, color-mix(in srgb, hsl(var(--a)) 35%, transparent) 0%, transparent 85%);
+                opacity: 0.45;
+                z-index: var(--z-gradient);
+            }
+            .glass-panel {
+                backdrop-filter: blur(20px);
+                background-color: color-mix(in srgb, hsl(var(--b2)) 70%, transparent);
+            }
+            .hud-card {
+                background-color: color-mix(in srgb, hsl(var(--b1)) 85%, transparent);
+                box-shadow: 0 20px 50px -25px color-mix(in srgb, hsl(var(--p)) 35%, transparent);
+            }
+            .skip-link {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border: 0;
+            }
+            .skip-link:focus {
+                position: fixed;
+                width: auto;
+                height: auto;
+                clip: auto;
+            }
+            .text-gradient {
+                background-image: linear-gradient(90deg, color-mix(in srgb, hsl(var(--p)) 90%, transparent), color-mix(in srgb, hsl(var(--s)) 80%, transparent), color-mix(in srgb, hsl(var(--a)) 85%, transparent));
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+            .neon-text {
+                text-shadow:
+                    0 0 12px color-mix(in srgb, hsl(var(--p)) 60%, transparent),
+                    0 0 30px color-mix(in srgb, hsl(var(--s)) 45%, transparent);
+            }
+            .interactive-badge {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                box-shadow: 0 24px 50px -25px color-mix(in srgb, hsl(var(--p)) 40%, transparent);
+            }
+            .interactive-badge:focus-visible {
+                outline: 2px solid hsl(var(--p));
+                outline-offset: 4px;
+                transform: translateY(-2px);
+            }
+            .scanlines::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background-image: repeating-linear-gradient(transparent 0, transparent 2px, rgba(255,255,255,0.04) 2px, rgba(255,255,255,0.04) 4px);
+                mix-blend-mode: soft-light;
+                opacity: 0.25;
+            }
+            .crt {
+                position: relative;
+            }
+            .crt::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12), transparent 65%);
+                mix-blend-mode: screen;
+                opacity: 0.4;
+            }
+            .loading-screen {
+                background: color-mix(in srgb, hsl(var(--b1)) 88%, transparent);
+            }
+            .combo-counter {
+                filter: drop-shadow(0 12px 25px color-mix(in srgb, hsl(var(--p)) 40%, transparent));
+            }
+            .score-popup {
+                filter: drop-shadow(0 12px 32px color-mix(in srgb, hsl(var(--s)) 40%, transparent));
+            }
+            .dh-grid-auto {
+                display: grid;
+                gap: clamp(1.75rem, 4vw, 2.75rem);
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+            }
+            .badge-soft {
+                backdrop-filter: blur(14px);
+                background-color: color-mix(in srgb, hsl(var(--b3)) 70%, transparent);
+                border: 1px solid hsl(var(--p) / 0.18);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-base-100 overflow-hidden">
+    <noscript>
+        <div class="alert alert-warning fixed top-0 left-0 w-full" style="z-index: var(--z-presentation-loading, 9999);">
+            This pitch deck uses JavaScript for animations and interactivity. Please enable JavaScript for the best experience.
+        </div>
+    </noscript>
+    
+    <div class="presentation-shell relative min-h-screen flex flex-col">
+        <!-- Back Link -->
+        <a href="index.html" class="btn btn-ghost btn-sm fixed top-4 left-4 presentation-back-link" style="z-index: var(--z-presentation-nav-controls, 40);">
+            <i class="fas fa-home mr-2"></i> <span class="hidden sm:inline">Back to Site</span>
+        </a>
+        
+        <!-- Loading Screen -->
+        <div class="fixed inset-0 flex flex-col items-center justify-center bg-base-100" id="loadingScreen" style="z-index: var(--z-presentation-loading, 9999);">
+        <div class="loading-spinner loading-lg text-primary mb-4"></div>
+        <div class="text-2xl font-display font-bold mb-2">DIGITAL HAZARD</div>
+        <div class="text-base text-base-content/70 mb-4">Project Cobalt - Survive the Island</div>
+        <progress class="progress progress-primary w-64" id="loadingProgress" value="0" max="100"></progress>
+        <div class="text-sm text-base-content/60 mt-2" id="loadingPercentage">0%</div>
+        <div class="text-xs text-base-content/50 mt-4" id="loadingTip">Tip: Click everywhere to find hidden secrets...</div>
+    </div>
+
+    <!-- 3D Background -->
+    <canvas id="bg-canvas" class="fixed inset-0 w-full h-full" style="z-index: var(--z-presentation-background, -10);"></canvas>
+
+    <!-- Gamification HUD - Enhanced with daisyUI -->
+    <div class="presentation-hud fixed top-4 right-4 flex flex-col gap-3 max-w-xs sm:max-w-sm" style="z-index: var(--z-presentation-hud, 45);">
+        <!-- Level Card with Indicator -->
+        <div class="card panel-blur card-compact border border-primary/30 shadow-xl">
+            <div class="card-body p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="text-xs font-semibold text-base-content/60 uppercase tracking-wider">Rebel Level</div>
+                    <div class="badge badge-primary badge-sm gap-1 gamification-level-badge">
+                        <i class="fas fa-fire text-xs" aria-hidden="true"></i>
+                        <span id="levelNumber" data-gamification-target="level">1</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 mb-1">
+                    <progress class="progress progress-primary flex-1 h-2" id="levelFill" value="0" max="100"></progress>
+                    <span class="text-xs font-bold text-primary" id="xpPercent">0%</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Exploration Card with Achievement Badge -->
+        <div class="card panel-blur card-compact border border-accent/30 shadow-xl">
+            <div class="card-body p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="text-xs font-semibold text-base-content/60 uppercase tracking-wider">Slides Conquered</div>
+                    <div class="indicator">
+                        <span class="indicator-item indicator-top indicator-end badge badge-accent badge-sm" id="newSlideBadge" style="display: none;">NEW</span>
+                        <div class="text-xl font-bold text-accent">
+                            <span id="achievementCount">0</span>/<span id="totalSlides">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="badge badge-accent badge-outline badge-lg w-full justify-center gap-2 mt-2">
+                    <i class="fas fa-trophy" aria-hidden="true"></i>
+                    <span id="badgeText">Rebel Initiate</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Discovery Score Card -->
+        <div class="card panel-blur card-compact border border-secondary/30 shadow-xl">
+            <div class="card-body p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="text-xs font-semibold text-base-content/60 uppercase tracking-wider">Discovery Points</div>
+                    <div class="badge badge-secondary badge-sm gap-1">
+                        <i class="fas fa-sparkles text-xs" aria-hidden="true"></i>
+                        <span>SCORE</span>
+                    </div>
+                </div>
+                <div class="text-3xl font-bold text-secondary gamification-score-display" id="discoveryScore" data-gamification-target="score">0</div>
+                <div class="text-xs text-base-content/50 mt-1">Break the meta, earn points</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Power-Ups - Enhanced with daisyUI indicators -->
+    <div class="presentation-powerups fixed top-20 left-4 flex flex-col gap-3" style="z-index: var(--z-presentation-powerups, 46);">
+        <!-- Combo Multiplier Power-Up -->
+        <div class="indicator">
+            <span class="indicator-item indicator-top indicator-end badge badge-primary badge-sm" id="powerup1Badge" style="display: none;">2×</span>
+            <button class="btn btn-circle btn-primary btn-lg shadow-xl relative" id="powerup1" title="Meta Breaker: 2x Points Multiplier" data-type="multiplier" aria-label="Meta Breaker Power-up">
+                <i class="fas fa-bolt text-xl" aria-hidden="true"></i>
+                <div class="absolute inset-0 bg-base-100/90 rounded-full transition-all pointer-events-none" id="powerup1Cooldown"></div>
+                <div class="absolute inset-0 flex items-center justify-center text-sm font-bold text-primary" id="powerup1CooldownText"></div>
+            </button>
+        </div>
+        
+        <!-- Secret Revealer Power-Up -->
+        <div class="indicator">
+            <span class="indicator-item indicator-top indicator-end badge badge-secondary badge-sm" id="powerup2Badge" style="display: none;">ACTIVE</span>
+            <button class="btn btn-circle btn-secondary btn-lg shadow-xl relative" id="powerup2" title="Secret Hunter: Reveal Hidden Easter Eggs" data-type="reveal" aria-label="Secret Hunter Power-up">
+                <i class="fas fa-eye text-xl" aria-hidden="true"></i>
+                <div class="absolute inset-0 bg-base-100/90 rounded-full transition-all pointer-events-none" id="powerup2Cooldown"></div>
+                <div class="absolute inset-0 flex items-center justify-center text-sm font-bold text-secondary" id="powerup2CooldownText"></div>
+            </button>
+        </div>
+        
+        <!-- Time Freeze Power-Up -->
+        <div class="indicator">
+            <span class="indicator-item indicator-top indicator-end badge badge-accent badge-sm" id="powerup3Badge" style="display: none;">FREEZE</span>
+            <button class="btn btn-circle btn-accent btn-lg shadow-xl relative" id="powerup3" title="Time Breaker: Freeze Combo Timer" data-type="freeze" aria-label="Time Breaker Power-up">
+                <i class="fas fa-snowflake text-xl" aria-hidden="true"></i>
+                <div class="absolute inset-0 bg-base-100/90 rounded-full transition-all pointer-events-none" id="powerup3Cooldown"></div>
+                <div class="absolute inset-0 flex items-center justify-center text-sm font-bold text-accent" id="powerup3CooldownText"></div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Combo Counter - Enhanced with daisyUI -->
+    <div class="fixed top-1/2 right-4 transform -translate-y-1/2 opacity-0 transition-all duration-300 scale-95 hidden lg:block" id="comboCounter" style="z-index: var(--z-presentation-combo, 47);">
+        <div class="card bg-primary text-primary-content shadow-2xl border-2 border-primary-focus">
+            <div class="card-body p-6">
+                <div class="badge badge-primary-content badge-outline badge-sm mb-2">COMBO STREAK</div>
+                <div class="text-6xl font-bold text-center leading-none gamification-combo-number" id="comboNumber" data-gamification-target="combo">0</div>
+                <div class="text-sm uppercase text-center font-semibold tracking-wider mt-2">MULTIPLIER</div>
+                <div class="text-lg text-center mt-1 font-bold opacity-100 gamification-combo-multiplier" id="comboMultiplier" data-gamification-target="multiplier">×1.0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quest Panel - Enhanced with daisyUI -->
+    <div class="presentation-quest-panel fixed bottom-4 left-4 max-w-xs sm:max-w-sm" style="z-index: var(--z-presentation-quest, 49);">
+        <div class="collapse collapse-arrow panel-blur shadow-xl border border-primary/30 rounded-box">
+            <input type="checkbox" id="questToggle" aria-label="Toggle rebel missions panel">
+            <div class="collapse-title text-sm font-bold uppercase tracking-wider flex items-center gap-2">
+                <i class="fas fa-scroll text-primary" aria-hidden="true"></i>
+                <span>Rebel Missions</span>
+                <span class="badge badge-primary badge-sm ml-auto" id="activeQuestsCount">3</span>
+            </div>
+            <div class="collapse-content">
+                <div class="space-y-3 pt-2">
+                    <!-- Mission: Deck Explorer -->
+                    <div class="card card-compact bg-base-100 border-2 border-primary/20 shadow-md hover:shadow-lg transition-shadow gamification-quest-card" data-quest-id="viewAllSlides">
+                        <div class="card-body p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="badge badge-primary badge-outline badge-sm gap-1">
+                                    <i class="fas fa-map" aria-hidden="true"></i>
+                                    <span>EXPLORE</span>
+                                </div>
+                                <span class="badge badge-primary badge-sm quest-progress" data-quest="viewAllSlides">0/12</span>
+                            </div>
+                            <h4 class="font-bold text-sm mb-2 gamification-quest-title" data-quest-name="Conquer All Slides">Conquer All Slides</h4>
+                            <progress class="progress progress-primary h-2" id="viewAllSlidesProgress" value="0" max="12"></progress>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="text-xs text-base-content/70">Reward</span>
+                                <span class="badge badge-success badge-sm gap-1">
+                                    <i class="fas fa-star text-xs" aria-hidden="true"></i>
+                                    <span>500 pts</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mission: Secret Hunter -->
+                    <div class="card card-compact bg-base-100 border-2 border-secondary/20 shadow-md hover:shadow-lg transition-shadow gamification-quest-card" data-quest-id="findEasterEggs">
+                        <div class="card-body p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="badge badge-secondary badge-outline badge-sm gap-1">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                    <span>HUNT</span>
+                                </div>
+                                <span class="badge badge-secondary badge-sm quest-progress" data-quest="findEasterEggs">0/15</span>
+                            </div>
+                            <h4 class="font-bold text-sm mb-2 gamification-quest-title" data-quest-name="Find Hidden Secrets">Find Hidden Secrets</h4>
+                            <progress class="progress progress-secondary h-2" id="findEasterEggsProgress" value="0" max="15"></progress>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="text-xs text-base-content/70">Reward</span>
+                                <span class="badge badge-success badge-sm gap-1">
+                                    <i class="fas fa-star text-xs" aria-hidden="true"></i>
+                                    <span>1000 pts</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mission: Combo Master -->
+                    <div class="card card-compact bg-base-100 border-2 border-accent/20 shadow-md hover:shadow-lg transition-shadow gamification-quest-card" data-quest-id="reachCombo">
+                        <div class="card-body p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="badge badge-accent badge-outline badge-sm gap-1">
+                                    <i class="fas fa-fire" aria-hidden="true"></i>
+                                    <span>COMBO</span>
+                                </div>
+                                <span class="badge badge-accent badge-sm quest-progress" data-quest="reachCombo">0/10</span>
+                            </div>
+                            <h4 class="font-bold text-sm mb-2 gamification-quest-title" data-quest-name="Build 10x Combo Streak">Build 10x Combo Streak</h4>
+                            <progress class="progress progress-accent h-2" id="reachComboProgress" value="0" max="10"></progress>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="text-xs text-base-content/70">Reward</span>
+                                <span class="badge badge-success badge-sm gap-1">
+                                    <i class="fas fa-star text-xs" aria-hidden="true"></i>
+                                    <span>750 pts</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Notification - DaisyUI Blueprint Pattern -->
+    <div class="toast toast-top toast-end w-full max-w-[90vw] sm:max-w-md" id="achievementNotification" role="alert" aria-live="assertive" style="display: none; opacity: 0; transform: translateX(100%); transition: all 0.3s ease; z-index: var(--z-presentation-toast, 48);">
+        <div class="alert alert-success shadow-2xl border-2 border-success/50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+                            <h4 class="font-bold text-base uppercase tracking-wide gamification-achievement-title" id="achievementTitle" data-gamification-target="achievement-title">Meta Broken!</h4>
+                            <p class="text-sm opacity-90 gamification-achievement-desc" id="achievementDesc" data-gamification-target="achievement-desc">You've unlocked a rebel achievement</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- High Score Badge -->
+    <div class="card bg-accent text-accent-content p-8 text-center" id="highscoreBadge">
+        <div class="text-6xl mb-2">🏆</div>
+        <div class="text-2xl font-bold">NEW HIGH</div>
+        <div class="text-2xl font-bold">SCORE!</div>
+    </div>
+
+    <!-- Old minigame modal removed - using new survival game (gameModal) instead -->
+
+    <!-- Achievement Gallery Modal - DaisyUI Blueprint Pattern -->
+    <dialog id="achievementGallery" class="modal modal-bottom sm:modal-middle" role="dialog" aria-modal="true" style="z-index: var(--z-presentation-modals, 100);">
+        <div class="modal-box w-11/12 max-w-4xl max-h-[90vh] overflow-y-auto">
+            <h3 class="font-bold text-lg mb-4">Achievements</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="achievementGrid">
+                <!-- Achievements will be dynamically added here -->
+            </div>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Keyboard Help Modal - DaisyUI Blueprint Pattern -->
+    <dialog id="keyboardHelp" class="modal modal-bottom sm:modal-middle" role="dialog" aria-modal="true" style="z-index: var(--z-presentation-modals, 100);">
+        <div class="modal-box w-11/12 max-w-lg">
+            <h3 class="font-bold text-lg mb-4">Keyboard Shortcuts</h3>
+            <div class="space-y-2">
+                <div class="flex justify-between items-center">
+                    <span>Navigate Forward</span>
+                    <kbd class="kbd kbd-sm">→</kbd>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span>Navigate Backward</span>
+                    <kbd class="kbd kbd-sm">←</kbd>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span>Next Slide</span>
+                    <kbd class="kbd kbd-sm">Space</kbd>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span>Show Help</span>
+                    <kbd class="kbd kbd-sm">?</kbd>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span>Show Achievements</span>
+                    <kbd class="kbd kbd-sm">A</kbd>
+                </div>
+            </div>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Help Toggle Button -->
+    <button class="btn btn-circle btn-ghost fixed bottom-4 right-4 hidden lg:block" id="helpToggle" aria-label="Show keyboard shortcuts" style="z-index: var(--z-presentation-nav-controls);">
+        <i class="fas fa-question"></i>
+    </button>
+
+    <!-- Score Popup - DaisyUI Blueprint Pattern -->
+    <div class="fixed pointer-events-none opacity-0 scale-0 transition-all duration-300" id="scorePopup" role="status" aria-live="polite" aria-atomic="true" style="z-index: var(--z-presentation-toast, 48);">
+        <div class="badge badge-success badge-soft badge-lg gamification-score-popup">
+            <span id="scoreNumber" data-gamification-target="score-popup">+100</span>
+        </div>
+    </div>
+
+    <main class="presentation-main flex-1 flex flex-col items-center gap-6">
+        <!-- Slides Container -->
+        <!-- Progress indicator at top -->
+        <div class="slide-progress-indicator" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Slide progress"></div>
+        
+        <div class="slide-container relative">
+        <!-- Slide 1: Title -->
+        <div class="slide active flex flex-col items-center justify-center text-center relative">
+            <div class="slide-shell">
+                <div class="badge badge-primary badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-trophy" aria-hidden="true"></i>
+                    <span>[ACHIEVEMENT UNLOCKED]</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-display font-bold mb-4 text-gradient">BREAKING THE META</h1>
+                <p class="text-3xl md:text-4xl mb-6 text-accent">★★★★★</p>
+                <p class="text-2xl md:text-3xl mb-4 text-base-content/90 font-semibold">Two Projects. One Vision. Zero Compromise.</p>
+                <p class="text-xl md:text-2xl mb-8 text-base-content/80">VC Pitch (Project Cobalt) • Tech Week (Project HazAI)</p>
+                <div class="badge badge-secondary badge-soft badge-lg mb-4 gap-2" data-deck-reference="vc-tech">
+                    <i class="fas fa-scroll" aria-hidden="true"></i>
+                    <span>Dual Deck Rebel Presentation</span>
+                </div>
+                <p class="text-lg md:text-xl text-base-content/70 italic mb-6">
+                    "We don't respawn the same failures. We break the meta."
+                </p>
+                <p class="text-base text-base-content/60">Sacramento, California • Bootstrapped AA Studio</p>
+            </div>
+            <div class="easter-egg absolute top-[3%] right-[5%]" data-secret="welcome" data-points="500" data-deck-reference="vc"></div>
+            <div class="easter-egg absolute bottom-[10%] left-[8%]" data-secret="hidden1" data-points="300" data-deck-reference="tech"></div>
+        </div>
+
+        <!-- Slide 2: The Dual Deck -->
+        <div class="slide flex flex-col items-center justify-center text-center relative" data-compass-reference="industry">
+            <div class="slide-shell max-w-5xl">
+                <div class="badge badge-secondary badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-scroll" aria-hidden="true"></i>
+                    <span>[QUEST ACCEPTED]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4 text-gradient">The Dual Deck</h2>
+                <p class="text-2xl md:text-3xl mb-8 text-base-content/90 font-semibold italic">
+                    From pitch deck to production pipeline - we break the meta.
+                </p>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="card panel-blur border-2 border-primary/50 shadow-xl" data-deck-reference="vc" data-points="200">
+                        <div class="card-body">
+                            <h3 class="card-title text-2xl text-primary">VC Pitch Deck</h3>
+                            <p class="text-lg font-semibold mb-2">Project Cobalt</p>
+                            <ul class="text-left space-y-2 text-base-content/80">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>Isometric brawler-esque gameplay</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>Comic book art style</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>Anchor System: Modular story packs</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>Live-service DLC model</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border-2 border-secondary/50 shadow-xl" data-deck-reference="tech" data-points="200">
+                        <div class="card-body">
+                            <h3 class="card-title text-2xl text-secondary">Tech Week Deck</h3>
+                            <p class="text-lg font-semibold mb-2">Project HazAI</p>
+                            <ul class="text-left space-y-2 text-base-content/80">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>AI-enhanced 2D animation tools</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>$155B market opportunity</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>Deep tool integration</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>Enhance, not replace artists</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto italic">
+                    Two revolutionary projects. One unified vision. Zero compromise.
+                </p>
+            </div>
+            <div class="easter-egg absolute top-1/2 right-[3%]" data-secret="dual-deck" data-points="400" data-deck-reference="vc-tech"></div>
+        </div>
+
+        <!-- Slide 3: Studio Overview -->
+        <div class="slide flex flex-col items-center justify-center text-center relative">
+            <div class="slide-shell max-w-5xl">
+                <div class="badge badge-info badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-user-astronaut" aria-hidden="true"></i>
+                    <span>[CLASS SELECTED: Artisan Rebels]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 text-gradient">The Rebel Alliance</h2>
+                <div class="alert alert-info mb-6 max-w-3xl mx-auto shadow-lg">
+                    <i class="fas fa-fire text-xl" aria-hidden="true"></i>
+                    <div>
+                        <p class="text-lg font-semibold">We recruited veterans from the $200M grind.</p>
+                        <p class="text-base">They've seen how the industry breaks. We're building something that won't.</p>
+                    </div>
+                </div>
+                <div class="stats stats-vertical lg:stats-horizontal shadow w-full mb-8">
+                    <div class="stat" data-points="100">
+                        <div class="stat-title">Founded</div>
+                        <div class="stat-value text-primary">2024</div>
+                    </div>
+                    <div class="stat" data-points="100">
+                        <div class="stat-title">Team Power Level</div>
+                        <div class="stat-value text-secondary">12+</div>
+                        <div class="stat-desc text-xs">Riot, Disney, Marvel, DC, MIT, HP, Activision, Naughty Dog, Pixar</div>
+                    </div>
+                    <div class="stat" data-points="100">
+                        <div class="stat-title">Years Industry Experience</div>
+                        <div class="stat-value text-accent">15+</div>
+                    </div>
+                    <div class="stat" data-points="100">
+                        <div class="stat-title">Projects</div>
+                        <div class="stat-value text-info">2</div>
+                        <div class="stat-desc text-xs">Cobalt + HazAI</div>
+                    </div>
+                </div>
+                <div class="text-left max-w-3xl mx-auto space-y-4">
+                    <p class="text-lg md:text-xl text-base-content/90 font-semibold">
+                        Team from: <span class="manifesto-fragment" data-fragment="team">Erick Barnes, Pendragon Wachtel, Rodolfo Segleau, Ben Carcich, Raymond Pang, Jason Wiser, Hunter Goodin, Matthew Palermo, Riley Lewand, Andy Powell, Nick Zhou, Marco Castiello</span>
+                    </p>
+                    <p class="text-lg md:text-xl text-base-content/80">
+                        An independent game studio founded by industry veterans with a mission to create 
+                        engaging survival action experiences while mentoring the next generation of developers.
+                    </p>
+                </div>
+            </div>
+            <div class="easter-egg absolute top-1/2 right-[3%]" data-secret="team" data-points="250" data-deck-reference="vc"></div>
+        </div>
+
+        <!-- Slide 4: Project Cobalt -->
+        <div class="slide flex flex-col items-center justify-center text-center relative" data-deck-reference="vc" data-compass-reference="game-dev">
+            <div class="slide-shell max-w-5xl">
+                <div class="badge badge-primary badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-gamepad" aria-hidden="true"></i>
+                    <span>[NEW GAME+ UNLOCKED]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4 text-gradient">PROJECT COBALT: Breaking the Meta Manifesto</h2>
+                <div class="badge badge-error badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-skull" aria-hidden="true"></i>
+                    <span>Difficulty: HARD MODE ACTIVATED</span>
+                </div>
+                <p class="text-lg md:text-xl mb-6 text-base-content/70 font-semibold">Because 'Easy Mode' is for followers. We're rebels.</p>
+                
+                <div class="card panel-blur border-2 border-primary/50 p-4 mb-6">
+                    <h4 class="text-lg font-bold mb-3 text-primary">[STATS]</h4>
+                    <ul class="space-y-2 text-sm md:text-base">
+                        <li class="flex items-center gap-2">
+                            <span class="badge badge-primary badge-sm">Multiplayer Squad-Builder</span>
+                            <span class="text-xs text-base-content/70">(Max Level)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="badge badge-success badge-sm">Flashy, Punchy Gameplay</span>
+                            <span class="text-xs text-base-content/70">(Meta-Breaking)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="badge badge-info badge-sm">Anchor System</span>
+                            <span class="text-xs text-base-content/70">(New Mechanics Unlocked)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="badge badge-warning badge-sm">IP Collaborations</span>
+                            <span class="text-xs text-base-content/70">(No DLC Required)</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="card panel-blur border border-primary/30 p-6">
+                        <div class="badge badge-primary badge-outline badge-sm mb-3 gap-1">
+                            <i class="fas fa-anchor" aria-hidden="true"></i>
+                            <span>[ANCHOR SYSTEM]</span>
+                        </div>
+                        <h4 class="text-xl font-display font-bold mb-4 text-primary">The Anchor System</h4>
+                        <p class="text-base-content/80 mb-3">
+                            <span class="text-primary font-semibold">Linear stories are for followers. We break the narrative.</span>
+                        </p>
+                        <ul class="text-left space-y-2 text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-anchor text-primary mt-1"></i>
+                                <span>Each run tailored to a specific Anchor character and squad</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-puzzle-piece text-primary mt-1"></i>
+                                <span>Modular stories allow standalone packs</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-bolt text-accent mt-1"></i>
+                                <span><strong>"Lend Your Might"</strong> mechanic enables super-charged ultimates</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card panel-blur border border-primary/30 p-6">
+                        <div class="badge badge-primary badge-outline badge-sm mb-3 gap-1">
+                            <i class="fas fa-palette" aria-hidden="true"></i>
+                            <span>[ART STYLE]</span>
+                        </div>
+                        <h4 class="text-xl font-display font-bold mb-4 text-primary">Comic Art Stylings</h4>
+                        <p class="text-base-content/80 mb-3 font-semibold">Visual inspirations that broke the meta:</p>
+                        <ul class="text-left space-y-1 text-sm">
+                            <li>• Ghost in the Shell</li>
+                            <li>• Hi-Fi Rush</li>
+                            <li>• Persona 5 Royal</li>
+                            <li>• Teen Titans</li>
+                            <li>• FLCL</li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-t border-base-300">
+                            <p class="text-xs text-base-content/70 italic">
+                                "Designed to be as fun to watch as it is to play"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                        <div class="alert alert-info max-w-2xl mx-auto mb-6 shadow-lg">
+                    <i class="fas fa-info-circle text-xl"></i>
+                    <div>
+                        <strong>IP Collaborations Without the IP Baggage:</strong> 
+                        Modular DLC enables collaborations with Mortal Kombat, Doom, Mega Man, Judge Dredd, Borderlands, Street Fighter, Gears of War, and more. <span class="badge badge-primary badge-sm ml-2">BREAK THE META</span>
+                    </div>
+                </div>
+
+                <p class="text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto leading-relaxed">
+                    <span class="manifesto-fragment" data-fragment="anchor">Flashy, Punchy Gameplay</span> that combines power fantasy, large-scale combat, and over-the-top visuals. 
+                    Heroes unleash massive VFX, ultimates, and squad synergy attacks.
+                </p>
+            </div>
+            <div class="easter-egg absolute bottom-[5%] left-1/2 transform -translate-x-1/2" data-secret="cobalt" data-points="400" data-deck-reference="vc"></div>
+            <div class="easter-egg absolute top-[8%] left-[10%]" data-secret="anchor-system" data-points="350" data-deck-reference="vc"></div>
+        </div>
+
+        <!-- Slide 4: Core Features -->
+        <div class="slide flex flex-col items-center justify-center relative" style="padding-bottom: calc(4rem + 120px);">
+            <div class="slide-shell max-w-6xl w-full">
+                <div class="badge badge-accent badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-cogs" aria-hidden="true"></i>
+                    <span>[MECHANICS UNLOCKED]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 text-center text-gradient">Core Rebel Mechanics</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card panel-blur border border-base-300 hover:shadow-lg transition-shadow" data-points="80">
+                        <div class="card-body">
+                            <div class="text-4xl text-primary mb-2"><i class="fas fa-heartbeat"></i></div>
+                            <h3 class="card-title">Survival Systems</h3>
+                            <p>Manage hunger, thirst, stamina, temperature, and health—survive the meta</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300 hover:shadow-lg transition-shadow" data-points="80">
+                        <div class="card-body">
+                            <div class="text-4xl text-primary mb-2"><i class="fas fa-hammer"></i></div>
+                            <h3 class="card-title">Building & Crafting</h3>
+                            <p>Construct shelters and craft essential survival tools</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300 hover:shadow-lg transition-shadow" data-points="80">
+                        <div class="card-body">
+                            <div class="text-4xl text-primary mb-2"><i class="fas fa-mountain"></i></div>
+                            <h3 class="card-title">Resource Gathering</h3>
+                            <p>Mine, scavenge, and hunt across diverse environments</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300 hover:shadow-lg transition-shadow" data-points="80">
+                        <div class="card-body">
+                            <div class="text-4xl text-primary mb-2"><i class="fas fa-cloud-sun"></i></div>
+                            <h3 class="card-title">Dynamic Weather</h3>
+                            <p>Day-night cycle with realistic weather systems</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300 hover:shadow-lg transition-shadow" data-points="80">
+                        <div class="card-body">
+                            <div class="text-4xl text-primary mb-2"><i class="fas fa-coins"></i></div>
+                            <h3 class="card-title">Economy System</h3>
+                            <p>Trade and barter with NPCs and other players</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300 hover:shadow-lg transition-shadow" data-points="80">
+                        <div class="card-body">
+                            <div class="text-4xl text-primary mb-2"><i class="fas fa-search"></i></div>
+                            <h3 class="card-title">Hidden Truth</h3>
+                            <p>Uncover the secrets others tried to bury. Break the conspiracy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="easter-egg absolute top-[15%] right-[7%]" data-secret="features" data-points="300" data-deck-reference="vc"></div>
+        </div>
+
+        <!-- Slide 5: Project HazAI -->
+        <div class="slide flex flex-col items-center justify-center text-center relative" data-deck-reference="tech" data-compass-reference="ai-adoption">
+            <div class="slide-shell max-w-5xl">
+                <div class="badge badge-secondary badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-rocket" aria-hidden="true"></i>
+                    <span>[DLC UNLOCKED: REBEL TOOLS]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4 text-gradient">PROJECT HAZAI: From Noob to OP</h2>
+                <p class="text-2xl md:text-3xl mb-6 text-secondary font-semibold">Where Artists Break the Meta</p>
+                
+                <div class="alert alert-error mb-6 max-w-3xl mx-auto">
+                    <i class="fas fa-exclamation-circle text-2xl"></i>
+                    <div>
+                        <p class="text-lg font-bold mb-2">The Problem:</p>
+                        <p class="text-base mb-2">
+                            <span class="manifesto-fragment" data-fragment="ai-stats">Industry AI tools:</span> 
+                            <span class="badge badge-error badge-sm ml-2">Status Effect [HATED] (87% of studios)</span>
+                        </p>
+                        <p class="text-base">
+                            No tools for professional 2D space
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="card panel-blur border-2 border-secondary/50 shadow-xl">
+                        <div class="card-body">
+                            <h4 class="text-xl font-display font-bold mb-4 text-secondary">The Problem</h4>
+                            <ul class="text-left space-y-2 text-sm">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-times-circle text-error mt-1"></i>
+                                    <span>No robust AI tools for professional 2D space</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-times-circle text-error mt-1"></i>
+                                    <span>2D animation requires extensive manual redrawing</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-times-circle text-error mt-1"></i>
+                                    <span>Current AI tools lack production-level control</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-times-circle text-error mt-1"></i>
+                                    <span>Poor integration with industry standards</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border-2 border-success/50 shadow-xl">
+                        <div class="card-body">
+                            <h4 class="text-xl font-display font-bold mb-4 text-success">The Solution</h4>
+                            <ul class="text-left space-y-2 text-sm">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-success text-xl">→</span>
+                                    <span><strong>Deep Integration:</strong> <span class="badge badge-success badge-sm">Buff: +100% Workflow</span></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-success text-xl">→</span>
+                                    <span><strong>Granular Control:</strong> <span class="badge badge-info badge-sm">Debuff Removed: -0% Compromise</span></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-success text-xl">→</span>
+                                    <span><strong>Artists Become OP:</strong> <span class="badge badge-primary badge-sm">Power Level: MAX</span></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-success text-xl">→</span>
+                                    <span><strong>Production-Ready:</strong> Studio-specific training models</span>
+                                </li>
+                            </ul>
+                            <div class="badge badge-success badge-soft badge-lg mt-4 text-sm px-4 py-2">
+                                [ACHIEVEMENT UNLOCKED]<br>
+                                Enhanced, Not Replaced<br>
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats stats-vertical lg:stats-horizontal shadow w-full mb-6 max-w-3xl mx-auto">
+                    <div class="stat" data-points="150">
+                        <div class="stat-title">Market Size</div>
+                        <div class="stat-value text-secondary">$155B</div>
+                        <div class="stat-desc">Animation Software</div>
+                    </div>
+                    <div class="stat" data-points="150">
+                        <div class="stat-title">2D Market</div>
+                        <div class="stat-value text-primary">$39B</div>
+                        <div class="stat-desc">Worldwide</div>
+                    </div>
+                    <div class="stat" data-points="150">
+                        <div class="stat-title">Target Attach</div>
+                        <div class="stat-value text-accent">1-4%</div>
+                        <div class="stat-desc">Projected</div>
+                    </div>
+                </div>
+                
+                <p class="text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto italic">
+                    <span class="manifesto-fragment" data-fragment="hazai">Enhance, not replace, artistic expression while optimizing efficiency.</span>
+                </p>
+                <p class="text-base text-base-content/70 mt-4">
+                    AI tools that <span class="text-success font-semibold">buff</span> creativity, not <span class="text-error font-semibold">nerf</span> it.
+                </p>
+            </div>
+            <div class="easter-egg absolute bottom-[5%] left-[10%]" data-secret="hazai" data-points="400" data-deck-reference="tech"></div>
+            <div class="easter-egg absolute top-[8%] right-[10%]" data-secret="ai-tools" data-points="350" data-deck-reference="tech"></div>
+        </div>
+
+        <!-- Slide 6: Market Opportunity -->
+        <div class="slide flex flex-col items-center justify-center text-center relative" data-compass-reference="market-size">
+            <div class="slide-shell max-w-6xl">
+                <div class="badge badge-warning badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-chart-line" aria-hidden="true"></i>
+                    <span>[INTEL GATHERED]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 text-gradient">Market Opportunity: The Numbers Don't Lie</h2>
+                
+                <div class="alert alert-warning mb-6 max-w-4xl mx-auto shadow-lg">
+                    <i class="fas fa-chart-line text-2xl"></i>
+                    <div>
+                        <p class="text-lg font-bold mb-2">Industry Reality Check (2024-2025):</p>
+                        <p class="text-base text-base-content/90">
+                            <span class="manifesto-fragment" data-fragment="market-1">$177.9B global gaming market (2024).</span> 
+                            <span class="manifesto-fragment" data-fragment="market-2">$200M+ per AAA game (doubled from 5 years ago).</span> 
+                            <span class="manifesto-fragment" data-fragment="market-3">VC funding collapsed 70-85% from 2021 peak.</span> 
+                            <span class="text-primary font-semibold">We're building a different path.</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="stats stats-vertical lg:stats-horizontal shadow w-full mb-8">
+                    <div class="stat" data-points="120" data-compass-stat="market-size">
+                        <div class="stat-title">Global Gaming Market 2024</div>
+                        <div class="stat-value text-primary">$177.9B</div>
+                        <div class="stat-desc text-xs">Projected $188.8B in 2025</div>
+                    </div>
+                    <div class="stat" data-points="120" data-compass-stat="players">
+                        <div class="stat-title">Active Players Worldwide</div>
+                        <div class="stat-value text-secondary">3.42B</div>
+                        <div class="stat-desc text-xs">61.5% of world population</div>
+                    </div>
+                    <div class="stat" data-points="120" data-compass-stat="ai-adoption">
+                        <div class="stat-title">Studios Using AI</div>
+                        <div class="stat-value text-accent">52%</div>
+                        <div class="stat-desc text-xs">Up from 31% (2023)</div>
+                    </div>
+                    <div class="stat" data-points="120" data-compass-stat="ai-sentiment">
+                        <div class="stat-title">Positive AI Sentiment</div>
+                        <div class="stat-value text-error">13%</div>
+                        <div class="stat-desc text-xs">Down from 21% (2024)</div>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6 max-w-4xl mx-auto">
+                    <div class="card panel-blur border border-warning/30 p-4">
+                        <h4 class="text-lg font-bold mb-2 text-warning gap-2 flex items-center">
+                            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                            <span>The Broken Meta</span>
+                        </h4>
+                        <ul class="text-left space-y-1 text-sm text-base-content/80">
+                            <li>• AAA costs: $200M+ (doubled) <span class="badge badge-error badge-xs">NERFED</span></li>
+                            <li>• VC funding: 70-85% collapse <span class="badge badge-error badge-xs">BROKEN</span></li>
+                            <li>• AI sentiment: 21% → 13% positive <span class="badge badge-error badge-xs">HATED</span></li>
+                            <li>• Only 0.5% of indies capture 80% revenue <span class="badge badge-error badge-xs">OP</span></li>
+                        </ul>
+                    </div>
+                    <div class="card panel-blur border border-success/30 p-4">
+                        <h4 class="text-lg font-bold mb-2 text-success gap-2 flex items-center">
+                            <i class="fas fa-fire" aria-hidden="true"></i>
+                            <span>Our Rebel Path</span>
+                        </h4>
+                        <ul class="text-left space-y-1 text-sm text-base-content/80">
+                            <li>• Bootstrapped AA approach</li>
+                            <li>• Tools artists actually want</li>
+                            <li>• $155B animation software market</li>
+                            <li>• Veteran team from top studios</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p class="text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto">
+                    <span class="manifesto-fragment" data-fragment="opportunity">Technological acceleration amid financial constraint.</span> 
+                    We're proving there's a better way.
+                </p>
+            </div>
+            <div class="easter-egg absolute bottom-[12%] right-[15%]" data-secret="market" data-points="450" data-compass-reference="market-size"></div>
+            <div class="easter-egg absolute top-[20%] left-[5%]" data-secret="compass-stats" data-points="280" data-compass-reference="industry"></div>
+        </div>
+
+        <!-- Slide 6: The Team -->
+        <div class="slide flex flex-col items-center justify-center relative">
+            <div class="slide-shell max-w-6xl">
+                <div class="badge badge-accent badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-gamepad" aria-hidden="true"></i>
+                    <span>[TEAM POWER LEVEL: MAX]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-10 text-center text-gradient">The Rebel Leadership</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 team-grid">
+                    <div class="card panel-blur border border-base-300 leadership-card" data-points="150">
+                        <div class="card-body text-center flex flex-col items-center gap-3">
+                            <div class="leader-avatar leader-avatar-primary">
+                                <i class="fas fa-chess-king" aria-hidden="true"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="card-title justify-center">Erick Barnes</h3>
+                                <p class="text-accent font-semibold tracking-wide uppercase text-xs">CEO & Founder</p>
+                            </div>
+                            <p class="text-sm text-base-content/70 leading-relaxed max-w-[16rem]">15+ years in operations &amp; strategy</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300 leadership-card" data-points="150">
+                        <div class="card-body text-center flex flex-col items-center gap-3">
+                            <div class="leader-avatar leader-avatar-secondary">
+                                <i class="fas fa-dragon" aria-hidden="true"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="card-title justify-center">Pendragon Wachtel</h3>
+                                <p class="text-accent font-semibold tracking-wide uppercase text-xs">Co-Founder &amp; Game Director</p>
+                            </div>
+                            <p class="text-sm text-base-content/70 leading-relaxed max-w-[16rem]">Mega Cat Studios, indie.io, Freedom Games</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300 leadership-card" data-points="150">
+                        <div class="card-body text-center flex flex-col items-center gap-3">
+                            <div class="leader-avatar leader-avatar-accent">
+                                <i class="fas fa-rocket" aria-hidden="true"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="card-title justify-center">Hunter Goodin</h3>
+                                <p class="text-accent font-semibold tracking-wide uppercase text-xs">Lead Engineer</p>
+                            </div>
+                            <p class="text-sm text-base-content/70 leading-relaxed max-w-[16rem]">Unity Certified • WayForward Technologies</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center mt-10 text-base-content/70 flex items-center justify-center gap-2">
+                    <i class="fas fa-shield-alt text-accent" aria-hidden="true"></i>
+                    <span>+ Additional talented developers committed to excellence</span>
+                </p>
+            </div>
+            <div class="easter-egg absolute bottom-[8%] left-1/2 transform -translate-x-1/2" data-secret="founders" data-points="500"></div>
+        </div>
+
+        <!-- Slide 7: Development Progress -->
+        <div class="slide flex flex-col items-center justify-center relative">
+            <div class="slide-shell max-w-6xl">
+                <div class="badge badge-success badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-trophy" aria-hidden="true"></i>
+                    <span>[QUEST PROGRESS]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 text-center text-gradient">Development Milestones: The Rebel Journey</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="card bg-success/10 border border-success" data-points="100">
+                        <div class="card-body">
+                            <div class="text-3xl text-success mb-2"><i class="fas fa-check-circle"></i></div>
+                            <h3 class="card-title">Rebel Manifesto</h3>
+                            <p class="text-sm">✓ Completed - Foundation for breaking the meta</p>
+                        </div>
+                    </div>
+                    <div class="card bg-success/10 border border-success" data-points="100">
+                        <div class="card-body">
+                            <div class="text-3xl text-success mb-2"><i class="fas fa-check-circle"></i></div>
+                            <h3 class="card-title">Pitch Deck</h3>
+                            <p class="text-sm">✓ Completed - Vision communicated. Meta broken.</p>
+                        </div>
+                    </div>
+                    <div class="card bg-success/10 border border-success" data-points="100">
+                        <div class="card-body">
+                            <div class="text-3xl text-success mb-2"><i class="fas fa-check-circle"></i></div>
+                            <h3 class="card-title">Prototype</h3>
+                            <p class="text-sm">✓ Completed - Core rebel mechanics validated</p>
+                        </div>
+                    </div>
+                    <div class="card bg-success/10 border border-success" data-points="100">
+                        <div class="card-body">
+                            <div class="text-3xl text-success mb-2"><i class="fas fa-check-circle"></i></div>
+                            <h3 class="card-title">NDA Playtesting</h3>
+                            <p class="text-sm">✓ Launched April 2025 - Building with rebels</p>
+                        </div>
+                    </div>
+                    <div class="card bg-success/10 border border-success" data-points="100">
+                        <div class="card-body">
+                            <div class="text-3xl text-success mb-2"><i class="fas fa-check-circle"></i></div>
+                            <h3 class="card-title">Early Access</h3>
+                            <p class="text-sm">✓ Live on Steam - Iterating with rebel community</p>
+                        </div>
+                    </div>
+                    <div class="card bg-info/10 border border-info" data-points="100">
+                        <div class="card-body">
+                            <div class="text-3xl text-info mb-2"><i class="fas fa-spinner fa-spin"></i></div>
+                            <h3 class="card-title">Vertical Slice</h3>
+                            <p class="text-sm">🔥 In Progress - Polishing the meta-breaking loop</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="easter-egg absolute top-[10%] right-[10%]" data-secret="progress" data-points="380"></div>
+        </div>
+
+        <!-- Slide 8: Community & Engagement -->
+        <div class="slide flex flex-col items-center justify-center relative">
+            <div class="slide-shell max-w-6xl">
+                <div class="badge badge-info badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                    <span>[REBEL COMMUNITY ACTIVE]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 text-center text-gradient">Community Engagement: Building the Rebellion</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card panel-blur border border-base-300" data-points="110">
+                        <div class="card-body text-center">
+                            <div class="text-5xl text-info mb-4"><i class="fas fa-hand-peace"></i></div>
+                            <h3 class="card-title justify-center">Active Discord Server</h3>
+                            <p class="text-sm text-base-content/70">Direct dev communication & AMAs</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="110">
+                        <div class="card-body text-center">
+                            <div class="text-5xl text-info mb-4"><i class="fas fa-gamepad"></i></div>
+                            <h3 class="card-title justify-center">Steam Early Access</h3>
+                            <p class="text-sm text-base-content/70">Building with player feedback</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="110">
+                        <div class="card-body text-center">
+                            <div class="text-5xl text-info mb-4"><i class="fas fa-user-graduate"></i></div>
+                            <h3 class="card-title justify-center">College Tour Program</h3>
+                            <p class="text-sm text-base-content/70">Engaging future developers</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="110">
+                        <div class="card-body text-center">
+                            <div class="text-5xl text-info mb-4"><i class="fas fa-satellite-dish"></i></div>
+                            <h3 class="card-title justify-center">Transparent Updates</h3>
+                            <p class="text-sm text-base-content/70">Regular development insights</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="easter-egg absolute bottom-[15%] left-[20%]" data-secret="community" data-points="320"></div>
+        </div>
+
+        <!-- Slide 9: Business Model & Funding -->
+        <div class="slide flex flex-col items-center justify-center relative">
+            <div class="slide-shell max-w-6xl">
+                <div class="badge badge-primary badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                    <span>[INVESTMENT OPPORTUNITY]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 text-center text-gradient">Investment & Strategy: The Rebel Business Model</h2>
+                <div class="stats stats-vertical lg:stats-horizontal shadow-xl w-full mb-8 border-2 border-primary/20">
+                    <div class="stat" data-points="140">
+                        <div class="stat-title">Funding Stage</div>
+                        <div class="stat-value text-primary">Seed</div>
+                        <div class="stat-desc text-xs">Join the rebellion</div>
+                    </div>
+                    <div class="stat" data-points="140">
+                        <div class="stat-title">Early Access Price</div>
+                        <div class="stat-value text-secondary">$29.99</div>
+                        <div class="stat-desc text-xs">No microtransactions</div>
+                    </div>
+                    <div class="stat" data-points="140">
+                        <div class="stat-title">Steam Rating</div>
+                        <div class="stat-value text-accent">63%</div>
+                        <div class="stat-desc text-xs">Growing community</div>
+                    </div>
+                    <div class="stat" data-points="140">
+                        <div class="stat-title">Rebel Base</div>
+                        <div class="stat-value text-info">Growing</div>
+                        <div class="stat-desc text-xs">Active players</div>
+                    </div>
+                </div>
+                <div class="card panel-blur border-2 border-primary/30 shadow-xl p-6 max-w-3xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4 text-center gap-2 flex items-center justify-center">
+                        <i class="fas fa-chart-line text-primary" aria-hidden="true"></i>
+                        <span>Revenue Strategy: Bootstrapped & Profitable</span>
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3" data-points="90">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <div>
+                                <strong class="text-accent">Premium Sales:</strong> One-time purchase. <span class="badge badge-success badge-sm">NO MICROTRANSACTIONS</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3" data-points="90">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <div>
+                                <strong class="text-accent">DLC Expansion:</strong> Post-launch content that respects players <span class="badge badge-primary badge-sm">REBEL APPROVED</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3" data-points="90">
+                            <i class="fas fa-check-circle text-accent mt-1"></i>
+                            <div>
+                                <strong class="text-accent">Community-First:</strong> Building the rebellion through transparency <span class="badge badge-info badge-sm">NO BS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="easter-egg absolute top-[25%] right-[8%]" data-secret="funding" data-points="420"></div>
+        </div>
+
+        <!-- Slide 10: Studio Philosophy -->
+        <div class="slide flex flex-col items-center justify-center relative">
+            <div class="slide-shell max-w-6xl">
+                <div class="badge badge-accent badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                    <span>[REBEL CODE ACTIVATED]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 text-center text-gradient">Our Rebel Values</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="card panel-blur border border-base-300" data-points="95">
+                        <div class="card-body">
+                            <div class="text-3xl text-primary mb-2"><i class="fas fa-palette"></i></div>
+                            <h3 class="card-title">Value Artists</h3>
+                            <p class="text-sm">Creative vision wins. We're building tools that <span class="text-primary font-semibold">buff</span> creativity.</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="95">
+                        <div class="card-body">
+                            <div class="text-3xl text-primary mb-2"><i class="fas fa-user-graduate"></i></div>
+                            <h3 class="card-title">Level Up Juniors</h3>
+                            <p class="text-sm">Investing in the next generation of <span class="text-primary font-semibold">rebel developers</span></p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="95">
+                        <div class="card-body">
+                            <div class="text-3xl text-primary mb-2"><i class="fas fa-users"></i></div>
+                            <h3 class="card-title">Rebel Community</h3>
+                            <p class="text-sm">Building <span class="text-primary font-semibold">with</span> the community, not <span class="text-error">at</span> them</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="95">
+                        <div class="card-body">
+                            <div class="text-3xl text-primary mb-2"><i class="fas fa-lightbulb"></i></div>
+                            <h3 class="card-title">Full Transparency</h3>
+                            <p class="text-sm">No hidden mechanics. <span class="text-primary font-semibold">Open book.</span> Zero BS.</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="95">
+                        <div class="card-body">
+                            <div class="text-3xl text-primary mb-2"><i class="fas fa-award"></i></div>
+                            <h3 class="card-title">Quality Over Meta</h3>
+                            <p class="text-sm">We don't compromise. <span class="text-primary font-semibold">Polish matters.</span> Players matter.</p>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="95">
+                        <div class="card-body">
+                            <div class="text-3xl text-primary mb-2"><i class="fas fa-handshake"></i></div>
+                            <h3 class="card-title">Fair Play</h3>
+                            <p class="text-sm">No predatory monetization. <span class="text-success font-semibold">Respect the player.</span> Break the meta.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="easter-egg absolute bottom-[10%] right-1/2 transform translate-x-1/2" data-secret="values" data-points="550"></div>
+        </div>
+
+        <!-- Slide 11: Connect With Us -->
+        <div class="slide flex flex-col items-center justify-center relative">
+            <div class="slide-shell max-w-6xl">
+                <div class="badge badge-info badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-comments" aria-hidden="true"></i>
+                    <span>[JOIN THE REBELLION]</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-8 text-center text-gradient">Connect & Join the Rebellion</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card panel-blur border border-base-300" data-points="130">
+                        <div class="card-body text-center">
+                            <div class="text-5xl text-primary mb-4"><i class="fas fa-envelope"></i></div>
+                            <div class="text-sm">admin@digitalhazardstudio.com</div>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="130">
+                        <div class="card-body text-center">
+                            <div class="text-5xl text-primary mb-4"><i class="fas fa-globe"></i></div>
+                            <div class="text-sm">digitalhazardstudio.com</div>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="130">
+                        <div class="card-body text-center">
+                            <div class="text-5xl text-primary mb-4"><i class="fab fa-discord"></i></div>
+                            <div class="text-sm">discord.gg/H28QhSQETp</div>
+                        </div>
+                    </div>
+                    <div class="card panel-blur border border-base-300" data-points="130">
+                        <div class="card-body text-center">
+                            <div class="text-5xl text-primary mb-4"><i class="fab fa-linkedin"></i></div>
+                            <div class="text-sm">linkedin.com/company/digital-hazard-studio</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-info max-w-md mx-auto">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>📍 2804 Gateway Oaks Drive #100<br>
+                        Sacramento, CA 95833</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="easter-egg absolute top-[15%] left-[10%]" data-secret="contact" data-points="600"></div>
+        </div>
+
+        <!-- Slide 12: Call to Action -->
+        <div class="slide flex flex-col items-center justify-center text-center relative">
+            <div class="slide-shell max-w-5xl">
+                <div class="badge badge-success badge-soft badge-lg mb-4 text-lg px-6 py-3 gap-2">
+                    <i class="fas fa-fire" aria-hidden="true"></i>
+                    <span>[FINAL BOSS: JOIN THE REBELLION]</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-display font-bold mb-4 text-gradient">JOIN THE REBELLION</h1>
+                <p class="text-2xl md:text-3xl mb-12 text-base-content/80 font-semibold">Help us break the meta. Build the future.</p>
+                
+                <div class="mb-12">
+                    <h3 class="text-2xl font-bold mb-6 text-success gap-2 flex items-center justify-center">
+                        <i class="fas fa-hand-fist" aria-hidden="true"></i>
+                        <span>Ways to Break the Meta</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                        <div class="card panel-blur border border-base-300" data-points="200">
+                            <div class="card-body">
+                                <div class="text-4xl text-success mb-2"><i class="fas fa-rocket"></i></div>
+                                <h3 class="card-title justify-center">Invest in Rebels</h3>
+                                <p class="text-sm">Fund the next great <span class="text-success font-semibold">meta-breaking</span> survival game</p>
+                            </div>
+                        </div>
+                        <div class="card panel-blur border border-base-300" data-points="200">
+                            <div class="card-body">
+                                <div class="text-4xl text-info mb-2"><i class="fas fa-gamepad"></i></div>
+                                <h3 class="card-title justify-center">Play & Break</h3>
+                                <p class="text-sm">Try Project Cobalt on Steam <span class="badge badge-info badge-sm">EARLY ACCESS</span></p>
+                            </div>
+                        </div>
+                        <div class="card panel-blur border border-base-300" data-points="200">
+                            <div class="card-body">
+                                <div class="text-4xl text-accent mb-2"><i class="fas fa-comments"></i></div>
+                                <h3 class="card-title justify-center">Join the Rebellion</h3>
+                                <p class="text-sm">Share feedback. <span class="text-accent font-semibold">Shape the future.</span> Break the meta.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-lg mb-8 gap-2" id="startMinigame">
+    </script>
+    <script>
+        // Handle startMinigame button click
+        document.getElementById('startMinigame').addEventListener('click', function() {
+            const modal = document.getElementById('gameModal');
+            if (modal) {
+                modal.showModal();
+            }
+        });
+    </script>                    <i class="fas fa-gamepad" aria-hidden="true"></i>
+                    <span>🎮 Play Survival Game - Fight for Survival!</span>
+                </button>
+
+                <p class="text-2xl md:text-3xl text-primary font-bold">
+                    Let's break the meta together. 🔥
+                </p>
+            </div>
+            <div class="easter-egg absolute top-[5%] right-[5%]" data-secret="finale1" data-points="750"></div>
+            <div class="easter-egg absolute bottom-[5%] left-[5%]" data-secret="finale2" data-points="750"></div>
+            <div class="easter-egg absolute top-1/2 left-[3%]" data-secret="finale3" data-points="1000"></div>
+        </div>
+    </div> <!-- Close slide-container -->
+    </main>
+
+    <!-- Navigation Controls - Enhanced with daisyUI -->
+    <div class="presentation-nav-controls fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-box shadow-lg" style="z-index: var(--z-presentation-nav-controls);">
+        <button class="btn btn-primary btn-sm sm:btn-md" id="prevBtn" aria-label="Previous slide">
+            <i class="fas fa-chevron-left"></i> <span class="hidden sm:inline">Prev</span>
+        </button>
+        <div class="stats stats-horizontal shadow compact">
+            <div class="stat py-1 px-2 sm:py-2 sm:px-4">
+                <div class="stat-value text-xs sm:text-sm">
+                    <span id="currentSlide">1</span> / <span id="totalSlidesNav">12</span>
+                </div>
+            </div>
+        </div>
+        <progress class="progress progress-primary w-24 sm:w-32 h-2" id="progressBar" value="8.33" max="100"></progress>
+        <button class="btn btn-primary btn-sm sm:btn-md" id="nextBtn" aria-label="Next slide">
+            <span class="hidden sm:inline">Next </span><i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <!-- Polyfills first for browser compatibility -->
+    <script>
+        window.DH_ASSET_PREFIX = './';
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
+    <script src="js/polyfills.js"></script>
+    <script src="js/main-loader.js" defer></script>
+    <script>
+        (function() {
+            // Wait for main-loader to initialize the promise
+            function getLoaderReady() {
+                if (window.DHInitLoaderReady instanceof Promise) {
+                    return window.DHInitLoaderReady;
+                }
+                // If promise not ready yet, wait a bit and retry
+                return new Promise((resolve) => {
+                    const checkPromise = () => {
+                        if (window.DHInitLoaderReady instanceof Promise) {
+                            resolve(window.DHInitLoaderReady);
+                        } else {
+                            setTimeout(checkPromise, 50);
+                        }
+                    };
+                    checkPromise();
+                });
+            }
+
+            getLoaderReady().then(() => waitForInit()).catch(() => {
+                // Even if loader fails, try to wait for DHInit manually
+                console.warn('[DHInit] Loader failed, falling back to manual wait');
+                waitForInit();
+            });
+
+            function waitForInit(attempt = 0) {
+                if (window.DHInit && typeof window.DHInit.initPage === 'function') {
+                    Promise.resolve(
+                        window.DHInit.initPage({
+                            loadThreeJS: true,
+                            loadGamification: true,
+                            initTheme: false, // Initialize theme after gamification restores state
+                            initPowerups: true,
+                            markStylesLoaded: true
+                        })
+                    ).then(handlePostInit)
+                    .catch(err => {
+                        console.error('[DHInit] initPage failed:', err);
+                        const loadingScreen = document.getElementById('loadingScreen');
+                        if (loadingScreen) {
+                            loadingScreen.innerHTML = `
+                                <div class="alert alert-error max-w-md">
+                                    <i class="fas fa-exclamation-triangle text-2xl"></i>
+                                    <div>
+                                        <h3 class="font-bold">Initialization Error</h3>
+                                        <p class="text-sm">${err.message || 'An error occurred during initialization'}</p>
+                                        <button class="btn btn-primary btn-sm mt-2" onclick="location.reload()">
+                                            <i class="fas fa-sync-alt mr-2"></i>Refresh
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+                    return;
+                }
+
+                if (attempt < 50) {
+                    setTimeout(() => waitForInit(attempt + 1), 100);
+                } else {
+                    console.error('[DHInit] initPage not available on present.html');
+
+                    // Show user-facing error
+                    const loadingScreen = document.getElementById('loadingScreen');
+                    if (loadingScreen) {
+                        loadingScreen.innerHTML = `
+                            <div class="alert alert-error max-w-md">
+                                <i class="fas fa-exclamation-triangle text-2xl"></i>
+                                <div>
+                                    <h3 class="font-bold">Initialization Failed</h3>
+                                    <p class="text-sm">Unable to load required resources. Please refresh the page.</p>
+                                    <button class="btn btn-primary btn-sm mt-2" onclick="location.reload()">
+                                        <i class="fas fa-sync-alt mr-2"></i>Refresh
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            }
+
+            function handlePostInit() {
+                if (window.DHInit && typeof window.DHInit.initThemeController === 'function') {
+                    window.DHInit.initThemeController();
+                }
+
+                const levelNumberEl = document.getElementById('levelNumber');
+                const scoreEl = document.getElementById('discoveryScore');
+                const xpBarEl = document.getElementById('levelFill');
+                const xpPercentEl = document.getElementById('xpPercent');
+
+                // Restore shared state from localStorage for integration with index.html
+                if (window.game && window.Storage) {
+                    const savedState = window.Storage.get('dhGamificationState') || localStorage.getItem('dhGamificationState');
+                    if (savedState) {
+                        try {
+                            // Check if savedState is already an object (parsed) or a string
+                            let state;
+                            if (typeof savedState === 'string') {
+                                // Try to parse JSON string
+                                state = JSON.parse(savedState);
+                            } else if (typeof savedState === 'object' && savedState !== null) {
+                                // Already parsed, use as-is
+                                state = savedState;
+                            } else {
+                                throw new Error('Invalid savedState type: ' + typeof savedState);
+                            }
+                            
+                            // Validate state structure
+                            if (!state || typeof state !== 'object') {
+                                throw new Error('Parsed state is not an object');
+                            }
+                            
+                            if (state.level && levelNumberEl) levelNumberEl.textContent = state.level;
+                            if (state.score && scoreEl) {
+                                scoreEl.textContent = state.score;
+                                window.game.currentScore = state.score;
+                            }
+                            if (state.achievements) {
+                                state.achievements.forEach(ach => {
+                                    if (window.game.unlockAchievement) {
+                                        window.game.unlockAchievement(ach.id, ach.title, ach.desc, 0);
+                                    }
+                                });
+                            }
+                            if (typeof state.xpPercent === 'number' && xpBarEl) {
+                                const clampedXP = Math.max(0, Math.min(100, state.xpPercent));
+                                xpBarEl.value = clampedXP;
+                                if (xpPercentEl) {
+                                    xpPercentEl.textContent = clampedXP + '%';
+                                }
+                            }
+                        } catch (error) {
+                            console.warn('Failed to restore gamification state:', error);
+                            console.warn('Invalid savedState value:', savedState);
+
+                            // Backup corrupted data before clearing
+                            try {
+                                const backup = {
+                                    corrupted: savedState,
+                                    timestamp: Date.now(),
+                                    error: error.message
+                                };
+                                localStorage.setItem('dhGamificationState_corrupted_' + Date.now(), JSON.stringify(backup));
+                                console.log('Corrupted state backed up for debugging');
+                            } catch (backupError) {
+                                console.error('Unable to backup corrupted state:', backupError);
+                            }
+
+                            // Clear invalid localStorage entry to prevent repeated errors
+                            try {
+                                if (window.Storage && typeof window.Storage.remove === 'function') {
+                                    window.Storage.remove('dhGamificationState');
+                                } else if (typeof localStorage !== 'undefined') {
+                                    localStorage.removeItem('dhGamificationState');
+                                }
+                            } catch (clearError) {
+                                console.warn('Failed to clear invalid localStorage entry:', clearError);
+                            }
+                        }
+                    }
+                }
+
+                // Note: No need to wrap addPoints/unlockAchievement here as:
+                // 1. gamification.js already calls saveState() with debouncing
+                // 2. gamification-effects.js may also wrap these methods
+                // 3. gamification.js already handles beforeunload cleanup
+                // Wrapping again would cause duplicate saves and conflicts
+
+                const savedTheme =
+                    (window.Storage && typeof window.Storage.get === 'function' && window.Storage.get('dhTheme')) ||
+                    localStorage.getItem('dhTheme') ||
+                    'hazard';
+
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        })();
+    </script>
+    <script>
+        // Loading screen
+        (function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const progressBar = document.getElementById('loadingProgress');
+            const percentage = document.getElementById('loadingPercentage');
+            
+            if (!loadingScreen) return;
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                progress = Math.min(progress, 100); // Clamp before use
+
+                if (progressBar) progressBar.value = progress;
+                if (percentage) percentage.textContent = Math.floor(progress) + '%';
+
+                if (progress === 100) { // Exact check after clamping
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingScreen.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                            if (window.game) {
+                                window.game.unlockAchievement('deck-loaded', 'Deck Loaded', 'Presentation deck ready!', 50);
+                            }
+                        }, 500);
+                    }, 500);
+                }
+            }, 100);
+        })();
+    </script>
+    
+    <!-- Game Modal - Enhanced DaisyUI Pattern with Loading States -->
+    <dialog id="gameModal" class="modal modal-bottom sm:modal-middle game-modal-enhanced" role="dialog" aria-labelledby="gameModalTitle" aria-modal="true" style="z-index: var(--z-presentation-modals, 100);">
+        <div class="modal-box bg-base-100 border-2 border-primary/50 shadow-2xl w-11/12 max-w-6xl p-0 overflow-hidden">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-4 sm:p-6 border-b border-base-300 bg-base-200/50">
+                <h3 class="font-bold text-xl sm:text-2xl flex items-center gap-2" id="gameModalTitle">
+                    <i class="fas fa-gamepad text-primary" aria-hidden="true"></i>
+                    <span>Survival Game</span>
+                </h3>
+                <div class="flex items-center gap-2">
+                    <!-- Loading Indicator -->
+                    <div class="loading loading-spinner loading-sm text-primary opacity-0 transition-opacity" id="gameLoadingSpinner" aria-label="Game loading"></div>
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost hover:btn-error" aria-label="Close game modal">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Game Canvas Container -->
+            <div class="p-4 sm:p-6">
+                <div class="demo-canvas-container relative w-full bg-base-300/20 rounded-lg border-2 border-base-300" style="min-height: 400px;">
+                    <!-- Loading State -->
+                    <div class="absolute inset-0 flex items-center justify-center bg-base-200/90 rounded-lg z-20 transition-opacity duration-300" id="gameLoadingOverlay">
+                        <div class="card panel-blur border-2 border-primary/30 shadow-xl p-6 max-w-md mx-4">
+                            <div class="card-body items-center text-center gap-4">
+                                <div class="loading loading-spinner loading-lg text-primary"></div>
+                                <h4 class="card-title justify-center">Loading Game...</h4>
+                                <p class="text-sm text-base-content/70">Initializing game engine and assets</p>
+                                <progress class="progress progress-primary w-full" id="gameInitProgress" value="0" max="100"></progress>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Click Overlay Hint -->
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm rounded-lg cursor-pointer hover:bg-black/20 transition-all z-10 game-click-overlay" id="gameClickHint">
+                        <div class="card panel-blur border-2 border-accent/50 shadow-2xl p-6 max-w-sm mx-4">
+                            <div class="card-body items-center text-center gap-3">
+                                <div class="badge badge-accent badge-lg gap-2 animate-bounce mb-2">
+                                    <i class="fas fa-mouse-pointer" aria-hidden="true"></i>
+                                    <span>CLICK TO START</span>
+                                </div>
+                                <p class="text-base-content font-bold">Survive • Shoot (SPACE) • Collect</p>
+                                <div class="divider my-2"></div>
+                                <div class="text-xs text-base-content/70 space-y-1">
+                                    <p><i class="fas fa-keyboard mr-1" aria-hidden="true"></i> WASD/Arrows: Move</p>
+                                    <p><i class="fas fa-space-shuttle mr-1" aria-hidden="true"></i> SPACE: Shoot</p>
+                                    <p><i class="fas fa-mouse mr-1" aria-hidden="true"></i> Click: Shoot</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Error State -->
+                    <div class="absolute inset-0 flex items-center justify-center bg-error/10 rounded-lg z-30 opacity-0 pointer-events-none transition-opacity" id="gameErrorOverlay">
+                        <div class="alert alert-error shadow-xl max-w-md mx-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div>
+                                <h3 class="font-bold">Game Failed to Load</h3>
+                                <div class="text-xs" id="gameErrorMsg">Unable to initialize game engine. Please refresh the page.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <canvas class="demo-canvas bg-transparent rounded-lg w-full h-full max-w-full" id="demo-canvas" style="background: transparent; max-width: 100%; display: block; aspect-ratio: 2/1;" aria-label="Survival Game - Use WASD to move, SPACE to shoot"></canvas>
+                    <!-- HUD Overlay -->
+                    <div class="game-overlay pointer-events-none" id="gameHud" aria-hidden="true">
+                        <div class="game-overlay__top">
+                            <div class="hud-stack">
+                                <div class="hud-card hud-card--score">
+                                    <div class="hud-card__icon">
+                                        <i class="fas fa-burst" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <div class="hud-card__label">Score</div>
+                                        <div class="hud-card__value" id="gameHudScore">0</div>
+                                    </div>
+                                </div>
+                                <div class="hud-card hud-card--level">
+                                    <div class="hud-card__icon">
+                                        <i class="fas fa-wave-square" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <div class="hud-card__label">Level</div>
+                                        <div class="hud-card__value" id="gameHudLevel">1</div>
+                                    </div>
+                                </div>
+                                <div class="hud-card hud-card--difficulty">
+                                    <div class="hud-card__icon">
+                                        <i class="fas fa-microchip" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <div class="hud-card__label">Intensity</div>
+                                        <div class="hud-card__value" id="gameHudDifficulty">1.0x</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hud-stack hud-stack--right">
+                                <div class="hud-card hud-card--lives">
+                                    <div class="hud-card__icon">
+                                        <i class="fas fa-heart-pulse" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <div class="hud-card__label">Integrity</div>
+                                        <div class="hud-lives" id="gameHudLives" aria-live="polite"></div>
+                                    </div>
+                                </div>
+                                <div class="hud-card hud-card--combo" id="gameHudComboCard">
+                                    <div class="hud-card__icon">
+                                        <i class="fas fa-biohazard" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <div class="hud-card__label">Combo Engine</div>
+                                        <div class="hud-card__value" id="gameHudCombo">x1.0</div>
+                                        <div class="hud-card__subvalue" id="gameHudComboStreak">Streak 0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-overlay__bottom">
+                            <div class="hud-card hud-card--powerups">
+                                <div class="hud-card__label">
+                                    <i class="fas fa-flask-vial mr-2" aria-hidden="true"></i> Power Systems
+                                </div>
+                                <div class="hud-powerups" id="gameHudPowerups" aria-live="polite"></div>
+                            </div>
+                            <div class="hud-status" id="gameHudStatus">
+                                <div class="hud-status__glow"></div>
+                                <div class="hud-status__content">
+                                    <span class="hud-status__label"><i class="fas fa-satellite-dish" aria-hidden="true"></i> Broadcast</span>
+                                    <span class="hud-status__message" id="gameHudStatusMessage">Awaiting deployment...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Game Controls Info - Enhanced DaisyUI Badges -->
+                <div class="flex flex-wrap justify-center gap-2 mt-4">
+                    <div class="badge badge-outline badge-sm sm:badge-md gap-1">
+                        <i class="fas fa-keyboard" aria-hidden="true"></i>
+                        <span class="hidden sm:inline">WASD / Arrows:</span> Move
+                    </div>
+                    <div class="badge badge-outline badge-sm sm:badge-md gap-1">
+                        <i class="fas fa-space-shuttle" aria-hidden="true"></i>
+                        <span class="hidden sm:inline">SPACE:</span> Shoot
+                    </div>
+                    <div class="badge badge-outline badge-sm sm:badge-md gap-1">
+                        <i class="fas fa-mouse" aria-hidden="true"></i>
+                        Click: Shoot
+                    </div>
+                    <div class="badge badge-outline badge-sm sm:badge-md gap-1">
+                        <i class="fas fa-pause" aria-hidden="true"></i>
+                        P: Pause
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Backdrop - Closes on click outside -->
+        <form method="dialog" class="modal-backdrop">
+            <button aria-label="Close game modal">close</button>
+        </form>
+    </dialog>
+    
+    <!-- Simplified Game Initialization -->
+    <script>
+        (function() {
+            'use strict';
+            
+            // Simple game module loader for present.html
+            function loadGameModules() {
+                return new Promise((resolve, reject) => {
+                    const prefix = window.DH_ASSET_PREFIX || '';
+                    const modules = [
+                        'js/game-engine.js',
+                        'js/game-renderer.js',
+                        'js/particle-system.js',
+                        'js/game.js'
+                    ].map(path => `${prefix}${path}`);
+                    
+                    let loaded = 0;
+                    const total = modules.length;
+                    
+                    modules.forEach(src => {
+                        const script = document.createElement('script');
+                        script.src = src;
+                        script.onload = () => {
+                            loaded++;
+                            console.log(`[GameLoader] Loaded ${src} (${loaded}/${total})`);
+                            if (loaded === total) {
+                                resolve();
+                            }
+                        };
+                        script.onerror = () => {
+                            console.error(`[GameLoader] Failed to load ${src}`);
+                            reject(new Error(`Failed to load ${src}`));
+                        };
+                        document.head.appendChild(script);
+                    });
+                });
+            }
+            
+            // Load game modules and initialize
+            loadGameModules().then(() => {
+                console.log('[GameLoader] All game modules loaded');
+                window.dispatchEvent(new Event('DHInitReady'));
+            }).catch(error => {
+                console.error('[GameLoader] Failed to load game modules:', error);
+            });
+            
+        })();
+    </script>
+
+    <!-- Game Integration Test Suite - Moved to separate test file for production -->
+    <script>
+        (function() {
+            'use strict';
+
+            // Production: Test suite removed. Run tests in development environment.
+            // For testing, use: npm test or load tests/game-integration.test.js
+            if (window.CONFIG?.DEBUG) {
+                console.log('[Present] Debug mode enabled. Load test suite manually if needed.');
+            }
+        })();
+    </script>
+    <script>
+        (function() {
+            'use strict';
+            // Removed 251-line test suite - available in tests/ directory for development
+            window.testGameIntegration = async function() {
+                console.log('🧪 Test suite has been moved to development environment.');
+                console.log('💡 Please run tests using: npm test');
+                console.log('📁 Test files are located in the tests/ directory');
+                return { message: 'Tests moved to development environment' };
+            };
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+/* Layout System - Z-Index, Spacing, and Positioning Variables */
+/* Separation of concerns: All layout-related CSS variables and utilities */
+
+/* Z-Index System - Unified layering for all components */
+/* DaisyUI Blueprint compatible z-index system */
+:root {
+    /* Background and Canvas Layers */
+    --z-background: -10;
+    --z-canvas: 0;
+    
+    /* Content Layers */
+    --z-content: 10;
+    
+    /* HUD and Game UI Layers */
+    --z-hud: 50;
+    --z-hud-combo: 55;
+    --z-hud-notifications: 60;
+    
+    /* Navigation Layers - DaisyUI compatible */
+    --z-navbar: 100;
+    --z-dropdown: 101;
+    --z-drawer-overlay: 102;
+    --z-drawer-side: 103;
+    
+    /* Modal and Dialog Layers - DaisyUI uses z-50 (z-index: 50) for modals */
+    --z-modals: 1000;
+    --z-modal-backdrop: 999;
+    
+    /* Presentation specific layers */
+    --z-presentation-background: -10;
+    --z-presentation-content: 0;
+    --z-presentation-nav-controls: 40;
+    --z-presentation-hud: 45;
+    --z-presentation-powerups: 46;
+    --z-presentation-combo: 47;
+    --z-presentation-toast: 48;
+    --z-presentation-quest: 49;
+    --z-presentation-modals: 100;
+    --z-presentation-loading: 9999;
+    
+    /* Special Layers */
+    --z-skip-link: 2000;
+    --z-loading: 9999;
+}
+
+/* Scroll Anchoring Fix - Prevent browser scroll anchoring on main container */
+html,
+body {
+    overflow-anchor: none;
+}
+
+/* FOUC Prevention - Hide content until styles load */
+html { 
+    visibility: hidden; 
+    opacity: 0; 
+}
+html.styles-loaded { 
+    visibility: visible; 
+    opacity: 1; 
+    transition: opacity 0.2s ease-in; 
+}
+
+/* Disable scroll anchoring on scroll containers to prevent adjustment warnings */
+.slide,
+.slide-container,
+.game-container,
+.demo-canvas-container,
+[class*="overflow"] {
+    overflow-anchor: none;
+}
+
+/* Layout Variables */
+:root {
+    /* Navbar Dimensions */
+    --navbar-height: 3.5rem;
+    --navbar-height-sm: 4rem;
+    
+    /* HUD Dimensions */
+    --hud-width: 180px;
+    --hud-gap: 0.5rem;
+    
+    /* Spacing from navbar */
+    --navbar-spacing: 1rem;
+    --navbar-spacing-sm: 0.25rem;
+}
+
+/* Responsive navbar height calculation */
+@media (min-width: 640px) {
+    :root {
+        --navbar-height: var(--navbar-height-sm);
+        --navbar-spacing: var(--navbar-spacing-sm);
+    }
+}
+
+/* Utility Classes for Z-Index */
+.z-background {
+    z-index: var(--z-background);
+}
+
+.z-canvas {
+    z-index: var(--z-canvas);
+}
+
+.z-content {
+    z-index: var(--z-content);
+}
+
+.z-hud {
+    z-index: var(--z-hud);
+}
+
+.z-hud-combo {
+    z-index: var(--z-hud-combo);
+}
+
+.z-hud-notifications {
+    z-index: var(--z-hud-notifications);
+}
+
+.z-navbar {
+    z-index: var(--z-navbar);
+}
+
+.z-dropdown {
+    z-index: var(--z-dropdown);
+}
+
+.z-modals {
+    z-index: var(--z-modals);
+}
+
+.z-loading {
+    z-index: var(--z-loading);
+}
+
+/* Layout Utilities */
+.navbar-spacing {
+    padding-top: var(--navbar-height);
+}
+
+@media (min-width: 640px) {
+    .navbar-spacing {
+        padding-top: var(--navbar-height-sm);
+    }
+}
+
+/* Combo Counter Positioning - Avoid HUD collision */
+#comboCounter {
+    right: calc(var(--hud-width) + var(--navbar-spacing) + 1rem);
+}
+
+@media (min-width: 1024px) {
+    #comboCounter {
+        right: 1rem; /* Desktop: right side, HUD is vertical */
+    }
+}
+
+/* Drawer z-index fixes */
+.drawer-side {
+    z-index: var(--z-drawer-side);
+}
+
+.drawer-overlay {
+    z-index: var(--z-drawer-overlay);
+}
+
+/* Modal z-index - DaisyUI uses z-50 by default, override for consistency */
+.modal {
+    z-index: var(--z-modals);
+}
+
+.modal-backdrop {
+    z-index: var(--z-modal-backdrop);
+}
+
+/* Animation Timing Variables */
+:root {
+    --animation-fast: 150ms;
+    --animation-normal: 300ms;
+    --animation-slow: 500ms;
+    --animation-very-slow: 1000ms;
+    
+    --easing-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --easing-in-out: cubic-bezier(0.4, 0, 0.6, 1);
+    --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Section Grid Improvements */
+.dh-section {
+    padding: 4rem 1rem;
+}
+
+@media (min-width: 640px) {
+    .dh-section {
+        padding: 5rem 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .dh-section {
+        padding: 6rem 2rem;
+    }
+}
+
+.section-content {
+    max-width: 64rem;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+/* Grid layouts */
+.content-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .content-grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.content-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .content-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .content-grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

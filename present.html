@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="hazard">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Hazard — Project Cobalt Presentation</title>
+    <meta name="description" content="Interactive presentation for Project Cobalt, blending narrative slides, embedded gameplay, and cinematic video.">
+    <meta name="color-scheme" content="dark light">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5.0.50/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-3hF6kZcpKjcUGZr1s+bsrzu5iYle0xleqrs9jwELyhl725LLJoPLD114F8CbnMD4HzyBbs6k8ZZrPmSu2Mz/vw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="bg-base-200 text-base-content min-h-screen overflow-hidden">
+    <a href="#deck-content" class="skip-link">Skip to slides</a>
+    <div id="presentation-background" class="fixed inset-0 -z-20"></div>
+    <div class="relative min-h-screen">
+        <header class="presentation-bar">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="btn btn-ghost btn-sm" aria-label="Back to landing">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <h1 class="font-display text-xl tracking-wide">Project Cobalt Pitch</h1>
+            </div>
+            <div class="flex items-center gap-4 text-sm">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-location-dot text-primary"></i>
+                    <span id="slide-counter">Slide 1 / 6</span>
+                </div>
+                <progress id="slide-progress" class="progress progress-primary w-40" value="16" max="100" aria-hidden="true"></progress>
+                <button id="auto-play" class="btn btn-ghost btn-xs" type="button">
+                    <i class="fa-solid fa-circle-play"></i>
+                    Auto
+                </button>
+            </div>
+        </header>
+
+        <main id="deck-content" class="presentation-shell" tabindex="-1">
+            <section data-slide="1" class="deck-slide active">
+                <div class="slide-body">
+                    <div class="space-y-5">
+                        <span class="badge badge-primary badge-lg uppercase tracking-widest">Chapter 01</span>
+                        <h2 class="slide-title">The Island Wakes</h2>
+                        <p class="slide-lead">Digital Hazard resurrects abandoned research stations across the archipelago. Our AI companions—Hazards—are equal parts guide and risk. Investors step into the storm from the first frame.</p>
+                        <ul class="list-disc pl-5 space-y-2 text-base-content/75">
+                            <li>Procedural weather that cascades across scenes</li>
+                            <li>Collective decision loops shared by every audience member</li>
+                            <li>Environmental storytelling anchored by neural matte paintings</li>
+                        </ul>
+                    </div>
+                    <figure class="slide-visual border border-primary/20">
+                        <img src="assets/slide-intro.jpg" alt="Stormy island concept art" loading="lazy" class="w-full h-full object-cover">
+                    </figure>
+                </div>
+            </section>
+
+            <section data-slide="2" class="deck-slide">
+                <div class="slide-body">
+                    <div class="space-y-5">
+                        <span class="badge badge-secondary badge-lg uppercase tracking-widest">Chapter 02</span>
+                        <h2 class="slide-title">Player Journey Loop</h2>
+                        <p class="slide-lead">A three-act loop—Explore, Signal, Resolve—ensures tangible stakes every five minutes. Accessibility layers keep the loop inclusive across different input styles.</p>
+                        <div class="grid gap-4 sm:grid-cols-3">
+                            <div class="mini-card">
+                                <p class="font-semibold text-base">Explore</p>
+                                <p class="text-sm text-base-content/70">Environmental scanning reveals signal fragments, building narrative breadcrumbs.</p>
+                            </div>
+                            <div class="mini-card">
+                                <p class="font-semibold text-base">Signal</p>
+                                <p class="text-sm text-base-content/70">Hazards adapt to player behavior with AI-driven personalities and voice cues.</p>
+                            </div>
+                            <div class="mini-card">
+                                <p class="font-semibold text-base">Resolve</p>
+                                <p class="text-sm text-base-content/70">Branching outcomes are visualized with data overlays to reinforce repeatability.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <figure class="slide-visual border border-secondary/20">
+                        <video id="slide-video" class="w-full h-full object-cover rounded-xl" controls preload="metadata">
+                            <source src="assets/dh_advert.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </figure>
+                </div>
+            </section>
+
+            <section data-slide="3" class="deck-slide" id="slide-game">
+                <div class="slide-body">
+                    <div class="space-y-5">
+                        <span class="badge badge-accent badge-lg uppercase tracking-widest">Chapter 03</span>
+                        <h2 class="slide-title">Arcade Sentinel</h2>
+                        <p class="slide-lead">A three-minute skill burst demonstrates AI ally dynamics. Collect shards to escalate the Hazard companion while surviving anomaly waves.</p>
+                        <div class="flex items-center gap-4">
+                            <div class="stat bg-base-100/70 border border-accent/20">
+                                <div class="stat-title">Avg. Completion</div>
+                                <div class="stat-value text-accent">82%</div>
+                                <div class="stat-desc">Investor playtests (6 min)</div>
+                            </div>
+                            <button id="restart-embedded-game" class="btn btn-outline btn-accent btn-sm" type="button">
+                                <i class="fa-solid fa-rotate-right"></i>
+                                Restart Module
+                            </button>
+                        </div>
+                    </div>
+                    <figure class="slide-visual border border-accent/20 bg-base-100/70">
+                        <div id="presentation-game" class="w-full h-full rounded-xl overflow-hidden"></div>
+                    </figure>
+                </div>
+            </section>
+
+            <section data-slide="4" class="deck-slide">
+                <div class="slide-body">
+                    <div class="space-y-5">
+                        <span class="badge badge-outline badge-lg uppercase tracking-widest">Chapter 04</span>
+                        <h2 class="slide-title">Production Roadmap</h2>
+                        <p class="slide-lead">Layered milestones keep the experience nimble. Each sprint includes a playable checkpoint and telemetry review.</p>
+                        <ol class="timeline">
+                            <li>
+                                <h3 class="font-semibold text-base">Phase A — Prototype (0-3 months)</h3>
+                                <p class="text-sm text-base-content/70">Core traversal loop &amp; voice pipeline, plus investor pilot.</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold text-base">Phase B — Vertical Slice (4-7 months)</h3>
+                                <p class="text-sm text-base-content/70">Expanded island biome, hazard personalities, monetization sandbox.</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold text-base">Phase C — Pre-Launch (8-12 months)</h3>
+                                <p class="text-sm text-base-content/70">Live ops simulation, community toolkits, franchise tie-ins.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <figure class="slide-visual border border-base-content/15 bg-base-100/70">
+                        <img src="assets/slide-roadmap.jpg" alt="Roadmap milestones" loading="lazy" class="w-full h-full object-cover">
+                    </figure>
+                </div>
+            </section>
+
+            <section data-slide="5" class="deck-slide">
+                <div class="slide-body">
+                    <div class="space-y-5">
+                        <span class="badge badge-primary badge-lg uppercase tracking-widest">Chapter 05</span>
+                        <h2 class="slide-title">Financial Outlook</h2>
+                        <p class="slide-lead">We orchestrate transmedia monetization while keeping the player experience pure. Non-disruptive product placement and live events anchor the revenue stack.</p>
+                        <div class="grid gap-4 md:grid-cols-2">
+                            <div class="mini-card">
+                                <p class="font-semibold text-base">Launch Bundle</p>
+                                <p class="text-sm text-base-content/70">$29.99 premium entry with seasonal events &amp; early-access perks.</p>
+                            </div>
+                            <div class="mini-card">
+                                <p class="font-semibold text-base">Operator Pass</p>
+                                <p class="text-sm text-base-content/70">Monthly live events, hazard variants, and ARG expansions.</p>
+                            </div>
+                            <div class="mini-card">
+                                <p class="font-semibold text-base">Brand Integrations</p>
+                                <p class="text-sm text-base-content/70">Diegetic placements in research logs and remote ops dashboards.</p>
+                            </div>
+                            <div class="mini-card">
+                                <p class="font-semibold text-base">Merchandising</p>
+                                <p class="text-sm text-base-content/70">Wearables, collectible figurines, and audio drama extensions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <figure class="slide-visual border border-primary/20">
+                        <img src="assets/slide-finance.jpg" alt="Financial chart" loading="lazy" class="w-full h-full object-cover">
+                    </figure>
+                </div>
+            </section>
+
+            <section data-slide="6" class="deck-slide">
+                <div class="slide-body">
+                    <div class="space-y-5">
+                        <span class="badge badge-secondary badge-lg uppercase tracking-widest">Final Chapter</span>
+                        <h2 class="slide-title">Call to Adventure</h2>
+                        <p class="slide-lead">The island calls. Join the cohort that sets the tone for the next era of playable pitches.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="mailto:hello@digitalhazard.gg" class="btn btn-primary btn-lg gap-2"><i class="fa-solid fa-envelope"></i> Schedule Deep Dive</a>
+                            <a href="#" class="btn btn-outline btn-lg gap-2"><i class="fa-solid fa-file-arrow-down"></i> Download Prospectus</a>
+                        </div>
+                        <p class="text-base-content/60 text-sm">All assets and data points are available via the investor portal. Ping us for sandbox credentials.</p>
+                    </div>
+                    <figure class="slide-visual border border-secondary/20">
+                        <img src="assets/slide-outro.jpg" alt="Sunrise over the island" loading="lazy" class="w-full h-full object-cover">
+                    </figure>
+                </div>
+            </section>
+        </main>
+
+        <footer class="presentation-footer">
+            <div class="flex items-center gap-3">
+                <button id="prev-slide" class="btn btn-outline btn-sm" type="button" aria-label="Previous slide">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Prev
+                </button>
+                <button id="next-slide" class="btn btn-primary btn-sm" type="button" aria-label="Next slide">
+                    Next
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="flex items-center gap-3 text-sm text-base-content/70">
+                <i class="fa-solid fa-keyboard"></i>
+                <span>Use ← → arrows or swipe to navigate. Press F for focused reading mode.</span>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module" src="js/presentation.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Load Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { padding: 10px; margin: 5px 0; border-radius: 4px; }
+        .pass { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .fail { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warn { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+    </style>
+</head>
+<body>
+    <h1>Digital Hazard Game Load Test</h1>
+    <div id="test-results"></div>
+    
+    <script>
+        const results = [];
+        
+        function addResult(test, status, message = '') {
+            results.push({ test, status, message });
+            const div = document.createElement('div');
+            div.className = `test-result ${status}`;
+            div.innerHTML = `<strong>${test}:</strong> ${status.toUpperCase()}${message ? ' - ' + message : ''}`;
+            document.getElementById('test-results').appendChild(div);
+        }
+        
+        // Test 1: Check if required scripts are loaded
+        function testScripts() {
+            const scripts = [
+                'js/config.js',
+                'js/game-engine.js', 
+                'js/game-renderer.js',
+                'js/particle-system.js',
+                'js/game.js'
+            ];
+            
+            scripts.forEach(src => {
+                const script = document.querySelector(`script[src="${src}"]`);
+                if (script) {
+                    addResult(`Script: ${src}`, 'pass');
+                } else {
+                    addResult(`Script: ${src}`, 'fail', 'Script tag not found');
+                }
+            });
+        }
+        
+        // Test 2: Check if global classes exist
+        function testClasses() {
+            const classes = ['GameEngine', 'GameRenderer', 'ParticleSystem', 'SurvivalGame'];
+            
+            classes.forEach(className => {
+                if (typeof window[className] !== 'undefined') {
+                    addResult(`Class: ${className}`, 'pass');
+                } else {
+                    addResult(`Class: ${className}`, 'fail', 'Class not found in window scope');
+                }
+            });
+        }
+        
+        // Test 3: Test game instantiation
+        function testInstantiation() {
+            try {
+                if (typeof SurvivalGame === 'undefined') {
+                    addResult('Game Instantiation', 'fail', 'SurvivalGame class not available');
+                    return;
+                }
+                
+                // Create a test canvas
+                const canvas = document.createElement('canvas');
+                canvas.id = 'test-canvas';
+                canvas.width = 800;
+                canvas.height = 400;
+                document.body.appendChild(canvas);
+                
+                const game = new SurvivalGame('test-canvas');
+                if (game && game.engine) {
+                    addResult('Game Instantiation', 'pass');
+                } else {
+                    addResult('Game Instantiation', 'fail', 'Game created but engine not initialized');
+                }
+                
+                // Clean up
+                document.body.removeChild(canvas);
+                
+            } catch (error) {
+                addResult('Game Instantiation', 'fail', error.message);
+            }
+        }
+        
+        // Test 4: Test game start
+        function testGameStart() {
+            try {
+                if (typeof SurvivalGame === 'undefined') {
+                    addResult('Game Start', 'fail', 'SurvivalGame class not available');
+                    return;
+                }
+                
+                // Create a test canvas
+                const canvas = document.createElement('canvas');
+                canvas.id = 'test-canvas-2';
+                canvas.width = 800;
+                canvas.height = 400;
+                document.body.appendChild(canvas);
+                
+                const game = new SurvivalGame('test-canvas-2');
+                if (game && typeof game.startGame === 'function') {
+                    game.startGame();
+                    addResult('Game Start', 'pass');
+                } else {
+                    addResult('Game Start', 'fail', 'startGame method not available');
+                }
+                
+                // Clean up
+                document.body.removeChild(canvas);
+                
+            } catch (error) {
+                addResult('Game Start', 'fail', error.message);
+            }
+        }
+        
+        // Run tests
+        setTimeout(() => {
+            testScripts();
+            testClasses();
+            setTimeout(() => {
+                testInstantiation();
+                testGameStart();
+                
+                // Summary
+                const passed = results.filter(r => r.status === 'pass').length;
+                const failed = results.filter(r => r.status === 'fail').length;
+                const warned = results.filter(r => r.status === 'warn').length;
+                
+                const summary = document.createElement('div');
+                summary.className = 'test-result';
+                summary.style.fontSize = '18px';
+                summary.style.fontWeight = 'bold';
+                summary.style.marginTop = '20px';
+                summary.innerHTML = `Summary: ${passed} passed, ${failed} failed, ${warned} warnings`;
+                document.getElementById('test-results').appendChild(summary);
+                
+            }, 1000);
+        }, 500);
+    </script>
+    
+    <!-- Load the game scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/game-engine.js"></script>
+    <script src="js/game-renderer.js"></script>
+    <script src="js/particle-system.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

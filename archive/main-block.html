@@ -1,0 +1,890 @@
+<main id="main-content" class="site-main flex-1 navbar-spacing" role="main">
+                <div class="site-main-inner flex flex-col gap-24">
+                <!-- Hero Section -->
+                <section id="home" class="dh-section dh-hero hero min-h-screen relative overflow-hidden bg-gradient-to-b from-base-100 via-base-200/50 to-base-100">
+                    <div class="hero-overlay bg-gradient-to-br from-primary/5 via-transparent to-secondary/5"></div>
+                    <div class="hero-content w-full text-base-content relative z-10">
+                            <div class="section-content py-12 lg:py-16">
+                            <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-12 items-center">
+                                <div class="hero-copy flex flex-col gap-6 items-center lg:items-start text-center lg:text-left">
+                            <div class="inline-flex">
+                                        <div class="badge badge-primary badge-soft badge-lg gap-2 text-base sm:text-lg px-6 py-4 cursor-pointer hover:scale-110 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 interactive-badge animate-pulse-smooth rounded-full" data-achievement="hero-unlocked" data-points="100" tabindex="0" role="button" aria-label="Achievement Unlocked - Click to track progress">
+                                    <i class="fas fa-trophy"></i>
+                                    <span class="font-bold">ACHIEVEMENT UNLOCKED</span>
+                                </div>
+                            </div>
+                                    <h1 onclick="window.game?.foundEasterEgg?.('hero-title', 'Meta Breaker', 200)" class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black text-gradient leading-[1.1] tracking-tight drop-shadow-2xl">
+                                Breaking the Meta
+                            </h1>
+                                    <div class="flex justify-center lg:justify-start gap-1 text-3xl sm:text-4xl lg:text-5xl animate-pulse-slow">
+                                <span class="text-accent drop-shadow-glow">★</span>
+                                <span class="text-accent drop-shadow-glow">★</span>
+                                <span class="text-accent drop-shadow-glow">★</span>
+                                <span class="text-accent drop-shadow-glow">★</span>
+                                <span class="text-accent drop-shadow-glow">★</span>
+                            </div>
+                                    <div class="w-full grid gap-6">
+                                <div class="card bg-gradient-to-br from-error/10 to-error/5 border-2 border-error/30 hover:border-error/50 shadow-lg hover:shadow-error/20 transition-all duration-300 rounded-2xl">
+                                    <div class="card-body p-5 lg:p-7">
+                                        <h3 class="text-lg md:text-xl font-bold mb-4 text-error flex items-center gap-2">
+                                            <i class="fas fa-times-circle"></i>
+                                            <span>While others follow the industry playbook:</span>
+                                        </h3>
+                                        <ul class="space-y-3 text-base md:text-lg">
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/50 transition-colors">
+                                                <span class="text-error text-2xl flex-shrink-0">✗</span>
+                                                <span class="manifesto-fragment neon-text font-medium manifesto-error" data-fragment="1">Spend $200M+ per AAA game</span>
+                                            </li>
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/50 transition-colors">
+                                                <span class="text-error text-2xl flex-shrink-0">✗</span>
+                                                <span class="manifesto-fragment neon-text font-medium manifesto-error" data-fragment="2">Use AI tools that 87% of studios hate</span>
+                                            </li>
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/50 transition-colors">
+                                                <span class="text-error text-2xl flex-shrink-0">✗</span>
+                                                <span class="manifesto-fragment neon-text font-medium manifesto-error" data-fragment="3">Wait for VC funding that collapsed 85%</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card bg-gradient-to-br from-primary/20 to-primary/10 border-2 border-primary/60 hover:border-primary/80 shadow-xl hover:shadow-primary/30 transition-all duration-300 rounded-2xl">
+                                    <div class="card-body p-5 lg:p-7">
+                                        <h3 class="text-lg md:text-xl font-bold mb-4 text-primary flex items-center gap-2">
+                                            <i class="fas fa-trophy"></i>
+                                            <span>We unlocked a different achievement:</span>
+                                        </h3>
+                                        <ul class="space-y-3 text-base md:text-lg">
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/30 transition-colors">
+                                                <span class="text-success text-2xl flex-shrink-0">✓</span>
+                                                <span class="text-primary font-bold neon-text">Build two revolutionary projects with veterans</span>
+                                            </li>
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/30 transition-colors">
+                                                <span class="text-success text-2xl flex-shrink-0">✓</span>
+                                                <span class="text-primary font-bold neon-text">Create AI tools that artists actually want</span>
+                                            </li>
+                                            <li class="flex items-start gap-3 p-2 rounded-lg hover:bg-base-100/30 transition-colors">
+                                                <span class="text-success text-2xl flex-shrink-0">✓</span>
+                                                <span class="text-primary font-bold neon-text">Bootstrapped. Profitable. Game-changing.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                                    <div class="space-y-2">
+                                <p class="text-3xl md:text-4xl lg:text-5xl font-display font-black text-gradient drop-shadow-lg">
+                                    Digital Hazard Studio
+                                </p>
+                                <p class="text-xl md:text-2xl font-bold text-base-content/90 italic">
+                                    We don't respawn the same failures.
+                                </p>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-stretch sm:items-center">
+                                <a href="#cobalt" class="btn btn-primary btn-lg shadow-xl hover:shadow-2xl hover:shadow-primary/50 btn-enhanced interactive-element group transition-all duration-300 hover:scale-105 rounded-xl" aria-label="Skip Tutorial">
+                                    <i class="fas fa-gamepad mr-2 group-hover:animate-pulse" aria-hidden="true"></i>
+                                    <span class="font-bold">Skip Tutorial</span>
+                                    <i class="fas fa-forward ml-2" aria-hidden="true"></i>
+                                </a>
+                                <a href="present.html" class="btn btn-outline btn-primary btn-lg shadow-lg hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:scale-105 group rounded-xl" aria-label="View interactive pitch deck">
+                                    <i class="fas fa-presentation mr-2 group-hover:rotate-12 transition-transform" aria-hidden="true"></i>
+                                    <span class="font-bold">View Pitch Deck</span>
+                                </a>
+                            </div>
+                        </div>
+                                <div class="hero-experience relative w-full max-w-2xl mx-auto">
+                            <div class="absolute -left-8 top-1/2 -translate-y-1/2 hidden lg:block animate-bounce-horizontal z-20">
+                                <div class="flex flex-col items-center gap-2">
+                                    <div class="badge badge-primary badge-soft badge-lg animate-pulse">PLAY NOW</div>
+                                    <i class="fas fa-arrow-right text-4xl text-primary animate-pulse" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                                    <div class="card panel-blur border border-primary/50 hover:border-primary/70 shadow-2xl hover:shadow-primary/35 game-throw-in relative overflow-visible w-full transition-all duration-500 group rounded-2xl">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 rounded-2xl blur-2xl animate-pulse-slow opacity-75 group-hover:opacity-100 -z-10 transition-opacity"></div>
+                                <div class="card-body p-4 sm:p-6 lg:p-8 relative z-10 w-full">
+                                    <div class="flex justify-center mb-4">
+                                        <div class="badge badge-primary badge-soft badge-lg gap-2 shadow-lg px-6 py-4 text-base font-bold rounded-full animate-pulse-smooth">
+                                            <i class="fas fa-gamepad text-lg" aria-hidden="true"></i>
+                                            <span>SURVIVAL GAME</span>
+                                        </div>
+                                    </div>
+                                    <div class="demo-canvas-container relative w-full aspect-video bg-gradient-to-br from-base-300/70 to-base-200/70 rounded-2xl flex items-center justify-center overflow-hidden group-hover:scale-[1.02] transition-transform duration-300 border-2 border-primary/20">
+                                        <div class="text-center p-6">
+                                            <i class="fas fa-gamepad text-7xl sm:text-8xl text-primary/60 mb-4 animate-pulse-slow drop-shadow-glow" aria-hidden="true"></i>
+                                            <p class="text-xl sm:text-2xl font-bold text-base-content/80 mb-2">Ready to Play?</p>
+                                            <p class="text-sm sm:text-base text-base-content/60">Click the button below to start</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-center mt-6">
+                                        <button class="btn btn-primary btn-lg gap-3 shadow-2xl hover:shadow-primary/60 btn-enhanced interactive-element group/btn transition-all duration-300 hover:scale-110 rounded-2xl px-8" onclick="if(document.getElementById('gameModal')) { document.getElementById('gameModal').showModal(); }" aria-label="Open game in modal">
+                                                    <i class="fas fa-play mr-1 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
+                                                    <span class="font-bold">Launch Survival Mode</span>
+                                                    <i class="fas fa-arrow-up-right-from-square ml-1 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                        </div>
+                                        </div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                                        <div class="card panel-blur border border-primary/30 shadow-lg hover:border-primary/60 transition-colors">
+                                            <div class="card-body p-4 gap-3">
+                                                <div class="badge badge-primary badge-sm gap-1 uppercase tracking-wide">
+                                                    <i class="fas fa-bolt" aria-hidden="true"></i>
+                                                    Instant Play
+                                        </div>
+                                                <h4 class="font-bold text-lg">No Install Required</h4>
+                                                <p class="text-sm text-base-content/70">Loads directly into a modal so you can jump into the prototype without leaving the site.</p>
+                                    </div>
+                                </div>
+                                        <div class="card panel-blur border border-secondary/30 shadow-lg hover:border-secondary/60 transition-colors">
+                                            <div class="card-body p-4 gap-3">
+                                                <div class="badge badge-secondary badge-sm gap-1 uppercase tracking-wide">
+                                                    <i class="fas fa-trophy" aria-hidden="true"></i>
+                                                    Gamified
+                            </div>
+                                                <h4 class="font-bold text-lg">Achievement Ready</h4>
+                                                <p class="text-sm text-base-content/70">Integrated with our gamification layer so every interaction powers the meta.</p>
+                                </div>
+                            </div>
+                        </div>
+                                </div>
+                            </div>
+                        <!-- Game Modal - Enhanced DaisyUI Pattern with Loading States -->
+                        <dialog id="gameModal" class="modal modal-bottom sm:modal-middle game-modal-enhanced game-modal" role="dialog" aria-labelledby="gameModalTitle" aria-modal="true">
+                            <div class="modal-box bg-base-100 border-2 border-primary/50 shadow-2xl w-11/12 max-w-6xl p-0 overflow-hidden">
+                                <div class="flex items-center justify-between p-4 sm:p-6 border-b border-base-300 bg-base-200/50">
+                                    <h3 class="font-bold text-xl sm:text-2xl flex items-center gap-2" id="gameModalTitle">
+                                        <i class="fas fa-gamepad text-primary" aria-hidden="true"></i>
+                                        <span>Survival Game</span>
+                                    </h3>
+                                    <div class="flex items-center gap-2">
+                                        <div class="loading loading-spinner loading-sm text-primary opacity-0 transition-opacity" id="gameLoadingSpinner" aria-label="Game loading"></div>
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost hover:btn-error" aria-label="Close game modal">
+                                                <i class="fas fa-times" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="p-4 sm:p-6">
+                                    <div class="demo-canvas-container relative w-full bg-base-300/20 rounded-lg border-2 border-base-300 demo-canvas-container-custom">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-base-200/90 rounded-lg z-20 transition-opacity duration-300" id="gameLoadingOverlay">
+                                            <div class="card bg-base-100 border-2 border-primary/30 shadow-xl p-6 max-w-md mx-4">
+                                                <div class="card-body items-center text-center gap-4">
+                                                    <div class="loading loading-spinner loading-lg text-primary"></div>
+                                                    <h4 class="card-title justify-center">Loading Game...</h4>
+                                                    <p class="text-sm text-base-content/70">Initializing game engine and assets</p>
+                                                    <progress class="progress progress-primary w-full" id="gameInitProgress" value="0" max="100"></progress>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm rounded-lg cursor-pointer hover:bg-black/20 transition-all z-10 game-click-overlay" id="gameClickHint">
+                                            <div class="card bg-base-100/90 border-2 border-accent/50 shadow-2xl p-6 max-w-sm mx-4">
+                                                <div class="card-body items-center text-center gap-3">
+                                                    <div class="badge badge-accent badge-lg gap-2 animate-bounce mb-2">
+                                                        <i class="fas fa-mouse-pointer" aria-hidden="true"></i>
+                                                        <span>CLICK TO START</span>
+                                                    </div>
+                                                        <p class="text-base-content font-bold">Survive • Shoot (SPACE) • Collect</p>
+                                                    <div class="divider my-2"></div>
+                                                    <div class="text-xs text-base-content/70 space-y-1">
+                                                        <p><i class="fas fa-keyboard mr-1" aria-hidden="true"></i> WASD/Arrows: Move</p>
+                                                        <p><i class="fas fa-space-shuttle mr-1" aria-hidden="true"></i> SPACE: Shoot</p>
+                                                        <p><i class="fas fa-mouse mr-1" aria-hidden="true"></i> Click: Shoot</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="absolute inset-0 flex items-center justify-center bg-error/10 rounded-lg z-30 opacity-0 pointer-events-none transition-opacity" id="gameErrorOverlay">
+                                            <div class="alert alert-error shadow-xl max-w-md mx-4">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <div>
+                                                    <h3 class="font-bold">Game Failed to Load</h3>
+                                                    <div class="text-xs" id="gameErrorMsg">Unable to initialize game engine. Please refresh the page.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <canvas class="demo-canvas bg-transparent rounded-lg w-full h-full max-w-full demo-canvas-custom" id="demo-canvas" width="800" height="400" aria-label="Survival Game - Use WASD to move, SPACE to shoot"></canvas>
+                                    </div>
+                                    <div class="flex flex-wrap justify-center gap-2 mt-4">
+                                        <div class="badge badge-outline badge-sm sm:badge-md gap-1">
+                                            <i class="fas fa-keyboard" aria-hidden="true"></i>
+                                            <span class="hidden sm:inline">WASD / Arrows:</span> Move
+                                        </div>
+                                        <div class="badge badge-outline badge-sm sm:badge-md gap-1">
+                                            <i class="fas fa-space-shuttle" aria-hidden="true"></i>
+                                            <span class="hidden sm:inline">SPACE:</span> Shoot
+                                        </div>
+                                        <div class="badge badge-outline badge-sm sm:badge-md gap-1">
+                                            <i class="fas fa-mouse" aria-hidden="true"></i>
+                                            Click: Shoot
+                                        </div>
+                                        <div class="badge badge-outline badge-sm sm:badge-md gap-1">
+                                            <i class="fas fa-pause" aria-hidden="true"></i>
+                                            P: Pause
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form method="dialog" class="modal-backdrop">
+                                <button aria-label="Close game modal">close</button>
+                            </form>
+                        </dialog>
+                    </div>
+                    </div>
+                    <!-- Background Pattern -->
+                    <div class="absolute inset-0 opacity-10 pointer-events-none z-0">
+                        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+                        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse-slow"></div>
+                    </div>
+                </section>
+                
+                <!-- About Section -->
+                <section id="about" class="dh-section section-spacing bg-base-200 section-scroll-in">
+                    <div class="section-content">
+                        
+                            <div class="badge badge-secondary badge-soft badge-lg mb-4 text-lg px-6 py-3">
+                                [QUEST ACCEPTED]
+                            </div>
+                            <h2 class="section-title">Challenge the Industry Meta</h2>
+                            <div class="alert alert-error mb-8 max-w-4xl mx-auto">
+                                <i class="fas fa-exclamation-circle text-2xl"></i>
+                                <div>
+                                    <div class="font-bold text-lg mb-2">The industry stats are broken:</div>
+                                    <ul class="space-y-2 text-base-content/90">
+                                        <li>
+                                            <span class="manifesto-fragment neon-text manifesto-error" data-fragment="4">$200M+ per game</span> 
+                                            <span class="badge badge-warning badge-sm ml-2">Power Level: OP</span>
+                                        </li>
+                                        <li>
+                                            <span class="manifesto-fragment neon-text manifesto-error" data-fragment="5">VC funding: -85%</span> 
+                                            <span class="badge badge-error badge-sm ml-2">Status: Nerfed</span>
+                                        </li>
+                                        <li>
+                                            <span class="manifesto-fragment neon-text manifesto-error" data-fragment="6">AI sentiment: 21% → 13%</span> 
+                                            <span class="badge badge-error badge-sm ml-2">Status Effect: Hated</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="badge badge-success badge-soft badge-lg mb-6 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="speedrun" data-points="250" tabindex="0" role="button" aria-label="Game Dev Speedrun Achievement - Click to track progress">
+                                [ACHIEVEMENT UNLOCKED: Game Dev Speedrun]
+                            </div>
+                            <p class="section-subtitle text-xl md:text-2xl mb-4">
+                                We're proving you don't need the meta to win.
+                            </p>
+                            <div class="card card-bordered card-lg bg-base-100 border-2 border-primary/50 p-6 mb-6 max-w-3xl mx-auto">
+                                <div class="card-body">
+                                    <h3 class="card-title text-xl font-display font-bold mb-3 text-primary">Team Power Level:</h3>
+                                    <p class="text-lg md:text-xl text-base-content/90">
+                                        <span class="text-primary font-semibold neon-text">Riot, Disney, Marvel, DC, MIT, HP, Activision, Naughty Dog, Pixar</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="badge badge-info badge-soft badge-lg mb-4 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="class-artisan" data-points="150" tabindex="0" role="button" aria-label="Class Selected: Artisan - Click to track progress">
+                                [CLASS SELECTED: Artisan]
+                            </div>
+                            <p class="text-lg md:text-xl text-base-content/90 max-w-3xl mx-auto font-semibold">
+                                AI tools that <span class="text-success">buff</span> creativity, not <span class="text-error">nerf</span> it.
+                            </p>
+                            <p class="text-lg md:text-xl text-base-content/80 mt-4 max-w-3xl mx-auto">
+                                <span class="manifesto-fragment neon-text manifesto-error" data-fragment="7">While the industry burns $200M+ per game, we're proving you don't need that.</span> 
+                                <span class="text-primary font-semibold neon-text">While 52% of studios use AI but hate it, we're building tools artists actually want.</span>
+                            </p>
+                        </div>
+                        
+                        <!-- Game Mechanics Grid -->
+                        <div class="card panel-blur border border-base-300/60 shadow-lg p-6 mb-12">
+                            <div class="card-body p-0">
+                                <h3 class="card-title text-2xl font-display font-semibold mb-6 text-center justify-center">Core Game Mechanics</h3>
+                                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🎯</div>
+                                            <div class="text-sm font-semibold">Precision Combat</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🔄</div>
+                                            <div class="text-sm font-semibold">Procedural Levels</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🧠</div>
+                                            <div class="text-sm font-semibold">AI Enemies</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">⚡</div>
+                                            <div class="text-sm font-semibold">Power-ups</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🎲</div>
+                                            <div class="text-sm font-semibold">Roguelite</div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-compact bg-base-200 border border-base-300 hover:border-primary hover:shadow-md transition-all cursor-pointer" data-points="50">
+                                        <div class="card-body items-center text-center p-4">
+                                            <div class="text-4xl mb-2">🤝</div>
+                                            <div class="text-sm font-semibold">Co-op</div>
+                                        </div>
+                                    </div>
+                    </div>
+                </div>
+            </div>
+
+                        <!-- Feature Cards - Enhanced with loading animations -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="AI-Powered Design feature" style="animation-delay: 0.1s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.2s">
+                                        <i class="fas fa-brain text-2xl text-primary" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">AI-Powered Design</h3>
+                                    <p class="text-base-content/80">Our proprietary AI engine accelerates game development by generating intelligent content, from environmental assets to gameplay mechanics, all while maintaining artistic vision.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Veteran Team feature" style="animation-delay: 0.15s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.25s">
+                                        <i class="fas fa-gamepad text-2xl text-secondary" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Veteran Team</h3>
+                                    <p class="text-base-content/80">Led by industry veterans with over 15 years of experience, we combine traditional craftsmanship with cutting-edge AI technology to create unforgettable experiences.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Rapid Prototyping feature" style="animation-delay: 0.2s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.3s">
+                                        <i class="fas fa-rocket text-2xl text-accent" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Rapid Prototyping</h3>
+                                    <p class="text-base-content/80">Our AI-assisted workflow enables rapid iteration and prototyping, allowing us to explore creative possibilities faster than ever before.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Artist-Centric feature" style="animation-delay: 0.25s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.35s">
+                                        <i class="fas fa-palette text-2xl text-info" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Artist-Centric</h3>
+                                    <p class="text-base-content/80">We believe AI should empower artists, not replace them. Our tools enhance creativity while maintaining full artistic control and vision.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Procedural Generation feature" style="animation-delay: 0.3s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.4s">
+                                        <i class="fas fa-network-wired text-2xl text-success" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Procedural Generation</h3>
+                                    <p class="text-base-content/80">Advanced procedural content generation systems create infinite variations while ensuring quality and coherence across all game elements.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive card-gamer border border-base-300 shadow-md hover:shadow-xl focus-visible animate-fade-in" data-points="80" tabindex="0" role="button" aria-label="Community First feature" style="animation-delay: 0.35s">
+                                <div class="card-body">
+                                    <div class="icon-chip mb-4 animate-scale-in" style="animation-delay: 0.45s">
+                                        <i class="fas fa-users text-2xl text-warning" aria-hidden="true"></i>
+                                    </div>
+                                    <h3 class="card-title">Community First</h3>
+                                    <p class="text-base-content/80">We're building with our community through playtesting, feedback loops, and educational initiatives to support the next generation of developers.</p>
+                                </div>
+                            </div>
+            </div>
+        </div>
+    </section>
+    
+                <!-- AI Engine Section -->
+                <section id="engine" class="dh-section section-spacing bg-base-100 section-scroll-in">
+                    <div class="section-content">
+                        
+                            <h2 class="section-title">HazardForge AI Engine</h2>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                                <h3 class="text-3xl font-display font-bold mb-4">Next-Gen Game Generation</h3>
+                                <p class="body-dense mb-4">
+                        HazardForge is our proprietary AI-powered game generation engine that revolutionizes
+                        the development pipeline. Built on advanced machine learning models and procedural
+                        generation algorithms, it enables unprecedented creative freedom.
+                    </p>
+                                <p class="body-dense mb-4">
+                        The engine integrates seamlessly with Unity, providing real-time AI assistance for
+                        asset creation, level design, gameplay balancing, and more. It learns from your
+                        artistic direction to generate content that matches your vision.
+                    </p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Real-time procedural asset generation</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Intelligent level design assistance</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Adaptive gameplay balancing</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>AI-driven narrative branching</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Automated QA and playtesting</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span>Style-consistent content generation</span>
+                                    </li>
+                    </ul>
+                </div>
+                            <div class="card bg-base-200 border border-base-300 p-6">
+                                <div class="mockup-code bg-neutral text-neutral-content">
+                                    <pre data-prefix="$"><code>// HazardForge AI Engine</code></pre>
+                                    <pre data-prefix=">" class="text-warning"><code>class AIGameGenerator {</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>  generateAsset(params) {</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>    return neuralNet.generate({</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>      type: params.type,</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>      quality: 'production'</code></pre>
+                                    <pre data-prefix=">" class="text-success"><code>    });</code></pre>
+                                    <pre data-prefix=">" class="text-warning"><code>  }</code></pre>
+                                    <pre data-prefix=">" class="text-warning"><code>}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+                <!-- Project Cobalt Section -->
+                <section id="cobalt" class="dh-section section-spacing bg-base-200 section-scroll-in">
+                    <div class="section-content">
+                        
+                            <div class="badge badge-primary badge-soft badge-lg mb-4 text-lg px-6 py-3">
+                                [NEW GAME+]
+                            </div>
+                            <h2 class="section-title">PROJECT COBALT: A Manifesto</h2>
+                            <div class="badge badge-error badge-soft badge-lg mb-4 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="hard-mode" data-points="200" tabindex="0" role="button" aria-label="Hard Mode Difficulty - Click to track progress">
+                                Difficulty: Hard Mode
+                            </div>
+                            <p class="text-2xl md:text-3xl font-display font-semibold mb-4 text-base-content/80 italic">
+                                Because 'Easy Mode' wasn't rebellious enough.
+                            </p>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="card lg:card-side bg-base-100 border-2 border-primary/50 shadow-2xl">
+                                <figure class="bg-base-200 p-8 lg:p-12 flex items-center justify-center">
+                                    <i class="fas fa-gamepad text-6xl lg:text-8xl text-primary" aria-hidden="true"></i>
+                                </figure>
+                                <div class="card-body">
+                                    <h4 class="card-title text-xl font-display font-bold text-center lg:text-left mb-2">Visual Inspiration</h4>
+                                    <p class="text-sm text-center lg:text-left text-base-content/70 mb-4">
+                                        Ghost in the Shell &bull; Hi-Fi Rush &bull; Persona 5 Royal<br>
+                                        Teen Titans &bull; FLCL
+                                    </p>
+                                    
+                                    <!-- Video Advert -->
+                                    <div class="relative w-full aspect-video bg-base-300/50 rounded-lg overflow-hidden group mt-4">
+                                        <video 
+                                            id="dhAdvertVideo"
+                                            class="w-full h-full object-cover"
+                                            preload="metadata"
+                                            playsinline
+                                            controls
+                                            controlslist="nodownload"
+                                            aria-label="Digital Hazard Game Trailer"
+                                        >
+                                            <source src="dh_advert.mp4" type="video/mp4">
+                                            <!-- Fallback content -->
+                                            <div class="absolute inset-0 flex items-center justify-center bg-base-300/50">
+                                                <div class="text-center">
+                                                    <i class="fas fa-video text-6xl text-primary/50 mb-4" aria-hidden="true"></i>
+                                                    <p class="text-lg font-bold text-base-content/70">Game Trailer</p>
+                                                    <p class="text-sm text-base-content/60 mt-2">Video not supported</p>
+                                                </div>
+                                            </div>
+                                        </video>
+                                        <!-- Custom controls overlay (shown when paused) -->
+                                        <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer pointer-events-none" id="videoPlayOverlay" aria-hidden="true">
+                                            <div class="badge badge-primary badge-soft badge-lg gap-2 pointer-events-none">
+                                                <i class="fas fa-play" aria-hidden="true"></i>
+                                                <span>Play Trailer</span>
+                                            </div>
+                                        </div>
+                                        <!-- Mute/Unmute toggle button -->
+                                        <button 
+                                            id="videoMuteToggle"
+                                            class="absolute bottom-2 right-2 btn btn-circle btn-sm btn-ghost bg-black/50 hover:bg-black/70 text-white border-none backdrop-blur-sm z-10"
+                                            aria-label="Toggle video audio"
+                                            title="Toggle audio"
+                                        >
+                                            <i class="fas fa-volume-up" id="videoMuteIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <div class="card bg-base-100 border-2 border-primary/50 p-4 mb-4">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">[STATS]</h4>
+                                    <ul class="space-y-2 text-sm md:text-base">
+                                        <li class="flex items-center gap-2 cursor-pointer hover:bg-base-200 p-1 rounded transition-colors" data-stat="squad-builder" tabindex="0" role="button" aria-label="Multiplayer Squad-Builder stat">
+                                            <span class="badge badge-primary badge-sm">Multiplayer Squad-Builder</span>
+                                            <span class="text-xs text-base-content/70">(Max Level)</span>
+                                        </li>
+                                        <li class="flex items-center gap-2 cursor-pointer hover:bg-base-200 p-1 rounded transition-colors" data-stat="gameplay" tabindex="0" role="button" aria-label="Flashy Punchy Gameplay stat">
+                                            <span class="badge badge-success badge-sm">Flashy, Punchy Gameplay</span>
+                                            <span class="text-xs text-base-content/70">(Meta-Breaking)</span>
+                                        </li>
+                                        <li class="flex items-center gap-2 cursor-pointer hover:bg-base-200 p-1 rounded transition-colors" data-stat="anchor" tabindex="0" role="button" aria-label="Anchor System stat">
+                                            <span class="badge badge-info badge-sm">Anchor System</span>
+                                            <span class="text-xs text-base-content/70">(New Mechanics Unlocked)</span>
+                                        </li>
+                                        <li class="flex items-center gap-2 cursor-pointer hover:bg-base-200 p-1 rounded transition-colors" data-stat="ip-collab" tabindex="0" role="button" aria-label="IP Collaborations stat">
+                                            <span class="badge badge-warning badge-sm">IP Collaborations</span>
+                                            <span class="text-xs text-base-content/70">(No DLC Required)</span>
+                                        </li>
+                                    </ul>
+                </div>
+                                <h3 class="text-3xl font-display font-bold mb-4">Designed to be as fun to watch as it is to play</h3>
+                                <p class="body-dense text-lg">
+                        <span class="manifesto-fragment neon-text manifesto-error" data-fragment="8">Flashy, Punchy Gameplay</span> that combines power fantasy, large-scale combat, and over-the-top visuals. 
+                        Heroes unleash massive VFX, ultimates, and squad synergy attacks. Constant action with no downtime - teamwork is key.
+                    </p>
+                                <div class="divider"></div>
+                                <h4 class="text-2xl font-display font-semibold text-primary">The Anchor System</h4>
+                                <p class="body-dense mb-4">
+                        <span class="text-primary font-semibold neon-text">Because linear stories are for the weak.</span> Each run is tailored to a specific Anchor character and squad. 
+                        Modular stories allow standalone packs with unique environments and enemies. 
+                        The <span class="font-semibold">"Lend Your Might"</span> mechanic enables super-charged ultimate abilities.
+                    </p>
+                                <div class="alert alert-info shadow-md">
+                                    <i class="fas fa-info-circle text-xl" aria-hidden="true"></i>
+                                    <div>
+                                        <strong>IP Collaborations Without the IP Baggage:</strong> 
+                                        Modular DLC structure enables collaborations with external IPs (Mortal Kombat, Doom, Mega Man, Judge Dredd, Borderlands, Street Fighter, Gears of War) while maintaining flexible storytelling that doesn't affect source IPs.
+                                    </div>
+                                </div>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-dice text-primary"></i>
+                                        <span>Procedurally generated worlds with endless variety</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-users text-primary"></i>
+                                        <span>Cooperative multiplayer PvE gameplay</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-crosshairs text-primary"></i>
+                                        <span>Isometric tactical combat system</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-brain text-primary"></i>
+                                        <span>AI-driven enemy behaviors and encounters</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-chart-line text-primary"></i>
+                                        <span>Dynamic difficulty adaptation</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <i class="fas fa-box text-primary"></i>
+                                        <span>Extensive loot and progression systems</span>
+                                    </li>
+                    </ul>
+                                <div class="flex gap-4">
+                                    <a href="present.html" class="btn btn-primary btn-lg shadow-sm">
+                                        <i class="fas fa-presentation mr-2" aria-hidden="true"></i>
+                                        View Pitch Deck
+                                    </a>
+                    </div>
+                                <div class="alert alert-info shadow-md">
+                                    <i class="fas fa-info-circle text-xl" aria-hidden="true"></i>
+                                    <div>
+                                        <strong>Development Status:</strong> Currently in vertical slice phase with active
+                            playtesting. We're refining core mechanics and gathering community feedback as we
+                            prepare for our seed funding round.
+                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+                <!-- Project HazAI Section -->
+                <section id="hazai" class="section-spacing bg-base-100 section-scroll-in">
+                    <div class="section-content">
+                        
+                            <div class="badge badge-secondary badge-soft badge-lg mb-4 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="dlc-unlocked" data-points="300" tabindex="0" role="button" aria-label="DLC Unlocked Achievement - Click to track progress">
+                                [DLC UNLOCKED]
+                            </div>
+                            <h2 class="section-title">HAZAI: Artists Go From Noob to OP</h2>
+                            <div class="alert alert-error mb-8 max-w-4xl mx-auto">
+                                <i class="fas fa-exclamation-circle text-2xl"></i>
+                                <div>
+                                    <div class="font-bold text-lg mb-2">The Problem:</div>
+                                    <ul class="space-y-2 text-base-content/90">
+                                        <li>
+                                            <span class="manifesto-fragment neon-text manifesto-error" data-fragment="9">Industry AI tools:</span> 
+                                            <span class="badge badge-error badge-sm ml-2">Status Effect [HATED] (87% of studios)</span>
+                                        </li>
+                                        <li>
+                                            <span class="text-base-content/90">No tools for professional 2D space</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                                <div class="badge badge-secondary badge-soft badge-lg mb-4">$155B Animation Software Market</div>
+                                <div class="card bg-success/10 border-2 border-success/50 p-4 mb-4">
+                                    <h4 class="text-lg font-bold mb-3 text-success">The Solution:</h4>
+                                    <ul class="space-y-2 text-sm md:text-base">
+                                        <li class="flex items-start gap-2 cursor-pointer hover:bg-success/20 p-2 rounded transition-colors" data-stat="deep-integration" tabindex="0" role="button" aria-label="Deep Integration solution">
+                                            <span class="text-success text-xl">→</span>
+                                            <span><strong>Deep Integration:</strong> <span class="badge badge-success badge-sm">Buff: +100% Workflow</span></span>
+                                        </li>
+                                        <li class="flex items-start gap-2 cursor-pointer hover:bg-info/20 p-2 rounded transition-colors" data-stat="granular-control" tabindex="0" role="button" aria-label="Granular Control solution">
+                                            <span class="text-success text-xl">→</span>
+                                            <span><strong>Granular Control:</strong> <span class="badge badge-info badge-sm">Debuff Removed: -0% Compromise</span></span>
+                                        </li>
+                                        <li class="flex items-start gap-2 cursor-pointer hover:bg-primary/20 p-2 rounded transition-colors" data-stat="artists-op" tabindex="0" role="button" aria-label="Artists Become OP solution">
+                                            <span class="text-success text-xl">→</span>
+                                            <span><strong>Artists Become OP:</strong> <span class="badge badge-primary badge-sm">Power Level: MAX</span></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h3 class="text-3xl font-display font-bold mb-4">Enhance, Not Replace, Artistic Expression</h3>
+                                <p class="body-dense text-lg">
+                                    <span class="manifesto-fragment neon-text manifesto-error" data-fragment="10">No robust AI tools exist for the professional 2D space.</span> 
+                                    <span class="text-primary font-semibold neon-text">Until now.</span>
+                                </p>
+                                <div class="badge badge-success badge-soft badge-lg mb-4 text-lg px-6 py-3 cursor-pointer hover:scale-105 transition-transform interactive-badge" data-achievement="artistic-expression" data-points="350" tabindex="0" role="button" aria-label="Artistic Expression Achievement - Click to track progress">
+                                    [ACHIEVEMENT UNLOCKED]<br>
+                                    Enhanced, Not Replaced: Artistic Expression<br>
+                                    ★★★★★
+                                </div>
+                                <div class="divider"></div>
+                                <h4 class="text-2xl font-display font-semibold text-secondary">Deep Integration. Granular Control. Zero Compromise.</h4>
+                                <p class="body-dense mb-4">
+                                    Deep integration with industry standards: <span class="font-semibold">Toon Boom, Moho, TVPaint, Unity, Unreal</span>. 
+                                    Artists retain granular control over visuals. A platform evolving alongside studio workflows.
+                                </p>
+                                <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full mt-6 bg-base-100 border border-base-300">
+                                    <div class="stat" data-points="150">
+                                        <div class="stat-figure text-secondary">
+                                            <i class="fas fa-globe text-4xl" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="stat-title">Global Market</div>
+                                        <div class="stat-value text-secondary">$155B</div>
+                                        <div class="stat-desc">Animation Software</div>
+                                    </div>
+                                    <div class="stat" data-points="150">
+                                        <div class="stat-figure text-primary">
+                                            <i class="fas fa-palette text-4xl" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="stat-title">2D Animation Market</div>
+                                        <div class="stat-value text-primary">$39B</div>
+                                        <div class="stat-desc">Worldwide</div>
+                                    </div>
+                                    <div class="stat" data-points="150">
+                                        <div class="stat-figure text-accent">
+                                            <i class="fas fa-chart-line text-4xl" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="stat-title">Target Attach Rate</div>
+                                        <div class="stat-value text-accent">1-4%</div>
+                                        <div class="stat-desc">Projected</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-base-200 border-2 border-secondary/50 shadow-2xl">
+                                <div class="card-body">
+                                    <h4 class="text-2xl font-display font-bold mb-4 text-center">Problem Solved</h4>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-times-circle text-error mt-1"></i>
+                                            <span>2D animation requires extensive manual redrawing</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-times-circle text-error mt-1"></i>
+                                            <span>Current AI tools lack production-level control</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-times-circle text-error mt-1"></i>
+                                            <span>Poor integration with industry-standard tools</span>
+                                        </li>
+                                    </ul>
+                                    <div class="divider"></div>
+                                    <h4 class="text-xl font-display font-bold mb-4 text-center text-success">Our Solution</h4>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-check-circle text-success mt-1"></i>
+                                            <span><strong>Deep Integration:</strong> Works with Toon Boom, Moho, TVPaint, Unity, Unreal</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-check-circle text-success mt-1"></i>
+                                            <span><strong>Granular Control:</strong> Artists maintain full creative authority</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <i class="fas fa-check-circle text-success mt-1"></i>
+                                            <span><strong>Production-Ready:</strong> Studio/project-specific training models</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats Section -->
+                <section id="stats" class="dh-section section-spacing bg-base-200 section-scroll-in">
+                    <div class="section-content">
+                        
+                            <h2 class="section-title">Our Journey</h2>
+                        </div>
+                        <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100 border border-base-300">
+                            <div class="stat">
+                                <div class="stat-figure text-primary">
+                                    <i class="fas fa-calendar text-4xl" aria-hidden="true"></i>
+                                </div>
+                                <div class="stat-title">Years Experience</div>
+                                <div class="stat-value text-primary" data-target="15">0</div>
+                                <div class="stat-desc">Combined team experience</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-figure text-secondary">
+                                    <i class="fas fa-clock text-4xl" aria-hidden="true"></i>
+                                </div>
+                                <div class="stat-title">Months in Development</div>
+                                <div class="stat-value text-secondary" data-target="16">0</div>
+                                <div class="stat-desc">Active development time</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-figure text-accent">
+                                    <i class="fas fa-users text-4xl" aria-hidden="true"></i>
+                </div>
+                                <div class="stat-title">Team Members</div>
+                                <div class="stat-value text-accent" data-target="6">0</div>
+                                <div class="stat-desc">Core team size</div>
+                </div>
+                            <div class="stat">
+                                <div class="stat-figure text-info">
+                                    <i class="fas fa-cube text-4xl" aria-hidden="true"></i>
+                </div>
+                                <div class="stat-title">AI-Generated Assets</div>
+                                <div class="stat-value text-info" data-target="100">0</div>
+                                <div class="stat-desc">Production-ready assets</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+                <!-- Industry Section -->
+                <section id="industry" class="dh-section section-spacing bg-base-200 section-scroll-in">
+                    <div class="section-content">
+                        
+                            <h2 class="section-title">Industry Insights</h2>
+                            <p class="section-subtitle">
+                The gaming industry is at an inflection point. As AI adoption accelerates and development costs rise,
+                Digital Hazard Studio is positioned at the forefront of innovation, leveraging AI to create immersive
+                experiences while maintaining artistic vision.
+            </p>
+                        </div>
+                        <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100 border border-base-300">
+                            <div class="stat">
+                                <div class="stat-figure text-primary">
+                                    <i class="fas fa-chart-line text-4xl" aria-hidden="true"></i>
+                                </div>
+                                <div class="stat-title">Global Gaming Market 2024</div>
+                                <div class="stat-value text-primary" data-target="177.9" data-suffix="B">0</div>
+                                <div class="stat-desc">Newzoo Global Games Market Report</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-figure text-secondary">
+                                    <i class="fas fa-robot text-4xl" aria-hidden="true"></i>
+                                </div>
+                                <div class="stat-title">AI Adoption Rate</div>
+                                <div class="stat-value text-secondary" data-target="52" data-suffix="%">0</div>
+                                <div class="stat-desc">Up from 31% in 2023 (GDC Survey)</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-figure text-accent">
+                                    <i class="fas fa-dollar-sign text-4xl" aria-hidden="true"></i>
+                </div>
+                                <div class="stat-title">Average AAA Development Cost</div>
+                                <div class="stat-value text-accent" data-target="200" data-suffix="M+">0</div>
+                                <div class="stat-desc">Doubled from $100M five years ago</div>
+                </div>
+                            <div class="stat">
+                                <div class="stat-figure text-info">
+                                    <i class="fas fa-users text-4xl" aria-hidden="true"></i>
+                </div>
+                                <div class="stat-title">Global Players</div>
+                                <div class="stat-value text-info" data-target="3.42" data-suffix="B">0</div>
+                                <div class="stat-desc">61.5% of world population</div>
+                </div>
+            </div>
+                        <div class="mt-12 text-center">
+                            <p class="text-base-content/60 text-sm italic">
+                    Data sources: GDC State of the Industry Survey, Newzoo Global Games Market Report,
+                    Unity Gaming Report, Google Cloud/Harris Poll Developer Survey
+                </p>
+            </div>
+        </div>
+    </section>
+
+                <!-- Contact Section -->
+                <section id="contact" class="dh-section section-spacing bg-base-100 section-scroll-in">
+                    <div class="section-content max-w-4xl flex flex-col gap-10 text-center">
+                        <div>
+                            <h2 class="section-title">Join Our Journey</h2>
+                            <p class="section-subtitle">
+                    We're always looking for talented individuals passionate about innovation in game development.
+                    Whether you're an investor, developer, artist, or just someone who shares our vision,
+                    we'd love to hear from you.
+                </p>
+                        </div>
+                        <div class="card panel-blur border border-base-300/60 shadow-lg">
+                            <div class="card-body p-8 space-y-6">
+                                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                                    <i class="fas fa-envelope text-primary text-2xl" aria-hidden="true"></i>
+                                    <a href="mailto:admin@digitalhazardstudio.com" class="text-xl link link-primary hover:link-secondary">
+                                        admin@digitalhazardstudio.com
+                                    </a>
+                                </div>
+                                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                                    <i class="fas fa-map-marker-alt text-secondary text-2xl" aria-hidden="true"></i>
+                                    <span class="text-lg">2804 Gateway Oaks Drive #100, Sacramento, CA 95833</span>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="space-y-4">
+                                    <h6 class="text-lg font-semibold">Follow Us</h6>
+                                    <div class="flex justify-center gap-4">
+                                        <a href="https://www.linkedin.com/company/digitalhazard" target="_blank" class="btn btn-circle btn-primary shadow-sm" aria-label="LinkedIn">
+                                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="https://www.instagram.com/digitalhazardstudio/" target="_blank" class="btn btn-circle btn-primary shadow-sm" aria-label="Instagram">
+                                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="https://www.facebook.com/digitalhazardstudio/" target="_blank" class="btn btn-circle btn-primary shadow-sm" aria-label="Facebook">
+                                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="https://discord.gg/H28QhSQETp" target="_blank" class="btn btn-circle btn-primary shadow-sm" aria-label="Discord">
+                                            <i class="fab fa-discord" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="pt-2">
+                                    <a href="https://www.digitalhazardstudio.com" target="_blank" class="btn btn-primary btn-lg shadow-md">
+                                        Visit Our Website
+                                        <i class="fas fa-external-link-alt ml-2" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </div>
+            </main>

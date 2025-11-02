@@ -1,0 +1,291 @@
+/* Digital Hazard Game Theme - Custom DaisyUI Overrides */
+
+/* Root Variables for Game Aesthetic */
+:root {
+  --font-display: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --neon-glow: 0 0 10px rgba(0, 255, 0, 0.5);
+  --hud-border: 1px solid rgba(0, 255, 0, 0.3);
+  --scanline-opacity: 0.1;
+  --pixel-font: 'Press Start 2P', cursive; /* Add via Google Fonts if needed */
+}
+
+/* DaisyUI Theme Customization */
+[data-theme="hazard"] {
+  --primary: #00ff00; /* Neon Green */
+  --secondary: #00ffff; /* Cyan */
+  --accent: #ff00ff; /* Magenta */
+  --base-100: #001100; /* Dark Green-Black */
+  --base-200: #002200;
+  --base-300: #003300;
+  --base-content: #00ff00;
+  --neutral: #111111;
+  --info: #00ffff;
+  --success: #00ff00;
+  --warning: #ffff00;
+  --error: #ff0000;
+  
+  --rounded-box: 0.5rem;
+  --rounded-btn: 0.25rem;
+  --rounded-badge: 0.125rem;
+  --animation-btn: 0.25s;
+  --animation-input: 0.2s;
+  --btn-focus-scale: 0.95;
+  --border-btn: 1px;
+  --tab-border: 1px;
+  --tab-radius: 0.5rem;
+}
+
+/* Global Styles */
+body {
+  font-family: var(--font-body);
+  background-color: var(--base-100);
+  color: var(--base-content);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Game-Like Scanlines Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, var(--scanline-opacity)) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Neon Glow Effects */
+.neon-glow {
+  text-shadow: var(--neon-glow);
+  box-shadow: var(--neon-glow);
+  transition: all 0.3s ease;
+}
+
+.neon-glow:hover {
+  text-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+}
+
+/* HUD-Like Borders */
+.hud-border {
+  border: var(--hud-border);
+  border-radius: var(--rounded-box);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+/* Animated Buttons */
+.btn {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+/* Hero Section Styling */
+.hero {
+  min-height: 80vh;
+  background: linear-gradient(to bottom, var(--base-100), var(--base-200));
+  position: relative;
+}
+
+/* Video Player Customizations */
+.video-player {
+  border: 2px solid var(--primary);
+  box-shadow: var(--neon-glow);
+  border-radius: var(--rounded-box);
+}
+
+/* Modal Game Container */
+#game-modal .modal-box {
+  background: var(--base-100);
+  border: var(--hud-border);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+/* Stats and Cards */
+.stat, .card {
+  background: rgba(0, 0, 0, 0.3);
+  border: var(--hud-border);
+  transition: transform 0.3s ease;
+}
+
+.stat:hover, .card:hover {
+  transform: translateY(-5px);
+}
+
+/* Presentation Specific Styles */
+.presentation-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.presentation-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.deck-slide {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 6rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.deck-slide.active {
+  opacity: 1;
+}
+
+.slide-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.slide-title {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: var(--neon-glow);
+}
+
+.slide-lead {
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.slide-visual {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: var(--rounded-box);
+  box-shadow: var(--neon-glow);
+}
+
+.mini-card {
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: var(--hud-border);
+  border-radius: var(--rounded-box);
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+}
+
+.timeline li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: var(--neon-glow);
+}
+
+/* 3D Canvas Styling */
+#presentation-background,
+#landing-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Fluid Animation Keyframes */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .slide-body {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .slide-title {
+    font-size: 2rem;
+  }
+}
+
+/* Accessibility */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  background: var(--primary);
+  color: var(--base-100);
+  padding: 0.5rem 1rem;
+  z-index: 99999;
+}
+
+.skip-link:focus {
+  top: 0;
+  left: 0;
+}

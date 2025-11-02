@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Load</title>
+    <link rel="stylesheet" href="css/tailwind.css">
+    <script src="js/polyfills.js" defer></script>
+    <script src="js/config.js" defer></script>
+    <script src="js/utils.js" defer></script>
+    <script src="js/three.module.js"></script>
+</head>
+<body>
+    <div id="test-results" class="p-4">
+        <h1 class="text-2xl font-bold mb-4">Loading Test</h1>
+        <div id="status">Testing...</div>
+    </div>
+
+    <script>
+        // Test script loading
+        window.addEventListener('load', function() {
+            const status = document.getElementById('status');
+            let results = [];
+
+            // Check if basic objects are available
+            setTimeout(() => {
+                if (typeof CONFIG !== 'undefined') {
+                    results.push('✓ CONFIG loaded');
+                } else {
+                    results.push('✗ CONFIG not loaded');
+                }
+
+                if (typeof Utils !== 'undefined') {
+                    results.push('✓ Utils loaded');
+                } else {
+                    results.push('✗ Utils not loaded');
+                }
+
+                if (typeof THREE !== 'undefined') {
+                    results.push('✓ Three.js loaded');
+                } else {
+                    results.push('✗ Three.js not loaded');
+                }
+
+                // Check CSS
+                const testEl = document.createElement('div');
+                testEl.className = 'bg-primary text-primary-content p-2';
+                document.body.appendChild(testEl);
+                
+                const styles = window.getComputedStyle(testEl);
+                if (styles.backgroundColor && styles.backgroundColor !== 'rgba(0, 0, 0, 0)') {
+                    results.push('✓ Tailwind CSS loaded');
+                } else {
+                    results.push('✗ Tailwind CSS not loaded');
+                }
+
+                document.body.removeChild(testEl);
+
+                status.innerHTML = results.join('<br>');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
